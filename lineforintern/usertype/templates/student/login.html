@@ -1,1 +1,13 @@
-<a href="{% url 'line_login' %}">Login with Line</a>
+<h2>Student Login</h2>
+<a
+  href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2002762157&redirect_uri=00215&state=YOUR_STATE&scope=openid%20profile"
+>
+  <img
+    alt="Login with LINE"
+    src="https://scdn.line-apps.com/n/line_login/btn.png"
+  />
+</a>
+<br />
+<button onclick="window.location.href='{% url 'student:student_register' %}'">
+  Register as a Student
+</button>

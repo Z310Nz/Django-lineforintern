@@ -9,8 +9,15 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.conf import settings
 import base64
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+from .forms import StudentLoginForm, CompanyLoginForm, ProfessorLoginForm
+from .models import Student, Company, Professor
 
 # Create your views here.
+
+def home(request):
+    return render(request, 'home.html', {})
 
 
 #======================================Line======================================
@@ -58,16 +65,28 @@ def parse_id_token(id_token):
 
 #======================================Student======================================
 def student_register(request):
-    return render(request, 'usertype/templates/student/register.html')
+    return render(request, 'student/register.html')
 
 def student_login(request):
-    return render(request, 'usertype/templates/student/login.html')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user and user.is_student:
+            login(request, user)
+            return redirect('student_profile')
+        else:
+            messages.error(request, 'Invalid login credentials for a student.')
+    
+    return render(request, 'student/login.html')
 
 def student_profile(request):
-    return render(request, 'usertype/templates/student/profile.html')
+    return render(request, 'student/profile.html')
 
 def student_edit_profile(request):
-    return render(request, 'usertype/templates/student/edit_profile.html')
+    return render(request, 'student/edit_profile.html')
+
 @require_http_methods(['GET'])
 def student_logout(request):
     logout(request)
@@ -75,16 +94,31 @@ def student_logout(request):
 
 #======================================Company======================================
 def company_register(request):
-    return render(request, 'usertype/templates/company/register.html')
+    return render(request, 'company/register.html')
 
 def company_login(request):
-    return render(request, 'usertype/templates/company/login.html')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user and user.is_company:
+            login(request, user)
+            return redirect('company_profile')
+        else:
+            messages.error(request, 'Invalid login credentials for a company.')
+
+    return render(request, 'company/login.html')
 
 def company_profile(request):
-    return render(request, 'usertype/templates/company/profile.html')
+    return render(request, 'company/profile.html')
 
 def company_edit_profile(request):
-    return render(request, 'usertype/templates/company/edit_profile.html')
+    return render(request, 'company/edit_profile.html')
+
+def add_position(request):
+    # Add position logic
+    return render(request, 'company/add_position.html')
 
 @require_http_methods(['GET'])
 def company_logout(request):
@@ -93,5 +127,6 @@ def company_logout(request):
 
 #======================================Professor======================================
 
-
-
+def professor_dashboard(request):
+    # Professor dashboard logic
+    return render(request, 'professor/dashboard.html', {})

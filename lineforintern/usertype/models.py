@@ -24,8 +24,8 @@ class LastJob(models.Model):
     position = models.CharField(max_length=100)
     description = models.CharField(max_length=255)
     company = models.CharField(max_length=100)
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateField(blank=True)
+    end_date = models.DateField(blank=True)
 
     def __str__(self):
         return f"{self.position} at {self.description} {self.company} {self.start_date} {self.end_date}"
@@ -64,7 +64,7 @@ class Student(User):
     semail = models.EmailField(max_length=255)
     phone_number = models.CharField(max_length=255)
     line_id = models.CharField(max_length=255)
-    website = models.URLField(max_length=255)
+    website = models.URLField(max_length=255, blank=True)
     cv = models.URLField(max_length=255)
     last_job = models.ForeignKey(LastJob, on_delete=models.SET_NULL, null=True, blank=True)
     skills = models.ForeignKey(Skills, on_delete=models.SET_NULL, null=True, blank=True)
@@ -102,6 +102,8 @@ class AddJob(models.Model):
     job_date = models.CharField(max_length=255) # Working day
     time_in = models.TimeField()
     time_out = models.TimeField()
+    job_qualification = models.CharField(max_length=255, blank=True)
+
 
     def __str__(self):
         return f"{self.job_name} at {self.job_description} {self.job_type} {self.job_location} {self.job_salary} {self.job_date}"

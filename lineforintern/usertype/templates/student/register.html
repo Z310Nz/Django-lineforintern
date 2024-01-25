@@ -20,37 +20,37 @@
             <div class="form first">
                 <div class="company details">
                     <lebel>รูปโปไฟล์</lebel>
-                    <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file" required>
+                    <input name="profile_image" type="file" accept="image/jpeg, image/png, image/jpg" id="input-file" required>
 
                     <div class="fields">
                         <div class="input-field">
                             <label>รหัสนิสิต</label>
-                            <input type="number" placeholder="Enter your student ID" required>
+                            <input name="student_id" type="number" placeholder="Enter your student ID" required>
                         </div>
 
                         <div class="input-field">
                             <label>ชื่อจริง</label>
-                            <input type="text" placeholder="Enter your first name" required>
+                            <input name="sfirst_name" type="text" placeholder="Enter your first name" required>
                         </div>
 
                         <div class="input-field">
                             <label>นามสกุล</label>
-                            <input type="text" placeholder="Enter your last name" required>
+                            <input name="slast_name" type="text" placeholder="Enter your last name" required>
                         </div>
 
                         <div class="input-field">
                             <label>ชื่อเล่น</label>
-                            <input type="text" placeholder="Enter your nick name" required>
+                            <input name="nick_name" type="text" placeholder="Enter your nick name" required>
                         </div>
 
                         <div class="input-field">
                             <label>วัน/เดือน/ปี เกิด</label>
-                            <input type="date" placeholder="Choose your date of birth" required>
+                            <input name="birthdate" type="date" placeholder="Choose your date of birth" required>
                         </div>
 
                         <div class="input-field">
                             <label>เพศ</label>
-                            <select required>
+                            <select name="gender" required>
                                 <option disabled selected>Select your gender</option>
                                 <option>Male</option>
                                 <option>Female</option>
@@ -66,22 +66,22 @@
                     <div class="fields">
                         <div class="input-field">
                             <label>Email</label>
-                            <input type="email" placeholder="Enter your email" required>
+                            <input name="semail" type="email" placeholder="Enter your email" required>
                         </div>
 
                         <div class="input-field">
                             <label>เบอร์มือถือ</label>
-                            <input type="number" placeholder="Enter your phone number" required>
+                            <input name="phone_number" type="number" placeholder="Enter your phone number" required>
                         </div>
 
                         <div class="input-field">
                             <label>Line ID</label>
-                            <input type="text" placeholder="Enter your line ID" required>
+                            <input name="line_id" type="text" placeholder="Enter your line ID" required>
                         </div>
 
                         <div class="input-field">
                             <label>เว็ปไซต์ (ถ้ามี)</label>
-                            <input type="text" placeholder="Enter your website">
+                            <input name="website" type="text" placeholder="Enter your website">
                         </div>
                     </div>
 
@@ -96,57 +96,57 @@
                 <div class="student details">
                     <span class="title">รายละเอียดการทำงาน</span>
                     <lebel>อัพโหลด CV/Resume</lebel>
-                    <input type="file" accept="file" id="input-file" required>
+                    <input name="cv" type="file" accept="file" id="input-file" required>
 
                         <div class="fields">
                             <div class="input-field">
                                 <label>ตำแหน่งที่ฝึกงานครั้งล่าสุด</label>
-                                <input type="text" placeholder="Enter your last internship jobs" required>
+                                <input name="position" type="text" placeholder="Enter your last internship jobs" required>
                             </div>
     
                             <div class="input-field">
                                 <label>รายละเอียดการทำงาน</label>
-                                <input type="text" placeholder="Enter your jobs description" required>
+                                <input name="description" type="text" placeholder="Enter your jobs description" required>
                             </div>
     
                             <div class="input-field">
                                 <label>ชื่อบริษัท</label>
-                                <input type="text" placeholder="Enter a company that you used to be a trainee for" required>
+                                <input name="company" type="text" placeholder="Enter a company that you used to be a trainee for" required>
                             </div>
 
                             <div class="input-field">
                                 <label>ตำแหน่งที่สนใจ</label>
-                                <input type="text" placeholder="Enter your interested jobs/positions" required>
+                                <input name="Interested_jobs" type="text" placeholder="Enter your interested jobs/positions" required>
                             </div>
 
                             <div class="input-field">
                                 <label>ความสามารถ</label>
-                                <input type="text" placeholder="Enter your skills/expertise" required>
+                                <input name="skill_description" type="text" placeholder="Enter your skills/expertise" required>
                             </div>
 
                             <div class="input-field">
                                 <label>ระดับการศึกษา</label>
-                                <input type="text" placeholder="Enter your education" required>
+                                <input name="degree" type="text" placeholder="Enter your education" required>
                             </div>
 
                             <div class="input-field">
                                 <label>GPA</label>
-                                <input type="number" placeholder="Enter your GPA" required>
+                                <input name="gpa" type="text" placeholder="Enter your GPA" required>
                             </div>
 
                             <div class="input-field">
                                 <label>วันที่เริ่มฝึกงาน (ปัจจุบัน)</label>
-                                <input type="date" placeholder="Choose your start date of internship" required>
+                                <input name="start_date" type="date" placeholder="Choose your start date of internship" required>
                             </div>
 
                             <div class="input-field">
                                 <label>วันที่สิ้นสุดการฝึกงาน (ปัจจุบัน)</label>
-                                <input type="date" placeholder="Choose your end date of internship" required>
+                                <input name="end_date" type="date" placeholder="Choose your end date of internship" required>
                             </div>
 
                             <div class="input-field">
                                 <label>ระดับภาษาอังกฤษ</label>
-                                <select required>
+                                <select name="english_skill" required>
                                     <option disabled selected>Select your english skill</option>
                                     <option>Fair enough</option>
                                     <option>Moderate</option>

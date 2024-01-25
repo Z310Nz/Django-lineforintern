@@ -57,7 +57,7 @@ ROOT_URLCONF = 'lineforintern.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -104,8 +104,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = 'usertype.User'
 
-LINE_LOGIN_CHANNEL_ID = 'your_line_channel_id'
-LINE_LOGIN_CHANNEL_SECRET = 'your_line_channel_secret'
+LINE_LOGIN_CHANNEL_ID = '2001579846'
+LINE_LOGIN_CHANNEL_SECRET = '0b1cbba3a5d2b14e4db1c53ac899d1bf'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -129,7 +129,7 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'profile/')
 
-MEDIA_URL = '/profile/'
+MEDIA_URL = 'profile/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

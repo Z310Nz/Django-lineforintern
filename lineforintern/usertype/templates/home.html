@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome Page</title>
+  </head>
+  <body>
+    <h2>Welcome to the Internship Portal</h2>
+    <p>Please choose your role:</p>
+    <a href="{% url 'student:student_login' %}"
+      ><button>Login as Student</button></a
+    >
+    <a href="{% url 'company:company_login' %}"
+      ><button>Login as Company</button></a
+    >
+    <a href="{% url 'professor_dashboard' %}"
+      ><button>Login as Professor</button></a
+    >
+  </body>
+</html>
