@@ -16,7 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+from usertype.views import line_login, line_callback
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('line_login/', line_login, name='line_login'),
+    path('line_callback/', line_callback, name='line_callback'),
+    path('line_login/student/', line_login, {'user_type': 'student'}, name='line_login_student'),
+    path('line_login/company/', line_login, {'user_type': 'company'}, name='line_login_company'),
+    path('line_login/professor/', line_login, {'user_type': 'professor'}, name='line_login_professor'),
+    path('line_callback/<user_type>/', line_callback, name='line_callback'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

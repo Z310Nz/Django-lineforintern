@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styleC.css' %}">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <title>ลงทะเบียน (สำหรับบริษัท)</title> 
+</head>
+<body>
+    <div class="container">
+        <header>ลงทะเบียน</header>
+
+        <form action="#">
+            {% csrf_token %}
+            {{ form.errors }}
+            <div class="form first">
+                <div class="company details">
+                    <lebel>โลโก้บริษัท</lebel>
+                    <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file">
+
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>ชื่อบริษัท</label>
+                            <input type="text" placeholder="Enter your company name" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>วันที่ก่อตั้ง</label>
+                            <input type="date" placeholder="Choose your company foundation date" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>ประเภทธุรกิจ</label>
+                            <input type="text" placeholder="Enter your company type" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>จำนวนพนักงาน</label>
+                            <input type="number" placeholder="Enter number of employee" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Website</label>
+                            <input type="text" placeholder="Enter your company website" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>E-mail</label>
+                            <input type="text" placeholder="Enter your company email" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Company Address">
+                    <span class="title">ที่อยู่บริษัท</span>
+
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>ที่อยู่</label>
+                            <input type="text" placeholder="Enter your company address" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>ตําบล/แขวง</label>
+                            <input type="text" placeholder="Enter your company city" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>อำเภอ/เขต</label>
+                            <input type="text" placeholder="Enter your company state/province" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>จังหวัด</label>
+                            <input type="text" placeholder="Enter your company country" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>รหัสไปรษณีย์</label>
+                            <input type="number" placeholder="Enter your company postal code" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>ประเภทที่อยู่</label>
+                            <select required>
+                                <option disabled selected>ประเภทที่อยู่</option>
+                                <option>Business</option>
+                                <option>Home</option>
+                                <option>Others</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="nextBtn">
+                        <span class="btnText">Next</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+                </div> 
+            </div>
+
+            <div class="form second">
+                <div class="Jobs details">
+                    <span class="title">รายละเอียดตำแหน่งที่เปิดรับสมัคร</span>
+
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>ตำแหน่ง</label>
+                            <input type="text" placeholder="Onsite/Hybrid/Online" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>รายละเอียดงานที่ทำ</label>
+                            <input type="text" placeholder="Onsite/Hybrid/Online" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>รูปแบบการทำงาน</label>
+                            <input type="text" placeholder="Onsite/Hybrid/Online" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>คุณสมบัติผู้เข้าสมัคร</label>
+                            <input type="text" placeholder="Enter qualification" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>สิ่งที่จะได้จากบริษัท</label>
+                            <input type="text" placeholder="Enter company benefits" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>เวลาเข้างาน</label>
+                            <input type="time" placeholder="Enter Time to clock in" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>เวลาเลิกงาน</label>
+                            <input type="time" placeholder="Enter Time to clock out" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>วันทำงาน(ต่อสัปดาห์)</label>
+                            <select required>
+                                <option disabled selected>Select number of working day in a week</option>
+                                <option>5 day per week</option>
+                                <option>6 day per week</option>
+                                <option>Others</option>
+                            </select>
+                        </div>           
+                    </div>
+                </div>
+                    <div class="buttons">
+                        <div class="backBtn">
+                            <i class="uil uil-navigator"></i>
+                            <span class="btnText">Back</span>
+                        </div>
+                        
+                        <button class="sumbit">
+                            <span class="btnText">Submit</span>
+                            <i class="uil uil-navigator"></i>
+                        </button>
+                    </div>
+                </div> 
+            </div>
+        </form>
+    </div>
+
+    <script src="{% static 'js/scriptC.js' %}"></script>
+</body>
+</html>
