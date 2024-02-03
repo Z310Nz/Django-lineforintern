@@ -1,0 +1,17 @@
+<!-- usertype/templates/usertype/line_login.html -->
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Line Login</title>
+  </head>
+  <body>
+    <h1>Login with Line</h1>
+    <a href="{% url 'line_login' %}"
+      ><img src="{% static 'icon/line-icon.png' %}" alt="Line Login"
+    /></a>
+  </body>
+</html>

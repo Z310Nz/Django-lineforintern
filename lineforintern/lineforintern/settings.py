@@ -37,7 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'usertype',
+    'student',
+    'company',
+    'professor',
+    'linebot',
 ]
+
+LINE_CHANNEL_ID = '2001579846'
+LINE_CHANNEL_SECRET = '0b1cbba3a5d2b14e4db1c53ac899d1bf'
+LINE_REDIRECT_URI = 'your_line_redirect_uri'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -115,7 +124,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/lineforintern/usertype/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
