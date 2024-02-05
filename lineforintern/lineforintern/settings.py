@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 
 LINE_CHANNEL_ID = '2001579846'
 LINE_CHANNEL_SECRET = '0b1cbba3a5d2b14e4db1c53ac899d1bf'
-LINE_REDIRECT_URI = 'your_line_redirect_uri'
+LINE_REDIRECT_URI = 'https://3579-183-88-179-160.ngrok/line_login/callback/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,6 +59,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'lineforintern.urls'
+
+
 
 TEMPLATES = [
     {
