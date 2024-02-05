@@ -1,53 +1,38 @@
-# usertype/views.py
-
+# views.py
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import authenticate, login
+from django.views import View
 from linebot import LineBotApi, WebhookHandler
-from linebot.exceptions import InvalidSignatureError, LineBotApiError
-from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
-from django.contrib.auth.models import User
-from django.contrib.auth import login
-import json
-from django.http import JsonResponse
+from linebot.models import OAuthResponse
+from lineforintern.settings import LINE_CHANNEL_ID, LINE_CHANNEL_SECRET, LINE_REDIRECT_URI
 
-# กำหนดค่า Channel Access Token และ Channel Secret
-CHANNEL_ACCESS_TOKEN = 'your_channel_access_token'
-CHANNEL_SECRET = 'your_channel_secret'
-
-line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
-handler = WebhookHandler(CHANNEL_SECRET)
-
-@csrf_exempt
-def line_login(request):
-    if request.method == 'POST':
-        signature = request.headers['X-Line-Signature']
-        body = request.body.decode('utf-8')
-
-        try:
-            handler.handle(body, signature)
-        except InvalidSignatureError:
-            return HttpResponse(status=400)
-        return HttpResponse(status=200)
-    else:
-        return render(request, 'line_login.html')
-    
-def line_callback(request):
-    if request.method == 'POST':
-        # ทำการดึงข้อมูลผู้ใช้จาก Line จาก request.body
-        line_data = json.loads(request.body.decode('utf-8'))
-
-        # ตรวจสอบข้อมูลต่าง ๆ จาก Line Data และดำเนินการต่อไปตามต้องการ
-        user_id = line_data['events'][0]['source']['userId']
-        display_name = line_data['events'][0]['source']['displayName']
-
-        # ตรวจสอบหาก user มีอยู่ในระบบหรือไม่
-        user, created = User.objects.get_or_create(username=user_id, defaults={'username': user_id, 'password': 'line_login_dummy_password'})
+class LineLoginCallbackView(View):
+    def get(self, request, *args, **kwargs):
+        code = request.GET.get('code')
+        response = OAuthResponse(request, code)
+        line_bot_api = LineBotApi(LINE_CHANNEL_ID, LINE_CHANNEL_SECRET)
+        user_profile = line_bot_api.get_profile(response.user_id)
         
-        # เข้าสู่ระบบ
-        login(request, user)
+        # Authenticate user based on Line user_id
+        user = authenticate(request, line_user_id=user_profile.user_id)
+        
+        if user is not None:
+            login(request, user)
+            return redirect('select_role')
+        else:
+            # Handle user registration here
+            # Create CustomUser instance and login
+            # Redirect to role selection page
+            pass
 
-        # ทำการ redirect หรือทำงานต่อตามต้องการ
-        return JsonResponse({'status': 'success', 'message': 'Line Login Successful'})
 
-    return JsonResponse({'status': 'error', 'message': 'Invalid Request'})
+class SelectRoleView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'select_role.html')
+
+    def post(self, request, *args, **kwargs):
+        role = request.POST.get('role')
+        user = request.user
+        user.role = role
+        user.save()
+        return redirect('home')
