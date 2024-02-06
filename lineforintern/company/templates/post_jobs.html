@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Company Register</title>
+
+   <!-- custom css file link  -->
+   <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<!-- header section starts  -->
+
+<header class="header">
+
+   <section class="flex">
+
+      <div id="menu-btn" class="fas fa-bars-staggered"></div>
+
+      <a href="home.html" class="logo"><i class="fas fa-briefcase"></i> JobPlace.</a>
+
+      <nav class="navbar">
+         <a href="home.html">home</a>
+      </nav>
+
+      <a href="post_jobs.html" class="btn" style="margin-top: 0;">post job</a>
+
+   </section>
+
+</header>
+
+<!-- header section ends -->
+
+<!-- account section starts  -->
+
+<div class="account-form-container">
+
+   <section class="account-form">
+
+      <form action="" method="post">
+         <h3>create new job!</h3>
+         <p>Job title <span>*</span></p>
+         <input type="text" placeholder="enter job title" required maxlength="50" class="input">
+         <p>Company name <span>*</span></p>
+         <input type="text" placeholder="enter company name" required maxlength="20" class="input">
+         <p>Location<span>*</span></p>
+         <input type="text" placeholder="province, country" required maxlength="50" class="input">
+         <p>Salary<span>*</span></p>
+         <input type="number" placeholder="enter salary" required maxlength="50" class="input">
+         <p>Benefits<span>*</span></p>
+         <input type="text" placeholder="enter benefits" required maxlength="50" class="input">
+         <p>Job type<span>*</span></p>
+         <input type="text" placeholder="Full-time, Part-time, internship" required maxlength="20" class="input">
+         <p>Schedule<span>*</span></p>
+         <div class="select-box">
+            <select>
+              <option hidden>work day</option>
+              <option>5 days per week</option>
+              <option>6 days per week</option>
+              <option>others</option>
+            </select>
+         </div><br>
+         <br><br>
+         <h3>Qualifications</h3>
+         <p>Requirements <span>*</span></p>
+         <input type="text" placeholder="enter requirements" required maxlength="50" class="input">
+         <p>Qualifications <span>*</span></p>
+         <input type="text" placeholder="enter qualifications" required maxlength="50" class="input">
+         <p>Skills <span>*</span></p>
+         <input type="text" placeholder="enter skills required" required maxlength="50" class="input">
+         <p>Job description <span>*</span></p>
+         <input type="text" placeholder="enter job description" required maxlength="50" class="input">
+         <input type="submit" value="create job" name="submit" class="btn">
+      </form>
+   
+   </section>
+
+</div>
+
+<!-- account section ends -->
+<section></section>
+<!-- custom js file link  -->
+<script src="js/script.js"></script>
+
+   
+</body>
+</html>

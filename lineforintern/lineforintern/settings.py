@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-o9zplnm@zx@z+(9_dg3&cmdtsvg^fj82&d1+z3)bbnnb&xnuo8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["3579-183-88-179-160.ngrok-free.app", "127.0.0.1"]
 
 
 # Application definition
@@ -37,16 +37,33 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'usertype',
     'student',
     'company',
     'professor',
     'linebot',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.line',
 ]
 
 LINE_CHANNEL_ID = '2001579846'
 LINE_CHANNEL_SECRET = '0b1cbba3a5d2b14e4db1c53ac899d1bf'
-LINE_REDIRECT_URI = 'https://3579-183-88-179-160.ngrok/line_login/callback/'
+LINE_REDIRECT_URI = 'https://3579-183-88-179-160.ngrok/callback/'
+SITE_ID = 2
+LOGIN_REDIRECT_URL = '/'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'line': {
+        'SCOPE': ['profile', 'openid', 'email'],
+        'AUTH_PARAMS': {'access_type': 'offline'},
+        'PROFILE_FIELDS': ['id', 'displayName', 'pictureUrl', 'statusMessage', 'email'],
+        'VERIFIED_EMAIL': True,
+    }
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,10 +73,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'lineforintern.urls'
-
+AUTH_USER_MODEL = 'usertype.CustomUser'
 
 
 TEMPLATES = [
@@ -90,6 +108,12 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+AUTHENTICATION_BACKENDS = [
+    'usertype.backends.LineAuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 
 # Password validation

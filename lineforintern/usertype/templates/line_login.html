@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-{% load static %}
+{% load static %} {% load socialaccount %}
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Line Login</title>
+    <title>Login page</title>
   </head>
   <body>
-    <h1>Login with Line</h1>
+    {% if user.is_authenticated %}
+    <h1>Welcome, {{ user.username }} !</h1>
+    {% else %}
+    <h1>Login Page</h1>
     <a
-      href="https://access.line.me/oauth2/v2.1/login?response_type=code&client_id={{ LINE_CHANNEL_ID }}&redirect_uri={{ LINE_LOGIN_CALLBACK }}&state={{ csrf_token }}"
+      href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2001579846&redirect_uri=https://3579-183-88-179-160.ngrok/callback/&state=12345abcde&scope=profile&state={{ csrf_token }}"
     >
-      <img src="{% static 'icon/line-icon.png' %}" alt="Line Login"
+      <img src="{% static 'icon/btn_login_base.png' %}" alt="Line Login"
     /></a>
+    {% endif %}
   </body>
 </html>
