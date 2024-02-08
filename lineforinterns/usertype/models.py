@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import BaseUserManager
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from student.models import StudentInfo
+from company.models import CompanyInfo
 
 
 class CustomUser(AbstractUser):
@@ -50,14 +52,7 @@ def create_student_profile(sender, instance, created, **kwargs):
 
 class StudentProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    student_id = models.IntegerField(unique=True, primary_key=True)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    nick_name = models.CharField(max_length=100)
-    email = models.EmailField()
-    phone = models.CharField(max_length=15)
-    address = models.TextField()
-    date_of_birth = models.DateField
+    studentinfo = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
 
 
 # Student----------------------------------------------------------------
@@ -93,15 +88,9 @@ def create_company_profile(sender, instance, created, **kwargs):
 
 class CompanyProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    company_name_eng = models.CharField(max_length=100, unique=True, primary_key=True)
-    company_name_thai = models.CharField(max_length=100)
-    company_email = models.EmailField()
-    company_phone = models.CharField(max_length=15)
-    company_address = models.TextField()
-    company_website = models.URLField()
-    company_logo = models.ImageField(upload_to="company_logo/")
-    company_description = models.TextField()
-    company_established = models.DateField
+    companyinfo = models.ForeignKey(
+        CompanyInfo, on_delete=models.CASCADE, null=True, blank=True
+    )
 
 
 # Company----------------------------------------------------------------
