@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-e6go#cd2g_($wkki8$3@l=)gw@yc98*a@-^gy3di7jzr31fm2u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'usertype',
+    'student',
+    'company',
+    'multiple_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.line',
+    'linebot',
+
+
 ]
 
 MIDDLEWARE = [
@@ -47,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'lineforinterns.urls'
@@ -99,6 +114,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'multiple_auth.backends.MultipleAuthentication',
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+MULTIPLE_AUTH = {
+    'auth_fields': ['username', 'email']
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
