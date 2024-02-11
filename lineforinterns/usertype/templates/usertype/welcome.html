@@ -1,14 +1,52 @@
-<!-- welcome.html -->
 <!DOCTYPE html>
 <html lang="en">
+  {% load static %}
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome</title>
+    <title>Home</title>
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
   </head>
   <body>
-    <h2>Welcome</h2>
-    <p>You are not registered yet. Please register to access the platform.</p>
-    <a href="{% url 'select_role' %}"><button>Register</button></a>
+    <!-- header section starts  -->
+
+    <header class="header">
+      <section class="flex">
+        <div id="menu-btn" class="fas fa-bars-staggered"></div>
+
+        <a href="#" class="logo"><i class="fas fa-briefcase"></i> JobPlace.</a>
+
+        <nav class="navbar">
+          <a href="home.html">home</a>
+        </nav>
+
+        <a href="{% url "login_page" %}" class="btn" style="margin-top: 0"
+          >Signin/SignUp</a
+        >
+      </section>
+    </header>
+
+    <!-- header section ends -->
+
+    <!-- home section starts  -->
+
+    <div class="home-container">
+      <section class="home">
+        <form action="" method="post">
+          <h3>Welcome</h3>
+          <p>You are not registered yet. Please register to access the platform.<span>*</span></p>
+          {% csrf_token %}
+          <a href="{% url 'select_role' %}"><button class="btn">Register</button></a>
+        </form>
+      </section>
+    </div>
+
+    <!-- home section ends -->
+    <section></section>
+    <!-- custom js file link  -->
+    <script src="{% static "js/script.js" %}"></script>
   </body>
 </html>

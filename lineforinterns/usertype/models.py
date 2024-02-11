@@ -14,13 +14,19 @@ class CustomUser(AbstractUser):
         COMPANY = "COMPANY", "Company"
         ADMIN = "ADMIN", "Admin"
 
-    base_role = Role.ADMIN
-
-    role = models.CharField(max_length=50, choices=Role.choices, default=base_role)
+    role = models.CharField(max_length=50, choices=Role.choices)
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            self.role = self.base_role
+            if self.role == self.Role.STUDENT:
+                self.is_staff = False
+                self.is_superuser = False
+            elif self.role == self.Role.COMPANY:
+                self.is_staff = False
+                self.is_superuser = False
+            elif self.role == self.Role.ADMIN:
+                self.is_staff = True
+                self.is_superuser = True
         return super().save(*args, **kwargs)
 
 

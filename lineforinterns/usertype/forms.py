@@ -29,4 +29,9 @@ class SignUpCompanyForm(forms.Form):
 
 
 class RoleSelectionForm(forms.Form):
-    role = forms.CharField(max_length=100)
+    ROLE_CHOICES = [
+        (CustomUser.Role.STUDENT, "Student"),
+        (CustomUser.Role.COMPANY, "Company"),
+        (CustomUser.Role.ADMIN, "Admin"),
+    ]
+    role = forms.ChoiceField(choices=ROLE_CHOICES)

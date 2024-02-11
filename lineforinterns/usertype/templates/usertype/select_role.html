@@ -10,8 +10,15 @@
     <h2>Select Your Role</h2>
     <form method="post">
       {% csrf_token %}
-      <button type="submit" name="role" value="student">Student</button>
-      <button type="submit" name="role" value="company">Company</button>
+      <button type="submit" name="role" value="{{ CustomUser.Role.STUDENT }}">
+        Student
+      </button>
+      <button type="submit" name="role" value="{{ CustomUser.Role.COMPANY }}">
+        Company
+      </button>
+      <button type="submit" name="role" value="{{ CustomUser.Role.COMPANY }}">
+        Company
+      </button>
     </form>
   </body>
 </html>

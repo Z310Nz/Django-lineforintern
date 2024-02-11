@@ -7,6 +7,10 @@ from .forms import LoginForm, SignUpStudentForm, SignUpCompanyForm, RoleSelectio
 from django.views.generic import TemplateView
 
 
+def error_view(request):
+    return render(request, "usertype/error.html")
+
+
 def student_profile(request, student_id):
     student = Student.objects.get(student_id=student_id)
     return render(request, "student_profile.html", {"student": student})
@@ -15,6 +19,10 @@ def student_profile(request, student_id):
 def company_profile(request, company_name_eng):
     company = Company.objects.get(company_name_eng=company_name_eng)
     return render(request, "company_profile.html", {"company": company})
+
+
+def home_view(request):
+    return render(request, "usertype/home.html")
 
 
 def login_view(request):
@@ -31,9 +39,11 @@ def login_view(request):
                 elif user.role == CustomUser.Role.COMPANY:
                     return redirect("company_profile")
             else:
-                return redirect(
-                    "welcome"
-                )  # Redirect to welcome page if authentication fails
+                # If user is not registered, create a new user
+                CustomUser.objects.create_user(username=username, password=password)
+                user = authenticate(request, username=username, password=password)
+                login(request, user)
+                return redirect("welcome")
     else:
         form = LoginForm()
     return render(request, "usertype/login.html", {"form": form})
@@ -50,13 +60,27 @@ class RoleSelectionView(TemplateView):
         form = RoleSelectionForm(request.POST)
         if form.is_valid():
             role = form.cleaned_data["role"]
-            if role == "student":
-                return redirect("student_registration_page")
-            elif role == "company":
-                return redirect("company_registration_page")
-        return render(request, self.template_name, {"form": form})
+            # Redirect to error page if form is not valid
+            if role not in [choice[0] for choice in CustomUser.Role.choices]:
+                return redirect("error_page")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["form"] = RoleSelectionForm()
-        return context
+            # Retrieve username and password from session
+            username = request.session.get("username")
+            password = request.session.get("password")
+            if username and password:
+                # Create a new user with the selected role
+                user = CustomUser.objects.create_user(
+                    username=username, password=password
+                )
+                user.role = role  # Assign the selected role to the user
+                user.save()
+
+                # Redirect based on the selected role
+                if role == CustomUser.Role.STUDENT:
+                    return redirect("student_registration_page")
+                elif role == CustomUser.Role.COMPANY:
+                    return redirect("company_registration_page")
+            else:
+                # Redirect to an error page if username or password is missing
+                return redirect("error_page")
+        return render(request, self.template_name, {"form": form})
