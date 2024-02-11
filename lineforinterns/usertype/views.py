@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, SignUpStudentForm, SignUpCompanyForm, RoleSelectionForm
 from django.views.generic import TemplateView
+from student.models import StudentInfo
+from student.views import register
 
 
 def error_view(request):
@@ -24,7 +26,6 @@ def company_profile(request, company_name_eng):
 def home_view(request):
     return render(request, "usertype/home.html")
 
-
 def login_view(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -40,17 +41,19 @@ def login_view(request):
                     return redirect("company_profile")
             else:
                 # If user is not registered, create a new user
-                CustomUser.objects.create_user(username=username, password=password)
+                new_user = CustomUser.objects.create_user(username=username, password=password)
+                new_user.role = CustomUser.Role.STUDENT  # Set the default role for new users
+                new_user.save()
                 user = authenticate(request, username=username, password=password)
                 login(request, user)
-                return redirect("welcome")
+                return redirect("welcome", username=request.user.username)
     else:
         form = LoginForm()
     return render(request, "usertype/login.html", {"form": form})
 
 
-def welcome(request):
-    return render(request, "usertype/welcome.html")
+def welcome(request, username):
+    return render(request, "usertype/welcome.html", {"username": username})
 
 
 class RoleSelectionView(TemplateView):
@@ -77,9 +80,9 @@ class RoleSelectionView(TemplateView):
 
                 # Redirect based on the selected role
                 if role == CustomUser.Role.STUDENT:
-                    return redirect("student_registration_page")
+                    return redirect("student:student_register")
                 elif role == CustomUser.Role.COMPANY:
-                    return redirect("company_registration_page")
+                    return redirect("company_register")
             else:
                 # Redirect to an error page if username or password is missing
                 return redirect("error_page")

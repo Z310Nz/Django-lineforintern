@@ -15,10 +15,11 @@ def register(request):
             return redirect('login')  # Redirect to the login page after successful registration
     else:
         form = StudentInfoForm()
-    return render(request, 'student/student_register.html.html', {'form': form})
+    return render(request, 'student/student_register.html', {'form': form})
 
-class StudentInfoCreateView(CreateView):
-    model = StudentInfo
-    form_class = StudentInfoForm
-    template_name = 'student/student_register.html'
-    success_url = reverse_lazy('login_page')
+def student_profile(request, student_id):
+    student = StudentInfo.objects.get(student_id=student_id)
+    return render(request, "student_profile.html", {"student": student})
+
+def apply_for_work(request):
+    pass

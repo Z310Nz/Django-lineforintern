@@ -1,6 +1,6 @@
 # forms.py
 from django import forms
-from .models import CustomUser
+from .models import CustomUser, Student, Company
 
 
 class LoginForm(forms.Form):

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  {% load static %}
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,7 +8,7 @@
     <title>View Job</title>
 
     <!-- custom css file link  -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
   </head>
   <body>
     <!-- header section starts  -->
@@ -102,6 +103,6 @@
     <!-- view job section ends -->
     <section></section>
     <!-- custom js file link  -->
-    <script src="js/script.js"></script>
+    <script src="{% static "js/script.js" %}"></script>
   </body>
 </html>

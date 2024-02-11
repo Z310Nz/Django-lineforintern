@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% load static %}
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Register</title>
 
     <!-- custom css file link  -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
   </head>
   <body>
     <!-- header section starts  -->
@@ -44,16 +45,45 @@
     <div class="account-form-container">
       <section class="account-form">
         <form action="" method="post">
+          {% csrf_token %}
           <h3>create new profile!</h3>
+          <p>Upload your profile image</p>
+          <input
+            name="profile"
+            type="file"
+            accept="image/png, image/jpeg"
+            placeholder="upload your profile image"
+            class="input"
+          />
           <p>Upload your CV</p>
           <input
+            name="cv"
             type="file"
             accept="image/png, image/jpeg, file"
             placeholder="upload your profile image"
             class="input"
           />
-          <p>Full name <span>*</span></p>
+          <p>First name <span>*</span></p>
           <input
+            name="first_name"
+            type="text"
+            placeholder="enter your full name"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>Last name <span>*</span></p>
+          <input
+            name="last_name"
+            type="text"
+            placeholder="enter your full name"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>Nick name <span>*</span></p>
+          <input
+            name="nick_name"
             type="text"
             placeholder="enter your full name"
             required
@@ -62,6 +92,7 @@
           />
           <p>Student ID <span>*</span></p>
           <input
+            name="student_id"
             type="number"
             placeholder="enter your sutudent id"
             required
@@ -70,6 +101,7 @@
           />
           <p>Email address<span>*</span></p>
           <input
+            name="email"
             type="email"
             placeholder="enter your email address"
             required
@@ -78,6 +110,7 @@
           />
           <p>Phone number<span>*</span></p>
           <input
+            name="phone"
             type="number"
             placeholder="enter your phone number"
             required
@@ -85,17 +118,27 @@
             class="input"
           />
           <div class="select-box">
-            <select>
+            <select name="gender" class="select">
               <option hidden>Gender</option>
               <option>Male</option>
               <option>Female</option>
               <option>Prefer not to say</option>
             </select>
           </div>
+          <p>Birthday<span>*</span></p>
+          <input
+            name="birthday"
+            type="date"
+            placeholder="choose your start date of internship"
+            required
+            maxlength="50"
+            class="input"
+          />
           <br />
           <h3>about internship</h3>
           <p>Your last job <span>*</span></p>
           <input
+            name="last_job"
             type="text"
             placeholder="enter your last job"
             required
@@ -104,6 +147,7 @@
           />
           <p>Company name <span>*</span></p>
           <input
+            name="intern_company"
             type="text"
             placeholder="enter company name that you was trainee"
             required
@@ -112,6 +156,7 @@
           />
           <p>Interested job <span>*</span></p>
           <input
+            name="interest_job"
             type="text"
             placeholder="enter your interested job"
             required
@@ -120,6 +165,7 @@
           />
           <p>Skills <span>*</span></p>
           <input
+            name="skill"
             type="text"
             placeholder="enter your interested job"
             required
@@ -128,7 +174,7 @@
           />
           <p>English skills <span>*</span></p>
           <div class="select-box">
-            <select>
+            <select name="eng_skill">
               <option hidden>Select your english level</option>
               <option>A1</option>
               <option>A2</option>
@@ -141,6 +187,7 @@
           <br />
           <p>Start date of internship <span>*</span></p>
           <input
+            name="internship_start"
             type="date"
             placeholder="choose your start date of internship"
             required
@@ -149,6 +196,7 @@
           />
           <p>End date of internship <span>*</span></p>
           <input
+            name="internship_end"
             type="date"
             placeholder="choose your end date of internship"
             required
@@ -158,6 +206,7 @@
           <h3>education</h3>
           <p>University <span>*</span></p>
           <input
+            name="university"
             type="text"
             placeholder="enter your university name"
             required
@@ -166,6 +215,7 @@
           />
           <p>Faculty <span>*</span></p>
           <input
+            name="faculty"
             type="text"
             placeholder="enter your faculty"
             required
@@ -174,6 +224,7 @@
           />
           <p>Major <span>*</span></p>
           <input
+            name="major"
             type="text"
             placeholder="enter your major"
             required
@@ -188,6 +239,6 @@
     <!-- account section ends -->
     <section></section>
     <!-- custom js file link  -->
-    <script src="js/script.js"></script>
+    <script src="{% static "js/script.js" %}"></script>
   </body>
 </html>

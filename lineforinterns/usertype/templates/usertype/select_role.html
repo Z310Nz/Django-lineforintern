@@ -1,24 +1,56 @@
 <!-- select_role.html -->
 <!DOCTYPE html>
 <html lang="en">
+  {% load static %}
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Select Role</title>
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
   </head>
   <body>
-    <h2>Select Your Role</h2>
-    <form method="post">
-      {% csrf_token %}
-      <button type="submit" name="role" value="{{ CustomUser.Role.STUDENT }}">
-        Student
-      </button>
-      <button type="submit" name="role" value="{{ CustomUser.Role.COMPANY }}">
-        Company
-      </button>
-      <button type="submit" name="role" value="{{ CustomUser.Role.COMPANY }}">
-        Company
-      </button>
-    </form>
+    <!-- header section starts  -->
+
+    <header class="header">
+      <section class="flex">
+        <div id="menu-btn" class="fas fa-bars-staggered"></div>
+
+        <a href="#" class="logo"><i class="fas fa-briefcase"></i> JobPlace.</a>
+
+        <nav class="navbar">
+          <a href="home.html">home</a>
+        </nav>
+
+        <a href="{% url "login_page" %}" class="btn" style="margin-top: 0"
+          >Signin/SignUp</a
+        >
+      </section>
+    </header>
+
+    <!-- header section ends -->
+
+    <!-- home section starts  -->
+
+    <div class="home-container">
+      <section class="home">
+          <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <button class="btn" type="submit" name="role" value="{{ CustomUser.Role.STUDENT }}">
+                  Student
+              </button>
+              <button class="btn" type="submit" name="role" value="{{ CustomUser.Role.COMPANY }}">
+                  Company
+              </button>
+          </form>
+      </section>
+  </div>
+    <!-- home section ends -->
+    <!-- jobs section ends -->
+    <section></section>
+    <!-- custom js file link  -->
+    <script src="{% static "js/script.js" %}"></script>
   </body>
 </html>
