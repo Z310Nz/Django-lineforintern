@@ -4,15 +4,17 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from .views import login_view, error_view
+from .views import login_view, error_view, logout_view
 
 urlpatterns = [
     path("", views.home_view, name="home"),
+    path("homepage/", views.home_view, name="homepage"),
     path("login/", login_view, name="login_page"),
     path("welcome/<str:username>/", views.welcome, name="welcome"),
     path("error/", error_view, name="error_page"),
-    path("studentinfo/<str:username>/", include("student.urls")),
+    path("student/profile/", views.student_profile, name="student_profile"),
     # path("companyinfo/",include("company.urls")),
+    path("logout/", logout_view, name="logout"),
 ]
 
 if settings.DEBUG:

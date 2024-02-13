@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import StudentInfo
 from django.views.generic import CreateView
-from .forms import StudentInfoForm
+from .forms import StudentInfoForm, SignUpStudentForm
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 
@@ -10,7 +10,7 @@ from django.shortcuts import redirect
 
 def register(request):
     if request.method == "POST":
-        form = StudentInfoForm(request.POST)
+        form = SignUpStudentForm(request.POST)
         if form.is_valid():
             form.save()  # Save the form data to the database
             return redirect(

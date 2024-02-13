@@ -1,13 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import CustomUser, Student, StudentProfile, Company, CompanyProfile
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
-from .forms import LoginForm, SignUpStudentForm, SignUpCompanyForm, SignupForm
-from django.views.generic import TemplateView
-from student.models import StudentInfo
-from student.views import register
-
+from django.contrib.auth import authenticate, login, logout
+from .forms import LoginForm
 
 def error_view(request):
     return render(request, "usertype/error.html")
@@ -37,7 +32,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 if user.role == CustomUser.Role.STUDENT:
-                    return redirect("student_profile")
+                    return redirect("student_profile", username=username)
                 elif user.role == CustomUser.Role.COMPANY:
                     return redirect("company_profile")
             else:
@@ -48,7 +43,7 @@ def login_view(request):
                 new_user.save()
                 user = authenticate(request, username=username, password=password)
                 login(request, user)
-                return redirect("welcome", username=request.user.username)
+                return redirect("welcome", username=username)
     else:
         form = LoginForm()
     return render(request, "usertype/login.html", {"form": form})
@@ -57,4 +52,13 @@ def login_view(request):
 def welcome(request, username):
     user = request.user
     role = request.user.role
-    return render(request, "usertype/welcome.html", {"username": username, "user": user, "role": role})
+    return render(
+        request,
+        "usertype/welcome.html",
+        {"username": username, "user": user, "role": role},
+    )
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("home")

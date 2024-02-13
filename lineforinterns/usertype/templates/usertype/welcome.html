@@ -14,21 +14,7 @@
   <body>
     <!-- header section starts  -->
 
-    <header class="header">
-      <section class="flex">
-        <div id="menu-btn" class="fas fa-bars-staggered"></div>
-
-        <a href="#" class="logo"><i class="fas fa-briefcase"></i> JobPlace.</a>
-
-        <nav class="navbar">
-          <a href="home.html">home</a>
-        </nav>
-
-        <a href="{% url "login_page" %}" class="btn" style="margin-top: 0"
-          >SignIn/SignUp</a
-        >
-      </section>
-    </header>
+    {% include "navbarmain.html" %}
 
     <!-- header section ends -->
 

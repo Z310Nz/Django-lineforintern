@@ -13,10 +13,11 @@
   <body>
     <!-- header section starts  -->
     {% include "navbarmain.html" %}
+
     <!-- Navbar  -->
     <section class="navbar__links" id="navbar-links">
       <div class="navbar__div">
-        <a href="view_student.html" class="navbar__item">Profile</a>
+        <a href="view_student.html" class="navbar__item">{{ username }}</a>
         <a href="#" class="navbar__item">Company</a>
         <a href="#" class="navbar__item">...</a>
       </div>
@@ -30,68 +31,66 @@
 
       <div class="details">
         <div class="info">
-          <img src="images/profilepics.jpg" alt="" />
-          <h3>Hoshino Ai</h3>
-          <p>Front-end, UX/UI</p>
+          <img src="" alt="" />
+          <h3>{{ student_id }}{{ username }}_____________</h3>
+          <p>____________________</p>
         </div>
 
         <div class="description">
           <h3>general information</h3>
           <ul>
             <p>Curriculum vitae</p>
-            <li><a href="images/Hoshino_CV.pdf">Click to view CV</a></li>
+            <li><a href="#">Click to view CV</a></li>
             <br />
             <p>Full name</p>
-            <li>Hoshino Ai</li>
+            <li></li>
             <br />
             <p>Student id</p>
-            <li>64159876</li>
+            <li></li>
             <br />
             <p>Email address</p>
-            <li>HoshinoAi@gmail.com</li>
+            <li></li>
             <br />
             <p>Phone number</p>
-            <li>+66 58 542 6687</li>
+            <li></li>
             <br />
             <p>Gender</p>
-            <li>Female</li>
+            <li></li>
             <br />
           </ul>
 
           <h3>about internship</h3>
           <ul>
             <p>Last job</p>
-            <li>UX/UI</li>
+            <li></li>
             <br />
             <p>Company</p>
-            <li>IT infosys co.</li>
+            <li></li>
             <br />
             <p>Skills</p>
-            <li>html5 and css3</li>
-            <li>javascript</li>
-            <li>mysql</li>
+            <li></li>
             <br />
             <p>English skills</p>
-            <li>B1</li>
+            <li></li>
             <br />
             <p>Start date of internship</p>
-            <li>1 April 2024</li>
+            <li></li>
             <br />
             <p>End date of internship</p>
-            <li>30 September 2024</li>
+            <li></li>
             <br />
           </ul>
 
           <h3>education</h3>
           <ul>
             <p>University</p>
-            <li>University of phayao</li>
+            <li></li>
             <br />
             <p>Faculty</p>
-            <li>Information, Communication and Technology</li>
+            <li></li>
             <br />
             <p>Major</p>
-            <li>Software engineering</li>
+            <li></li>
             <br />
           </ul>
         </div>
@@ -108,6 +107,7 @@
     <section class="jobs-container">
       <h1 class="heading">jobs they offer</h1>
 
+      {% comment %}
       <div class="box-container">
         <div class="box">
           <div class="company">
@@ -182,6 +182,7 @@
           </div>
         </div>
       </div>
+      {% endcomment %}
     </section>
 
     <!-- jobs section ends -->
