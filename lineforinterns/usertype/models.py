@@ -18,13 +18,10 @@ class CustomUser(AbstractUser):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            if self.role == self.Role.STUDENT:
+            if self.role == self.Role.STUDENT or self.role == self.Role.COMPANY:
                 self.is_staff = False
                 self.is_superuser = False
-            elif self.role == self.Role.COMPANY:
-                self.is_staff = False
-                self.is_superuser = False
-            elif self.role == self.Role.ADMIN:
+            else:
                 self.is_staff = True
                 self.is_superuser = True
         return super().save(*args, **kwargs)

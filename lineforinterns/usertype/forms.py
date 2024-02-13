@@ -6,6 +6,23 @@ from .models import CustomUser, Student, Company
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput)
+    ROLE_CHOICES = [
+        ("","choose role"),
+        (CustomUser.Role.STUDENT, "Student"),
+        (CustomUser.Role.COMPANY, "Company"),
+    ]
+    role = forms.ChoiceField(choices=ROLE_CHOICES)
+
+
+class SignupForm(forms.Form):
+    username = forms.CharField(max_length=100)
+    password = forms.CharField(widget=forms.PasswordInput)
+    ROLE_CHOICES = [
+        (CustomUser.Role.STUDENT, "Student"),
+        (CustomUser.Role.COMPANY, "Company"),
+        (CustomUser.Role.ADMIN, "Admin"),
+    ]
+    role = forms.ChoiceField(choices=ROLE_CHOICES)
 
 
 class SignUpStudentForm(forms.Form):
@@ -26,12 +43,3 @@ class SignUpCompanyForm(forms.Form):
     company_address = forms.CharField(max_length=100)
     company_email = forms.EmailField()
     company_phone = forms.CharField(max_length=15)
-
-
-class RoleSelectionForm(forms.Form):
-    ROLE_CHOICES = [
-        (CustomUser.Role.STUDENT, "Student"),
-        (CustomUser.Role.COMPANY, "Company"),
-        (CustomUser.Role.ADMIN, "Admin"),
-    ]
-    role = forms.ChoiceField(choices=ROLE_CHOICES)

@@ -36,11 +36,22 @@
     <div class="home-container">
       <section class="home">
         <form action="" method="post">
-          <h3>Login/SignUp</h3>
+          <h3>Login</h3>
           {% csrf_token %} {{ form.as_p }}
           <button type="submit" class="btn">Login</button>
         </form>
+
+        <section class="home">
+          <form action="" method="post">
+            <h3>SignUp</h3>
+            {% csrf_token %} {{ form.as_p }}
+            <button type="submit" class="btn">SignUp</button>
+          </form>
+        </section>
       </section>
+    </div>
+
+    <div class="home-container">
     </div>
 
     <!-- jobs section ends -->

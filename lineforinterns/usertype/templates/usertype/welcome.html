@@ -37,14 +37,17 @@
     <div class="home-container">
       <section class="home">
         <form action="" method="post">
-          <h3>Welcome, {{ username }}</h3>
-          <p>You are not registered yet. Please register to access the platform.<span>*</span></p>
+          <h3>Welcome, {{ role }} | {{ username }}</h3>
+          <p>Plz enter you information<span>*</span></p>
           {% csrf_token %}
-          <a href="{% url 'select_role' username=request.user.username %}" class="btn">Register</a>
+          {% if role == 'STUDENT' %}
+            <a href="{% url 'student_profile' username=user.username %}" class="btn">Go to Student Profile</a>
+          {% elif role == 'COMPANY' %}
+            <a href="{% url 'company_profile' username=user.username %}" class="btn">Go to Company Profile</a>
+          {% endif %}
         </form>
       </section>
     </div>
-
     <!-- home section ends -->
     <section></section>
     <!-- custom js file link  -->

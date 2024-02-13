@@ -3,6 +3,4 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 
-urlpatterns = [
-    path("student_register/", views.register, name="student_register")
-]
+urlpatterns = [path("<str:username>/student_profile/", views.register, name="student_profile")]
