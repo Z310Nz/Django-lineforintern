@@ -1,16 +1,16 @@
 from django.shortcuts import render, redirect
 from .models import CustomUser, Student, StudentProfile, Company, CompanyProfile
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm
+from .forms import LoginForm, SignUpStudentForm, SignUpCompanyForm
+from django.views.generic import TemplateView
+from student.models import StudentInfo
+from student.views import register
+
 
 def error_view(request):
     return render(request, "usertype/error.html")
-
-
-def student_profile(request, student_id):
-    student = Student.objects.get(student_id=student_id)
-    return render(request, "student_profile.html", {"student": student})
 
 
 def company_profile(request, company_name_eng):
@@ -32,9 +32,11 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 if user.role == CustomUser.Role.STUDENT:
-                    return redirect("student_profile", username=username)
+                    return redirect(
+                        "profile", username=username, role=user.role
+                    )  # แก้ไขที่นี่
                 elif user.role == CustomUser.Role.COMPANY:
-                    return redirect("company_profile")
+                    return redirect("profile", username=username, role=user.role)
             else:
                 new_user = CustomUser.objects.create_user(
                     username=username, password=password
@@ -43,7 +45,7 @@ def login_view(request):
                 new_user.save()
                 user = authenticate(request, username=username, password=password)
                 login(request, user)
-                return redirect("welcome", username=username)
+                return redirect("profile", username=username, role=user.role)  # แก้ไขที่นี่
     else:
         form = LoginForm()
     return render(request, "usertype/login.html", {"form": form})
@@ -62,3 +64,89 @@ def welcome(request, username):
 def logout_view(request):
     logout(request)
     return redirect("home")
+
+
+def profile(request, role, username):
+    user = request.user
+    student = None
+    company = None
+    context = {
+        "role": role,
+        "username": username,
+    }
+
+    # หาก user เป็นนักเรียน
+    if user.role == CustomUser.Role.STUDENT:
+        try:
+            student = Student.objects.get(username=username)  # แก้ไขตรงนี้
+        except Student.DoesNotExist:
+            pass
+    # หาก user เป็นบริษัท
+    elif user.role == CustomUser.Role.COMPANY:
+        try:
+            company = Company.objects.get(username=username)  # แก้ไขตรงนี้
+        except Company.DoesNotExist:
+            pass
+
+    if request.method == "POST":
+        form = SignUpStudentForm(request.POST, initial={"username": user.username})
+        if form.is_valid():
+            form.save()
+            return redirect("welcome", username=user.username)
+    else:
+        form = SignUpStudentForm(initial={"username": user.username})
+
+    return render(
+        request,
+        "userweb/profile.html",
+        {
+            "form": form,
+            "student": student,
+            "company": company,
+            "user": user,
+            "context": context,
+        },
+    )
+
+
+def addinfo(request, role, username):
+    user = request.user
+    student = None
+    company = None
+    context = {
+        "role": role,
+        "username": username,
+    }
+
+    # หาก user เป็นนักเรียน
+    if user.role == CustomUser.Role.STUDENT:
+        try:
+            student = Student.objects.get(username=username)
+        except Student.DoesNotExist:
+            pass
+    # หาก user เป็นบริษัท
+    elif user.role == CustomUser.Role.COMPANY:
+        try:
+            company = Company.objects.get(username=username)
+        except Company.DoesNotExist:
+            pass
+
+    if request.method == "POST":
+        form = SignUpStudentForm(request.POST, initial={"username": user.username})
+        if form.is_valid():
+            form.save()
+            return redirect("profile", username=user.username)
+    else:
+        form = SignUpStudentForm(initial={"username": user.username})
+
+    return render(
+        request,
+        "userweb/addinfo.html",
+        {
+            "form": form,
+            "student": student,
+            "company": company,
+            "user": user,
+            "context": context,
+        },
+    )

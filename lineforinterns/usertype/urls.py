@@ -12,7 +12,8 @@ urlpatterns = [
     path("login/", login_view, name="login_page"),
     path("welcome/<str:username>/", views.welcome, name="welcome"),
     path("error/", error_view, name="error_page"),
-    path("student/profile/", views.student_profile, name="student_profile"),
+    path("profile/<str:role>/<str:username>/", views.profile, name="profile"),
+    path("addinfo/<str:role>/<str:username>/", views.addinfo, name="addinfo"),
     # path("companyinfo/",include("company.urls")),
     path("logout/", logout_view, name="logout"),
 ]

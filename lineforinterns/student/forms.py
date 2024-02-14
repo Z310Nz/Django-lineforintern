@@ -39,6 +39,7 @@ class StudentInfoForm(forms.ModelForm):
             "major",
         ]
 
+
 class SignUpStudentForm(forms.Form):
     profile = forms.ImageField()
     student_id = forms.IntegerField()

@@ -1,0 +1,30 @@
+<section class="navbar__links" id="navbar-links">
+  <div class="navbar__div">
+    {% if user.role == 'STUDENT' %}
+    <a
+      href="{% url 'profile' role='STUDENT' username=user.username %}"
+      class="navbar__item"
+      style="margin-top: 0"
+      >{{ user.username }}</a
+    >
+    <a href="#" class="navbar__item">Company</a>
+    <a
+      href="{% url 'logout' %}"
+      class="navbar__item-btn btn"
+      style="margin-top: 0"
+      >logout</a
+    >
+
+    {% elif user.role == 'COMPANY' %}
+    <a
+      href="{% url 'profile' role='COMPANY' username=user.username %}"
+      class="btn"
+      style="margin-top: 0"
+      >{{ user.username }}</a
+    >
+    <a href="#" class="navbar__item">Post Job</a>
+    <a href="#" class="navbar__item">Student</a>
+    <a href="{% url 'logout' %}" class="btn" style="margin-top: 0">logout</a>
+    {% endif %}
+  </div>
+</section>

@@ -27,9 +27,9 @@
           <p>Plz enter you information<span>*</span></p>
           {% csrf_token %}
           {% if role == 'STUDENT' %}
-            <a href="{% url 'student_profile' username=user.username %}" class="btn">Go to Student Profile</a>
+            <a href="{% url 'profile' username=user.username %}" class="btn">Go to Student Profile</a>
           {% elif role == 'COMPANY' %}
-            <a href="{% url 'company_profile' username=user.username %}" class="btn">Go to Company Profile</a>
+            <a href="{% url 'profile' username=user.username %}" class="btn">Go to Company Profile</a>
           {% endif %}
         </form>
       </section>

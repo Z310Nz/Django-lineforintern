@@ -825,7 +825,7 @@ section {
   align-items: center;
   justify-content: center;
   padding: 1rem 1.5rem;
-  font-size: 1.6rem;
+  font-size: 2rem;
   color: var(--light-color);
   border-radius: 0.5rem;
   text-transform: capitalize;
@@ -842,8 +842,25 @@ section {
   align-items: center;
   justify-content: center;
   padding: 1rem 1.5rem;
-  font-size: 1.6rem;
+  font-size: 2rem;
   color: var(--light-color);
+  border-radius: 0.5rem;
+  text-transform: capitalize;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s linear;
+  margin: 0 20rem;
+}
+
+.navbar__item-btn {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.5rem;
+  font-size: 2rem;
+  color: var(--black);
   border-radius: 0.5rem;
   text-transform: capitalize;
   text-align: center;
@@ -854,4 +871,58 @@ section {
 .navbar__item:hover {
   background-color: var(--main-color);
   color: var(--black);
+}
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #4caf50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover,
+.dropbtn:focus {
+  background-color: #3e8e41;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
 }
