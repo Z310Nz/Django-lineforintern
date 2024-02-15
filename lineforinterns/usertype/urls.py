@@ -14,7 +14,13 @@ urlpatterns = [
     path("error/", error_view, name="error_page"),
     path("profile/<str:role>/<str:username>/", views.profile, name="profile"),
     path("addinfo/<str:role>/<str:username>/", views.addinfo, name="addinfo"),
-    # path("companyinfo/",include("company.urls")),
+    # path("editinfo/<str:role>/<str:username>/", views.editinfo, name="editinfo"),
+    # path("deleteinfo/<str:role>/<str:username>/", views.deleteinfo, name="deleteinfo"),
+    # path("search/", views.search, name="search"),
+    # path("searchresult/", views.searchresult, name="searchresult"),
+    # path("searchresult/<str:role>/<str:username>/", views.searchresult, name="searchresult"),
+    # # path("companyinfo/",include("company.urls")),
+    path("addjob/<str:role>/<str:username>/", views.postjob, name="postjob"),
     path("logout/", logout_view, name="logout"),
 ]
 

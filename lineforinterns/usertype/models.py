@@ -69,7 +69,7 @@ class StudentInfo(models.Model):
     # website = models.URLField()
     cv = models.URLField()
     last_job = models.CharField(max_length=200)
-    intern_des = models.CharField(max_length=200)
+    # intern_des = models.CharField(max_length=200)
     intern_company = models.CharField(max_length=200)
     interest_job = models.CharField(max_length=200)
     skill = models.CharField(max_length=200)
@@ -99,8 +99,6 @@ class StudentInfo(models.Model):
             + " "
             + self.major
             + " "
-            + self.gpa
-            + " "
             + str(self.intern_start)
             + " "
             + str(self.intern_end)
@@ -113,13 +111,9 @@ class StudentInfo(models.Model):
             + " "
             + self.intern_company
             + " "
-            + self.intern_des
-            + " "
             + self.last_job
             + " "
             + self.cv
-            + " "
-            + self.website
             + " "
             + self.line_id
         )
@@ -161,22 +155,61 @@ def create_company_profile(sender, instance, created, **kwargs):
         CompanyProfile.objects.create(user=instance)
 
 
+class Job(models.Model):
+    jobname = models.CharField(max_length=255)
+    jobdes = models.CharField(max_length=255)
+    worktype = models.CharField(max_length=255)
+    quality = models.CharField(max_length=255)
+    benefit = models.CharField(max_length=255)
+    workstart = models.TimeField()
+    workend = models.TimeField()
+    workday = models.CharField(max_length=255)
+    requirement = models.CharField(max_length=255)
+    qualifications = models.CharField(max_length=255)
+    skills = models.CharField(max_length=255)
+
+    def __str__(self):
+        return (
+            self.jobname
+            + " "
+            + self.jobdes
+            + " "
+            + self.worktype
+            + " "
+            + self.quality
+            + " "
+            + self.benefit
+            + " "
+            + str(self.workstart)
+            + " "
+            + str(self.workend)
+            + " "
+            + self.workday
+            + " "
+            + self.requirement
+            + " "
+            + self.qualifications
+            + " "
+            + self.skills
+        )
 class CompanyInfo(models.Model):
     company_name_eng = models.CharField(max_length=100, unique=True, primary_key=True)
     company_name_thai = models.CharField(max_length=100)
+    company_des = models.CharField(max_length=255)
     logoc = models.ImageField(upload_to="logos/", null=True, blank=True)
     foundation_date = models.DateField()
-    company_type = models.CharField(max_length=255)
     number_of_employees = models.IntegerField()
     website = models.URLField()
     email = models.EmailField()
     address = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
-    country = models.CharField(max_length=255)
+    sub_district = models.CharField(max_length=255)
+    district = models.CharField(max_length=255)
     province = models.CharField(max_length=255)
+    country = models.CharField(max_length=255)
     postal_code = models.CharField(max_length=255)
-    address_label = models.CharField(max_length=255)
+    phone = models.CharField(max_length=15)
     line_id = models.CharField(max_length=255, blank=True)
+    jobs = models.ManyToManyField(Job, related_name='companies')
 
     def __str__(self):
         return (
@@ -193,39 +226,33 @@ class CompanyInfo(models.Model):
             + self.email
             + " "
             + self.address
-            + " "
-            + self.city
-            + " "
+            + ""
             + self.country
             + " "
             + self.province
             + " "
             + self.postal_code
             + " "
-            + self.address_label
-            + " "
             + self.line_id
+            +" "
+            +self.company_des
+            +""
+            +self.logoc
+            +""
+            +self.sub_district
+            +""
+            +self.district
+            +""
+            +self.phone
+            +""
         )
-
-
-class Job(models.Model):
-    company = models.ForeignKey(
-        CompanyInfo, on_delete=models.CASCADE, null=True, blank=True, default=""
-    )
-    workplace = models.CharField(max_length=255)
-    worktype = models.CharField(max_length=255)
-    quality = models.CharField(max_length=255)
-    benefit = models.CharField(max_length=255)
-    workstart = models.TimeField()
-    workend = models.TimeField()
-    workday = models.CharField(max_length=255)
-
 
 class CompanyProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     companyinfo = models.ForeignKey(
         CompanyInfo, on_delete=models.CASCADE, null=True, blank=True
     )
+
 
 
 # Company----------------------------------------------------------------

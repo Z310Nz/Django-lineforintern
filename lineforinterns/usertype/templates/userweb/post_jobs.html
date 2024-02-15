@@ -18,13 +18,7 @@
     <!-- header section ends -->
 
     <!-- Navbar  -->
-    <section class="navbar__links" id="navbar-links">
-      <div class="navbar__div">
-        <a href="view_student.html" class="navbar__item">Profile</a>
-        <a href="#" class="navbar__item">Post Job</a>
-        <a href="#" class="navbar__item">internship</a>
-      </div>
-    </section>
+    {% include "navbarprofile.html" %}
     <!-- Navbar  -->
 
     <!-- account section starts  -->
@@ -32,41 +26,29 @@
     <div class="account-form-container">
       <section class="account-form">
         <form action="" method="post">
+          {% csrf_token %} {{ form.errors }}
           <h3>create new job!</h3>
           <p>Job title <span>*</span></p>
           <input
+            name="jobname"
             type="text"
             placeholder="enter job title"
             required
             maxlength="50"
             class="input"
           />
-          <p>Company name <span>*</span></p>
+          <p>Job description <span>*</span></p>
           <input
+            name="jobdes"
             type="text"
-            placeholder="enter company name"
-            required
-            maxlength="20"
-            class="input"
-          />
-          <p>Location<span>*</span></p>
-          <input
-            type="text"
-            placeholder="province, country"
-            required
-            maxlength="50"
-            class="input"
-          />
-          <p>Salary<span>*</span></p>
-          <input
-            type="number"
-            placeholder="enter salary"
+            placeholder="enter job description"
             required
             maxlength="50"
             class="input"
           />
           <p>Benefits<span>*</span></p>
           <input
+            name="benefit"
             type="text"
             placeholder="enter benefits"
             required
@@ -75,15 +57,34 @@
           />
           <p>Job type<span>*</span></p>
           <input
+            name="worktype"
             type="text"
             placeholder="Full-time, Part-time, internship"
             required
             maxlength="20"
             class="input"
           />
-          <p>Schedule<span>*</span></p>
+          <p>Time in <span>*</span></p>
+          <input
+            name="workstart"
+            type="time"
+            placeholder="enter job title"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>Time out <span>*</span></p>
+          <input
+            name="workend"
+            type="time"
+            placeholder="enter job title"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>Work day<span>*</span></p>
           <div class="select-box">
-            <select>
+            <select name="workday" id="" required>
               <option hidden>work day</option>
               <option>5 days per week</option>
               <option>6 days per week</option>
@@ -95,6 +96,7 @@
           <h3>Qualifications</h3>
           <p>Requirements <span>*</span></p>
           <input
+            name="requirement"
             type="text"
             placeholder="enter requirements"
             required
@@ -103,6 +105,7 @@
           />
           <p>Qualifications <span>*</span></p>
           <input
+            name="qualifications"
             type="text"
             placeholder="enter qualifications"
             required
@@ -111,16 +114,9 @@
           />
           <p>Skills <span>*</span></p>
           <input
+            name="skills"
             type="text"
             placeholder="enter skills required"
-            required
-            maxlength="50"
-            class="input"
-          />
-          <p>Job description <span>*</span></p>
-          <input
-            type="text"
-            placeholder="enter job description"
             required
             maxlength="50"
             class="input"
@@ -133,6 +129,6 @@
     <!-- account section ends -->
     <section></section>
     <!-- custom js file link  -->
-    <script src="js/script.js"></script>
+    <script src="{% static "js/script.js" %}"></script>
   </body>
 </html>

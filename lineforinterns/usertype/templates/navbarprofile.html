@@ -22,7 +22,11 @@
       style="margin-top: 0"
       >{{ user.username }}</a
     >
-    <a href="#" class="navbar__item">Position</a>
+    <a
+      href="{% url 'postjob' role='COMPANY' username=user.username %}"
+      class="navbar__item"
+      >Position</a
+    >
     <a href="#" class="navbar__item">Student</a>
     <a href="{% url 'logout' %}" class="btn" style="margin-top: 0">logout</a>
     {% endif %}

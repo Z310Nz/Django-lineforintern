@@ -26,7 +26,7 @@
 
       <div class="details">
         <div class="info">
-          <img src="" alt="" />
+          <img src="{{ student.studentinfo.profile }}" alt="" />
           <h3>{{ context.username }}</h3>
           <p>____________________</p>
         </div>
@@ -35,57 +35,57 @@
           <h3>general information</h3>
           <ul>
             <p>Curriculum vitae</p>
-            <li><a href="#">Click to view CV</a></li>
+            <li><a href="{{ student.studentinfo.cv.url }}">Click to view CV</a></li>
             <br />
             <p>Full name</p>
-            <li></li>
+            <li>{{ student.studentinfo.first_name }} {{ student.studentinfo.last_name }}</li>
             <br />
             <p>Student id</p>
-            <li></li>
+            <li>{{ student.studentinfo.student_id }}</li>
             <br />
             <p>Email address</p>
-            <li></li>
+            <li>{{ student.studentinfo.email }}</li>
             <br />
             <p>Phone number</p>
-            <li></li>
+            <li>{{ student.studentinfo.phone }}</li>
             <br />
             <p>Gender</p>
-            <li></li>
+            <li>{{ student.studentinfo.gender }}</li>
             <br />
           </ul>
 
           <h3>about internship</h3>
           <ul>
             <p>Last job</p>
-            <li></li>
+            <li>{{ student.studentinfo.last_job }}</li>
             <br />
             <p>Company</p>
-            <li></li>
+            <li>{{ student.studentinfo.intern_company }}</li>
             <br />
             <p>Skills</p>
-            <li></li>
+            <li>{{ student.studentinfo.skill }}</li>
             <br />
             <p>English skills</p>
-            <li></li>
+            <li>{{ student.studentinfo.eng_skill }}</li>
             <br />
             <p>Start date of internship</p>
-            <li></li>
+            <li>{{ student.studentinfo.intern_start }}</li>
             <br />
             <p>End date of internship</p>
-            <li></li>
+            <li>{{ student.studentinfo.intern_end }}</li>
             <br />
           </ul>
 
           <h3>education</h3>
           <ul>
             <p>University</p>
-            <li></li>
+            <li>{{ student.studentinfo.university }}</li>
             <br />
             <p>Faculty</p>
-            <li></li>
+            <li>{{ student.studentinfo.faculty }}</li>
             <br />
             <p>Major</p>
-            <li></li>
+            <li>{{ student.studentinfo.major }}</li>
             <br />
           </ul>
         </div>
@@ -116,30 +116,67 @@
       <div class="details">
         <div class="info">
           <img src="images/icon-1.png" alt="" />
-          <h3>{{ context.username }}</h3>
-          <p><i class="fas fa-map-marker-alt"></i> mumbai, india</p>
+          <h3>{{ company.companyinfo.company_name_eng }}</h3>
+          <p><i class="fas fa-map-marker-alt"></i> {{ company.companyinfo.province }}, {{ company.companyinfo.country }}</p>
         </div>
 
         <div class="description">
-          <h3>about company</h3>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe
-            omnis dolore sunt. Tempora voluptatem sit officia, deserunt quaerat
-            eum quis quo quisquam magni placeat architecto repellat blanditiis
-            ex neque hic.
-          </p>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea rerum
-            ullam culpa minima voluptates ex autem ducimus atque commodi
-            voluptatum.
-          </p>
+          <ul>
+            <h3>about company</h3>
+            <li>{{ company.companyinfo.company_des }}</li>
+          </ul>
+          <ul>
+            <p>Company name</p>
+            <li>{{ company.companyinfo.company_name_thai }}</li>
+            <br />
+            <p>Foundation date</p>
+            <li>{{ company.companyinfo.foundation_date }}</li>
+            <br />
+            <p>Working employess</p>
+            <li>{{ company.companyinfo.number_of_employees }} person</li>
+            <br />
+            <p>Email address</p>
+            <li>{{ company.companyinfo.email }}</li>
+            <br />
+            <p>Phone number</p>
+            <li>{{ company.companyinfo.phone }}</li>
+            <br />
+            <p>LineID</p>
+            <li>{{ company.companyinfo.line_id}}</li>
+            <br />
+            <p>website</p>
+            <li>{{ company.companyinfo.website}}</li>
+            <br />
+          </ul>
+
+          <h3>Company Address</h3>
+          <ul>
+            <p>address</p>
+            <li>{{ company.companyinfo.address}}</li>
+            <br />
+            <p>Sub District</p>
+            <li>{{ company.companyinfo.sub_district}}</li>
+            <br />
+            <p>District</p>
+            <li>{{ company.companyinfo.district}}</li>
+            <br />
+            <p>Province</p>
+            <li>{{ company.companyinfo.Province}}</li>
+            <br />
+            <p>country</p>
+            <li>{{ company.companyinfo.country}}</li>
+            <br />
+            <p>Post code</p>
+            <li>{{ company.companyinfo.postal_code}}</li>
+            <br />
+          </ul>
         </div>
 
-        <ul>
+        {% comment %} <ul>
           <li>3 jobs posted</li>
           <li>established at 21-05-2004</li>
           <li>253 working employess</li>
-        </ul>
+        </ul> {% endcomment %}
         <form action="{% url 'addinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
           {% csrf_token %}
           <input type="submit" value="edit profile" class="btn" />

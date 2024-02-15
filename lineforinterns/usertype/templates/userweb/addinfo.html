@@ -25,9 +25,9 @@
     <!-- student profile section starts  -->
     <div class="account-form-container">
       <section class="account-form">
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          <h3>create new profile!</h3>
+          <h3>Edit Your Profile</h3>
           <p>Upload your profile image</p>
           <input
             name="profile"
@@ -168,7 +168,7 @@
           <br />
           <p>Start date of internship <span>*</span></p>
           <input
-            name="internship_start"
+            name="intern_start"
             type="date"
             placeholder="choose your start date of internship"
             required
@@ -177,7 +177,7 @@
           />
           <p>End date of internship <span>*</span></p>
           <input
-            name="internship_end"
+            name="intern_end"
             type="date"
             placeholder="choose your end date of internship"
             required
@@ -212,7 +212,7 @@
             maxlength="50"
             class="input"
           />
-          <input type="submit" value="reigster now" name="submit" class="btn" />
+          <input type="submit" value="Edit" name="submit" class="btn" />
         </form>
       </section>
       <script src="{% static "js/script.js" %}"></script>
@@ -222,43 +222,65 @@
     <!-- company profile section starts  -->
     <div class="account-form-container">
       <section class="account-form">
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          {{ form.errors }}
           <h3>create new profile!</h3>
           <p>Upload your company logo</p>
           <input
+            name="logoc"
             type="file"
             accept="image/png, image/jpeg"
             placeholder="upload your profile image"
             class="input"
           />
-          <p>Company name <span>*</span></p>
+          <p>Company name English <span>*</span></p>
           <input
+            name="company_name_eng"
             type="text"
             placeholder="enter your company name"
             required
             maxlength="50"
             class="input"
           />
+          <p>Company name Thai <span>*</span></p>
+          <input
+            name="company_name_thai"
+            type="text"
+            placeholder="enter your company name"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>Foundation date<span>*</span></p>
+          <input
+            name="foundation_date"
+            type="date"
+            placeholder="choose your start date of internship"
+            required
+            maxlength="50"
+            class="input"
+          />
           <p>About company <span>*</span></p>
           <input
+            name="company_des"
             type="text"
             placeholder="enter your company description"
             required
             maxlength="20"
             class="input"
           />
-          <p>Location<span>*</span></p>
+          <p>Number of employee <span>*</span></p>
           <input
-            type="text"
-            placeholder="province, country"
+            name="number_of_employees"
+            type="number"
+            placeholder="enter your sutudent id"
             required
-            maxlength="50"
+            maxlength="20"
             class="input"
           />
           <p>Website<span>*</span></p>
           <input
+            name="website"
             type="text"
             placeholder="enter your company website"
             required
@@ -267,6 +289,7 @@
           />
           <p>Email address<span>*</span></p>
           <input
+            name="email"
             type="email"
             placeholder="enter your company email address"
             required
@@ -275,8 +298,18 @@
           />
           <p>Phone number<span>*</span></p>
           <input
+            name="phone"
             type="number"
             placeholder="enter your company phone number"
+            required
+            maxlength="20"
+            class="input"
+          />
+          <p>Line ID <span>*</span></p>
+          <input
+            name="line_id"
+            type="text"
+            placeholder="enter your company description"
             required
             maxlength="20"
             class="input"
@@ -285,6 +318,7 @@
           <h3>company address</h3>
           <p>Address <span>*</span></p>
           <input
+            name = "address"
             type="text"
             placeholder="enter your company address"
             required
@@ -293,6 +327,7 @@
           />
           <p>Sub district <span>*</span></p>
           <input
+            name="sub_district"
             type="text"
             placeholder="enter your company sub-district"
             required
@@ -301,6 +336,7 @@
           />
           <p>District <span>*</span></p>
           <input
+            name="district"
             type="text"
             placeholder="enter your company district"
             required
@@ -309,6 +345,7 @@
           />
           <p>Province <span>*</span></p>
           <input
+            name="province"
             type="text"
             placeholder="enter your company province"
             required
@@ -317,6 +354,7 @@
           />
           <p>Country <span>*</span></p>
           <input
+            name="country"
             type="text"
             placeholder="enter your company country"
             required
@@ -325,13 +363,14 @@
           />
           <p>Postal code <span>*</span></p>
           <input
+            name="postal_code"
             type="number"
             placeholder="enter postal code"
             required
             maxlength="6"
             class="input"
           />
-          <input type="submit" value="reigster now" name="submit" class="btn" />
+          <input type="submit" value="Edit" name="submit" class="btn" />
         </form>
       </section>
     </div>

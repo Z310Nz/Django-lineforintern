@@ -1,14 +1,6 @@
 # forms.py
 from django import forms
-from .models import (
-    CustomUser,
-    Student,
-    Company,
-    StudentProfile,
-    CompanyProfile,
-    CompanyInfo,
-    Job,
-)
+from .models import CustomUser
 
 
 class LoginForm(forms.Form):
@@ -36,7 +28,7 @@ class SignUpStudentForm(forms.Form):
     # website = forms.URLField()
     cv = forms.URLField()  #
     last_job = forms.CharField(max_length=200)  #
-    intern_des = forms.CharField(max_length=200)
+    # intern_des = forms.CharField(max_length=200)
     intern_company = forms.CharField(max_length=200)  #
     interest_job = forms.CharField(max_length=200)  #
     skill = forms.CharField(max_length=200)  #
@@ -50,10 +42,33 @@ class SignUpStudentForm(forms.Form):
 
 
 class SignUpCompanyForm(forms.Form):
-    username = forms.CharField(max_length=100)
-    password = forms.CharField(widget=forms.PasswordInput)
-    company_name = forms.CharField(max_length=100)
-    company_name_eng = forms.CharField(max_length=100)
-    company_address = forms.CharField(max_length=100)
-    company_email = forms.EmailField()
-    company_phone = forms.CharField(max_length=15)
+    company_name_eng = forms.CharField(max_length=100)  #
+    company_name_thai = forms.CharField(max_length=100)  #
+    email = forms.EmailField()  #
+    phone = forms.CharField(max_length=15)  #
+    company_des = forms.CharField()  #
+    logoc = forms.ImageField()  #
+    foundation_date = forms.DateField()  #
+    number_of_employees = forms.IntegerField()  #
+    website = forms.URLField()  #
+    email = forms.EmailField()  #
+    address = forms.CharField(max_length=255)  #
+    sub_district = forms.CharField(max_length=255)  #
+    district = forms.CharField(max_length=255)  #
+    province = forms.CharField(max_length=255)  #
+    country = forms.CharField(max_length=255)  #
+    postal_code = forms.CharField(max_length=255)  #
+    phone = forms.CharField(max_length=15)  #
+    line_id = forms.CharField(max_length=255)  #
+
+class PostJobForm(forms.Form):
+    jobname = forms.CharField(max_length=100)
+    jobdes = forms.CharField()
+    worktype = forms.CharField(max_length=100) 
+    benefit = forms.CharField(max_length=100)
+    workstart = forms.TimeField()
+    workend = forms.TimeField()
+    workday = forms.CharField(max_length=100)
+    requirement = forms.CharField(max_length=100)
+    qualifications = forms.CharField(max_length=100)
+    skills = forms.CharField(max_length=100)
