@@ -39,9 +39,9 @@
           <p>Upload your CV</p>
           <input
             name="cv"
-            type="file"
+            type="website"
             accept="image/png, image/jpeg, file"
-            placeholder="upload your profile image"
+            placeholder="CV link"
             class="input"
           />
           <p>First name <span>*</span></p>
@@ -219,18 +219,12 @@
     </div>
     <!-- student profile section ends  -->
     {% elif user.role == 'COMPANY' %}
-    <section class="navbar__links" id="navbar-links">
-      <div class="navbar__div">
-        <a href="view_student.html" class="navbar__item">Profile</a>
-        <a href="#" class="navbar__item">Company</a>
-        <a href="#" class="navbar__item">...</a>
-      </div>
-    </section>
     <!-- company profile section starts  -->
     <div class="account-form-container">
       <section class="account-form">
         <form action="" method="post">
           {% csrf_token %}
+          {{ form.errors }}
           <h3>create new profile!</h3>
           <p>Upload your company logo</p>
           <input

@@ -1,11 +1,19 @@
 from django.shortcuts import render, redirect
-from .models import CustomUser, Student, StudentProfile, Company, CompanyProfile
+from .models import (
+    CustomUser,
+    Student,
+    StudentProfile,
+    StudentInfo,
+    Company,
+    CompanyProfile,
+    CompanyInfo,
+    Job,
+)
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, SignUpStudentForm, SignUpCompanyForm
 from django.views.generic import TemplateView
-from student.models import StudentInfo
 from student.views import register
 
 
@@ -51,6 +59,7 @@ def login_view(request):
     return render(request, "usertype/login.html", {"form": form})
 
 
+@login_required
 def welcome(request, username):
     user = request.user
     role = request.user.role
@@ -108,7 +117,6 @@ def profile(request, role, username):
         },
     )
 
-
 def addinfo(request, role, username):
     user = request.user
     student = None
@@ -117,27 +125,61 @@ def addinfo(request, role, username):
         "role": role,
         "username": username,
     }
-
-    # หาก user เป็นนักเรียน
-    if user.role == CustomUser.Role.STUDENT:
-        try:
-            student = Student.objects.get(username=username)
-        except Student.DoesNotExist:
-            pass
-    # หาก user เป็นบริษัท
-    elif user.role == CustomUser.Role.COMPANY:
-        try:
-            company = Company.objects.get(username=username)
-        except Company.DoesNotExist:
-            pass
-
     if request.method == "POST":
-        form = SignUpStudentForm(request.POST, initial={"username": user.username})
+        form = SignUpStudentForm(
+            request.POST, request.FILES, initial={"username": user.username}
+        )
         if form.is_valid():
-            form.save()
+            profile_image = form.cleaned_data["profile"]
+            cv = form.cleaned_data["cv"]
+            first_name = form.cleaned_data["first_name"]
+            last_name = form.cleaned_data["last_name"]
+            nick_name = form.cleaned_data["nick_name"]
+            student_id = form.cleaned_data["student_id"]
+            email = form.cleaned_data["email"]
+            phone = form.cleaned_data["phone"]
+            gender = form.cleaned_data["gender"]
+            birthday = form.cleaned_data["birthday"]
+            last_job = form.cleaned_data["last_job"]
+            intern_company = form.cleaned_data["intern_company"]
+            interest_job = form.cleaned_data["interest_job"]
+            skill = form.cleaned_data["skill"]
+            eng_skill = form.cleaned_data["eng_skill"]
+            university = form.cleaned_data["university"]
+            faculty = form.cleaned_data["faculty"]
+            major = form.cleaned_data["major"]
+            intern_start = form.cleaned_data["internship_start"]
+            intern_end = form.cleaned_data["internship_end"]
+
+            # Create and save StudentInfo object
+            profile = StudentInfo.objects.create(
+                profile=profile_image,
+                cv=cv,
+                first_name=first_name,
+                last_name=last_name,
+                nick_name=nick_name,
+                student_id=student_id,
+                email=email,
+                phone=phone,
+                gender=gender,
+                birthday=birthday,
+                last_job=last_job,
+                intern_company=intern_company,
+                interest_job=interest_job,
+                skill=skill,
+                eng_skill=eng_skill,
+                university=university,
+                faculty=faculty,
+                major=major,
+                intern_start=intern_start,
+                intern_end=intern_end,
+            )
+            profile.save()
             return redirect("profile", username=user.username)
     else:
-        form = SignUpStudentForm(initial={"username": user.username})
+        form = SignUpCompanyForm(initial={"username": user.username})
+        form.is_valid()
+        
 
     return render(
         request,
