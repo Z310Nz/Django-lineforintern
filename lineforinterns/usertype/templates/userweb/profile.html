@@ -26,9 +26,9 @@
 
       <div class="details">
         <div class="info">
-          <img src="{{ student.studentinfo.profile }}" alt="" />
-          <h3>{{ context.username }}</h3>
-          <p>____________________</p>
+          <img src="{{ student.studentinfo.profile.url }}" alt="" />
+          <h3>{{ student.studentinfo.first_name }} {{ student.studentinfo.last_name }}</h3>
+          <p>{{ student.studentinfo.student_id }}</p>
         </div>
 
         <div class="description">
@@ -115,7 +115,7 @@
 
       <div class="details">
         <div class="info">
-          <img src="images/icon-1.png" alt="" />
+          <img src="{{ company.companyinfo.logos.url }}" alt="" />
           <h3>{{ company.companyinfo.company_name_eng }}</h3>
           <p><i class="fas fa-map-marker-alt"></i> {{ company.companyinfo.province }}, {{ company.companyinfo.country }}</p>
         </div>
@@ -188,87 +188,39 @@
     <!-- company details section ends -->
 
     <!-- jobs section starts  -->
-
+    {% endif %}
     <section class="jobs-container">
       <h1 class="heading">jobs they offer</h1>
-
       <div class="box-container">
+        {% for job in jobs %}
         <div class="box">
-          <div class="company">
-            <img src="images/icon-1.png" alt="" />
-            <div>
-              <h3>IT infosys co.</h3>
-              <p>2 days ago</p>
+            <div class="company">
+                {% comment %} <img src="{{ job.company.companyinfo.logoc.url }}" alt="" /> {% endcomment %}
+                <div>
+                    <h3>{{ job.company }}</h3>
+                    <p></p>
+                </div>
             </div>
-          </div>
-          <h3 class="job-title">senior web developer</h3>
-          <p class="location">
-            <i class="fas fa-map-marker-alt"></i> <span>mumbai, india</span>
-          </p>
-          <div class="tags">
-            <p>
-              <i class="fas fa-indian-rupee-sign"></i> <span>10k - 25k</span>
+            <h3 class="job-title">{{ job.jobname }}</h3>
+            <p class="location">
+                <i class="fas fa-map-marker-alt"></i> <span>{{ job.city }}, {{job.country }}</span>
             </p>
-            <p><i class="fas fa-briefcase"></i> <span>internship</span></p>
-            <p><i class="fas fa-clock"></i> <span>5 days per week</span></p>
-          </div>
-          <div class="flex-btn">
-            <a href="view_job.html" class="btn">view details</a>
-            <button type="submit" class="far fa-heart" name="save"></button>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="company">
-            <img src="images/icon-2.png" alt="" />
-            <div>
-              <h3>IT infosys co.</h3>
-              <p>2 days ago</p>
+            <div class="tags">
+                <p>
+                    <i class="fas fa-indian-rupee-sign"></i> <span>{{ job.benefit }}</span>
+                </p>
+                <p><i class="fas fa-briefcase"></i> <span>{{ job.worktype }}</span></p>
+                <p><i class="fas fa-clock"></i> <span>{{ job.workday }}</span></p>
             </div>
-          </div>
-          <h3 class="job-title">qualified developer</h3>
-          <p class="location">
-            <i class="fas fa-map-marker-alt"></i> <span>mumbai, india</span>
-          </p>
-          <div class="tags">
-            <p><i class="fas fa-indian-rupee-sign"></i> <span>9000</span></p>
-            <p><i class="fas fa-briefcase"></i> <span>internship</span></p>
-            <p><i class="fas fa-clock"></i> <span>5 days per week</span></p>
-          </div>
-          <div class="flex-btn">
-            <a href="view_job.html" class="btn">view details</a>
-            <button class="far fa-heart"></button>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="company">
-            <img src="images/icon-3.png" alt="" />
-            <div>
-              <h3>IT infosys co.</h3>
-              <p>posted today</p>
+            <div class="flex-btn">
+                {% comment %} <a href="{% url 'view_job' job.id %}" class="btn">view details</a> {% endcomment %}
+                <a href="{% url 'view_job' job.id %}" class="btn">Views</a>
+                <button type="submit" class="far fa-heart" name="save"></button>
             </div>
-          </div>
-          <h3 class="job-title">javascript developer</h3>
-          <p class="location">
-            <i class="fas fa-map-marker-alt"></i> <span>mumbai, india</span>
-          </p>
-          <div class="tags">
-            <p>
-              <i class="fas fa-indian-rupee-sign"></i> <span>10k - 25k</span>
-            </p>
-            <p><i class="fas fa-briefcase"></i> <span>intership</span></p>
-            <p><i class="fas fa-clock"></i> <span>5 days per week</span></p>
-          </div>
-          <div class="flex-btn">
-            <a href="view_job.html" class="btn">view details</a>
-            <button class="far fa-heart"></button>
-          </div>
         </div>
-        </form>
+      {% endfor %}
       </div>
     </section>
-    {% endif %}
 
     <!-- jobs section ends -->
     <section></section>

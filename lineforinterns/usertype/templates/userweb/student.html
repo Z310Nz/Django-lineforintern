@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
+  </head>
+  <body>
+    <!-- header section starts  -->
+    {% csrf_token %} 
+    <!-- Navbarmain -->
+    {% include "navbarmain.html" %}
+    <!-- Navbarmain --> 
+   
+    <!-- Navbarprofile  -->
+    {% include  'navbarprofile.html'%}
+    <!-- Navbarprofile  -->
+    <section class="jobs-container">
+        <h1 class="heading">Student</h1>
+        <div class="box-container">
+          {% for student in students %}
+          <div class="box">
+            <div class="company">
+              <div>
+                <h3>{{ student.nick_name }}</h3>
+                <p></p>
+              </div>
+            </div>
+            <h3 class="job-title">{{ student.first_name }} {{ student.last_name }}</h3>
+            <p class="location">
+              <i class="fas fa-map-marker-alt"></i> <span>{{ student.interest_job }}, {{ student.skill }}</span>
+            </p>
+            <div class="tags">
+              <p>
+                <i class="fas fa-indian-rupee-sign"></i> <span>{{ student.email }}</span>
+              </p>
+              <p><i class="fas fa-briefcase"></i> <span>{{ student.university }}</span></p>
+              <p><i class="fas fa-clock"></i> <span>{{ student.birthday }}</span></p>
+            </div>
+            <div class="flex-btn">
+              <a href="{% url 'viewstudent' %}" class="btn">Views</a>
+              <button type="submit" class="far fa-heart" name="save"></button>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+    <!-- jobs section ends -->
+    <section></section>
+    <!-- custom js file link  -->
+    <script src="{% static "js/script.js" %}"></script>
+  </body>
+</html>

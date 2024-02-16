@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
+  </head>
+  <body>
+    <!-- header section starts  -->
+    {% csrf_token %} 
+    <!-- Navbarmain -->
+    {% include "navbarmain.html" %}
+    <!-- Navbarmain --> 
+   
+    <!-- Navbarprofile  -->
+    {% include  'navbarprofile.html'%}
+    <!-- Navbarprofile  -->
+    <section class="jobs-container">
+      <h1 class="heading">Position</h1>
+      <div class="box-container">
+        {% for job in jobs %}
+        <div class="box">
+            <div class="company">
+                {% comment %} <img src="{{ job.company.companyinfo.logoc.url }}" alt="" /> {% endcomment %}
+                <div>
+                    <h3>{{ job.company }}</h3>
+                    <p></p>
+                </div>
+            </div>
+            <h3 class="job-title">{{ job.jobname }}</h3>
+            <p class="location">
+                <i class="fas fa-map-marker-alt"></i> <span>{{ job.city }}, {{job.country }}</span>
+            </p>
+            <div class="tags">
+                <p>
+                    <i class="fas fa-indian-rupee-sign"></i> <span>{{ job.benefit }}</span>
+                </p>
+                <p><i class="fas fa-briefcase"></i> <span>{{ job.worktype }}</span></p>
+                <p><i class="fas fa-clock"></i> <span>{{ job.workday }}</span></p>
+            </div>
+            <div class="flex-btn">
+                {% comment %} <a href="{% url 'view_job' job.id %}" class="btn">view details</a> {% endcomment %}
+                <a href="{% url 'view_job' job.id %}" class="btn">Views</a>
+                <button type="submit" class="far fa-heart" name="save"></button>
+            </div>
+        </div>
+      {% endfor %}
+      </div>
+    </section>
+
+    <!-- jobs section ends -->
+    <section></section>
+    <!-- custom js file link  -->
+    <script src="{% static "js/script.js" %}"></script>
+  </body>
+</html>

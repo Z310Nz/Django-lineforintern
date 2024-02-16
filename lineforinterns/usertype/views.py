@@ -8,11 +8,12 @@ from .models import (
     CompanyProfile,
     CompanyInfo,
     Job,
+    Interview,
 )
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm, SignUpStudentForm, SignUpCompanyForm, PostJobForm
+from .forms import LoginForm, SignUpStudentForm, SignUpCompanyForm, PostJobForm, InterviewForm
 from django.views.generic import TemplateView
 from student.views import register
 from django.shortcuts import get_object_or_404
@@ -28,7 +29,8 @@ def company_profile(request, company_name_eng):
 
 
 def home_view(request):
-    return render(request, "usertype/home.html")
+    jobs = Job.objects.all()
+    return render(request, "usertype/home.html", {"jobs": jobs})
 
 
 def login_view(request):
@@ -43,7 +45,7 @@ def login_view(request):
                 if user.role == CustomUser.Role.STUDENT:
                     return redirect(
                         "profile", username=username, role=user.role
-                    )  # แก้ไขที่นี่
+                    )
                 elif user.role == CustomUser.Role.COMPANY:
                     return redirect("profile", username=username, role=user.role)
             else:
@@ -80,24 +82,28 @@ def profile(request, role, username):
     user = request.user
     student = None
     company = None
+    jobs = None  # Initialize jobs to None
+
     context = {
         "role": role,
         "username": username,
     }
 
-    # หาก user เป็นนักเรียน
     if user.role == CustomUser.Role.STUDENT:
         try:
-            student = StudentProfile.objects.get(user__username=username)  # แก้ไขตรงนี้
+            student = StudentProfile.objects.get(user__username=username)
+            # Retrieve all jobs available
+            jobs = Job.objects.all()
         except StudentProfile.DoesNotExist:
             pass
-    # หาก user เป็นบริษัท
     elif user.role == CustomUser.Role.COMPANY:
         try:
-            company = CompanyProfile.objects.get(user__username=username)  # แก้ไขตรงนี้
+            company = CompanyProfile.objects.get(user__username=username)
+            # Retrieve jobs related to the company
+            jobs = Job.objects.all()
         except CompanyProfile.DoesNotExist:
             pass
-
+        
     if request.method == "POST":
         form = SignUpStudentForm(request.POST, initial={"username": user.username})
         if form.is_valid():
@@ -113,10 +119,12 @@ def profile(request, role, username):
             "form": form,
             "student": student,
             "company": company,
+            "jobs": jobs,  # Pass jobs to the template
             "user": user,
             "context": context,
         },
     )
+
 
 def addinfo(request, role, username):
     user = request.user
@@ -185,7 +193,6 @@ def addinfo(request, role, username):
     elif user.role == "COMPANY":
         form = SignUpCompanyForm(request.POST or None, request.FILES or None, initial={"username": user.username})
         if request.method == "POST" and form.is_valid():
-            print("1")
             company_logo = form.cleaned_data["logoc"]
             company_eng = form.cleaned_data["company_name_eng"]
             company_thai = form.cleaned_data["company_name_thai"]
@@ -201,7 +208,6 @@ def addinfo(request, role, username):
             province = form.cleaned_data["province"]
             postal_code = form.cleaned_data["postal_code"]
             line_id = form.cleaned_data["line_id"]
-            print("2")
             profilec = CompanyInfo.objects.create(
                 logoc=company_logo,
                 company_name_eng=company_eng,
@@ -216,16 +222,14 @@ def addinfo(request, role, username):
                 province=province,
                 postal_code=postal_code,
                 line_id=line_id,
-                sub_sub_district=sub_dis,
+                sub_district=sub_dis,
                 district=district,
             )
-            print("3")
             profilec.save()
             company = CompanyProfile()
             company.user = request.user
             company.companyinfo = profilec
             company.save()
-            print(profilec)
             return redirect("profile", username=user.username, role=user.role)
 
     return render(
@@ -260,6 +264,9 @@ def postjob(request, role, username):
         require = form.cleaned_data["requirement"]
         qualifi = form.cleaned_data["qualifications"]
         skill = form.cleaned_data["skills"]
+        com = form.cleaned_data["company"]
+        cit = form.cleaned_data["city"]
+        cou = form.cleaned_data["country"]
 
         job = Job.objects.create(
             jobname=job_name,
@@ -272,13 +279,17 @@ def postjob(request, role, username):
             requirement=require,
             qualifications=qualifi,
             skills=skill,
+            company=com,
+            city=cit,
+            country=cou,
+            
         )
         job.save()
-        company_profile = get_object_or_404(CompanyProfile, user=user)  # ดึงข้อมูลโปรไฟล์บริษัทของผู้ใช้ที่เข้าสู่ระบบ
-        company_info = company_profile.companyinfo  # ดึงข้อมูล CompanyInfo ของบริษัท
-        company_info.jobs.add(job)  # เพิ่ม job ใหม่ในบริษัท
+        company_profile = get_object_or_404(CompanyProfile, user=user)  
+        company_info = company_profile.companyinfo  
+        company_info.jobs.add(job) 
 
-        return redirect("profile", username=user.username, role=user.role)
+        return redirect("position", username=user.username, role=user.role)
         
     
     return render(
@@ -292,22 +303,60 @@ def postjob(request, role, username):
             "context": context,
         },
     )
+
+def viewjob(request , job_id):
+    job = Job.objects.get(id=job_id)
+    return render(request, "userweb/view_job.html", {"job": job})
+
+def viewselectcompany(request , role, username):
+    jobs = Job.objects.all()
+    return render(request, "userweb/companyselect.html", {"jobs": jobs})
+
+def positionview(request , role, username):
+    jobs = Job.objects.all()
+    return render(request, "userweb/position.html", {"jobs": jobs})
+
+def studentview(request , role, username):
+    student = StudentInfo.objects.all()
+    return render(request, "userweb/student.html", {"students": student})
+
+def view_student(request):
+    return render(request, "userweb/view_student.html")
+
+def interview(request, role, username):
+    user = request.user
+    student = None
+    company = None
+    context = {
+        "role": role,
+        "username": username,
+    }
+    form = InterviewForm(request.POST or None, request.FILES or None, initial={"username": user.username})
+    if request.method == "POST" and form.is_valid():
+        date = form.cleaned_data['date']
+        time = form.cleaned_data['time']
+        location = form.cleaned_data['location']
+        link = form.cleaned_data['link']
+
+        inter = Interview.objects.create(
+            date=date,
+            time=time,
+            location=location,
+            link=link
+            
+        )
+        inter.save()
+        return redirect("studentview", username=user.username, role=user.role)
         
-
-    #         student = StudentProfile()
-    #         student.user = request.user
-    #         student.studentinfo = profile
-    #         student.save()
-
-    #         return redirect("profile", username=user.username, role=user.role)
-    # return render(
-    #     request,
-    #     "userweb/addinfo.html",
-    #     {
-    #         "form": form,
-    #         "student": student,
-    #         "company": company,
-    #         "user": user,
-    #         "context": context,
-    #     },
-    # )
+    
+    return render(
+        request,
+        "userweb/interviewform.html",
+        {
+            "form": form,
+            "student": student,
+            "company": company,
+            "user": user,
+            "context": context,
+        },
+    )

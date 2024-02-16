@@ -72,3 +72,12 @@ class PostJobForm(forms.Form):
     requirement = forms.CharField(max_length=100)
     qualifications = forms.CharField(max_length=100)
     skills = forms.CharField(max_length=100)
+    company = forms.CharField(max_length=100)
+    city = forms.CharField(max_length=100)
+    country = forms.CharField(max_length=100)
+
+class InterviewForm(forms.Form):
+    date = forms.DateField()
+    time = forms.TimeField()
+    location = forms.CharField(max_length=100)
+    link = forms.URLField()

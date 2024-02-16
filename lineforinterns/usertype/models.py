@@ -167,6 +167,9 @@ class Job(models.Model):
     requirement = models.CharField(max_length=255)
     qualifications = models.CharField(max_length=255)
     skills = models.CharField(max_length=255)
+    company = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    country = models.CharField(max_length=255)
 
     def __str__(self):
         return (
@@ -191,12 +194,18 @@ class Job(models.Model):
             + self.qualifications
             + " "
             + self.skills
+            + " "
+            + self.company
+            + " "
+            + self.city
+            + " "
+            + self.country
         )
 class CompanyInfo(models.Model):
     company_name_eng = models.CharField(max_length=100, unique=True, primary_key=True)
     company_name_thai = models.CharField(max_length=100)
     company_des = models.CharField(max_length=255)
-    logoc = models.ImageField(upload_to="logos/", null=True, blank=True)
+    logoc = models.ImageField(upload_to="profile/", null=True, blank=True)
     foundation_date = models.DateField()
     number_of_employees = models.IntegerField()
     website = models.URLField()
@@ -245,6 +254,32 @@ class CompanyInfo(models.Model):
             +""
             +self.phone
             +""
+        )
+    
+class Interview(models.Model):
+    # company = models.ForeignKey(CompanyInfo, on_delete=models.CASCADE)
+    # student = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
+    date = models.DateField()
+    time = models.TimeField()
+    location = models.CharField(max_length=255)
+    link = models.URLField()
+    # status = models.CharField(max_length=255)
+
+    def __str__(self):
+        return (
+            self.company
+            + " "
+            + self.student
+            + " "
+            + str(self.date)
+            + " "
+            + str(self.time)
+            + " "
+            + self.location
+            + " "
+            + self.status
+            + " "
+            + self.link
         )
 
 class CompanyProfile(models.Model):

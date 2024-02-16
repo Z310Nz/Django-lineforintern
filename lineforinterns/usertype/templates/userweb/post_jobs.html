@@ -121,6 +121,35 @@
             maxlength="50"
             class="input"
           />
+
+          <h3>Location</h3>
+          <p>Company <span>*</span></p>
+          <input
+            name="company"
+            type="text"
+            placeholder="enter skills required"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>City <span>*</span></p>
+          <input
+            name="city"
+            type="text"
+            placeholder="enter skills required"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>Country <span>*</span></p>
+          <input
+            name="country"
+            type="text"
+            placeholder="enter skills required"
+            required
+            maxlength="50"
+            class="input"
+          />
           <input type="submit" value="create job" name="submit" class="btn" />
         </form>
       </section>
@@ -129,6 +158,11 @@
     <!-- account section ends -->
     <section></section>
     <!-- custom js file link  -->
+    <script>
+      document.getElementById("company-name").value = "{{ company.companyinfo.company_name_eng }}";
+      document.getElementById("company-city").value = "{{ company.companyinfo.Province}}";
+      document.getElementById("company-coun").value = "{{ company.companyinfo.country}}";
+    </script>
     <script src="{% static "js/script.js" %}"></script>
   </body>
 </html>

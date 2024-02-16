@@ -12,19 +12,10 @@
   </head>
   <body>
     <!-- header section starts  -->
+    {% csrf_token %}
+    <!-- Navbarmain -->
     {% include "navbarmain.html" %}
-
-    <!-- header section ends -->
-
-    <!-- Navbar  -->
-    <section class="navbar__links" id="navbar-links">
-      <div class="navbar__div">
-        <a href="view_student.html" class="navbar__item">Profile</a>
-        <a href="#" class="navbar__item">Company</a>
-        <a href="#" class="navbar__item">...</a>
-      </div>
-    </section>
-    <!-- Navbar  -->
+    <!-- Navbarmain -->
 
     <!-- view job section starts  -->
 
@@ -33,61 +24,55 @@
 
       <div class="details">
         <div class="job-info">
-          <h3>senior web designer</h3>
-          <a href="view_company.html">IT infosys co.</a>
-          <p><i class="fas fa-map-marker-alt"></i> mumbai, india</p>
+          <h3>{{ job.jobname }}</h3>
+          <a href="view_company.html">{{ job.company }}</a>
+          <p><i class="fas fa-map-marker-alt"></i> {{ job.city }}, {{job.country }}</p>
         </div>
         <div class="basic-details">
-          <h3>salary</h3>
-          <p>10000 - 25000 per month</p>
           <h3>benefits</h3>
-          <p>work from home, health insurance</p>
+          <p>{{ job.benefit }}</p>
           <h3>job type</h3>
-          <p>internship</p>
+          <p>{{ job.worktype }}</p>
           <h3>Work day</h3>
-          <p>5 days per week</p>
+          <p>{{ job.workday }}</p>
         </div>
         <ul>
           <h3>requirements</h3>
-          <li>language : <span>english</span></li>
+          <li>{{ job.requirement }}</li>
         </ul>
         <ul>
           <h3>qualifications</h3>
-          <li>-</li>
+          <li>{{ job.qualifications }}</li>
         </ul>
         <ul>
           <h3>skills</h3>
-          <li>html5 and css3</li>
-          <li>javascript</li>
-          <li>node.js</li>
-          <li>react.js</li>
-          <li>php</li>
-          <li>mysql</li>
+          <li>{{ job.skills }}</li>
         </ul>
         <div class="description">
           <h3>job description</h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-            voluptas architecto vel atque dolores deserunt explicabo dolorum.
-            Mollitia, qui delectus.
+            {{ job.jobdes }}
           </p>
           <ul>
-            <li>Hiring 2 candidate for this role</li>
-            <li>posted 2 days ago</li>
+            {% comment %} <li>Hiring 2 candidate for this role</li>
+            <li>posted 2 days ago</li> {% endcomment %}
           </ul>
         </div>
+        {% if user.role == 'STUDENT' %}
         <form action="" method="post" class="flex-btn">
+          {% csrf_token %}
           <input type="submit" value="apply now" name="apply" class="btn" />
           <button type="submit" class="save">
             <i class="far fa-heart"></i> <span>save job</span>
           </button>
         </form>
+        {% endif %}
       </div>
     </section>
 
     <!-- view job section ends -->
     <section></section>
     <!-- custom js file link  -->
-    <script src="js/script.js"></script>
+    <script src="{% static "js/script.js" %}"></script>
   </body>
 </html>

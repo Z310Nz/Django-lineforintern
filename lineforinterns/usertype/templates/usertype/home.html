@@ -51,149 +51,37 @@
     <!-- jobs section starts  -->
 
     <section class="jobs-container">
-      <h1 class="heading">latest jobs</h1>
-
+      <h1 class="heading">jobs they offer</h1>
       <div class="box-container">
+        {% for job in jobs %}
         <div class="box">
-          <div class="company">
-            <div>
-              <h3>IT infosys co.</h3>
-              <p>2 days ago</p>
+            <div class="company">
+                {% comment %} <img src="{{ job.company.companyinfo.logoc.url }}" alt="" /> {% endcomment %}
+                <div>
+                    <h3>{{ job.company }}</h3>
+                    <p></p>
+                </div>
             </div>
-          </div>
-          <h3 class="job-title">senior web developer</h3>
-          <p class="location">
-            <i class="fas fa-map-marker-alt"></i> <span>mumbai, india</span>
-          </p>
-          <div class="tags">
-            <p>
-              <i class="fas fa-indian-rupee-sign"></i> <span>10k - 25k</span>
+            <h3 class="job-title">{{ job.jobname }}</h3>
+            <p class="location">
+                <i class="fas fa-map-marker-alt"></i> <span>{{ job.city }}, {{job.country }}</span>
             </p>
-            <p><i class="fas fa-briefcase"></i> <span>part-time</span></p>
-            <p><i class="fas fa-clock"></i> <span>day shift</span></p>
-          </div>
-          <div class="flex-btn">
-            <a href="view_job.html" class="btn">view details</a>
-            <button type="submit" class="far fa-heart" name="save"></button>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="company">
-            <div>
-              <h3>all media ltd</h3>
-              <p>2 days ago</p>
+            <div class="tags">
+                <p>
+                    <i class="fas fa-indian-rupee-sign"></i> <span>{{ job.benefit }}</span>
+                </p>
+                <p><i class="fas fa-briefcase"></i> <span>{{ job.worktype }}</span></p>
+                <p><i class="fas fa-clock"></i> <span>{{ job.workday }}</span></p>
             </div>
-          </div>
-          <h3 class="job-title">qualified developer</h3>
-          <p class="location">
-            <i class="fas fa-map-marker-alt"></i> <span>mumbai, india</span>
-          </p>
-          <div class="tags">
-            <p><i class="fas fa-indian-rupee-sign"></i> <span>9000</span></p>
-            <p><i class="fas fa-briefcase"></i> <span>full-time</span></p>
-            <p><i class="fas fa-clock"></i> <span>flexible shifts</span></p>
-          </div>
-          <div class="flex-btn">
-            <a href="view_job.html" class="btn">view details</a>
-            <button class="far fa-heart"></button>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="company">
-            <div>
-              <h3>software solutions</h3>
-              <p>posted today</p>
+            <div class="flex-btn">
+                {% comment %} <a href="{% url 'view_job' job.id %}" class="btn">view details</a> {% endcomment %}
+                <a href="{% url 'view_job' job.id %}" class="btn">Views</a>
+                <button type="submit" class="far fa-heart" name="save"></button>
             </div>
-          </div>
-          <h3 class="job-title">javascript developer</h3>
-          <p class="location">
-            <i class="fas fa-map-marker-alt"></i> <span>mumbai, india</span>
-          </p>
-          <div class="tags">
-            <p>
-              <i class="fas fa-indian-rupee-sign"></i> <span>10k - 25k</span>
-            </p>
-            <p><i class="fas fa-briefcase"></i> <span>intership</span></p>
-            <p><i class="fas fa-clock"></i> <span>night shift</span></p>
-          </div>
-          <div class="flex-btn">
-            <a href="view_job.html" class="btn">view details</a>
-            <button class="far fa-heart"></button>
-          </div>
         </div>
-
-        <div class="box">
-          <div class="company">
-            <div>
-              <h3>IT world</h3>
-              <p>19 days ago</p>
-            </div>
-          </div>
-          <h3 class="job-title">junior front-end</h3>
-          <p class="location">
-            <i class="fas fa-map-marker-alt"></i> <span>mumbai, india</span>
-          </p>
-          <div class="tags">
-            <p>
-              <i class="fas fa-indian-rupee-sign"></i> <span>20k - 50k</span>
-            </p>
-            <p><i class="fas fa-briefcase"></i> <span>contract</span></p>
-            <p><i class="fas fa-clock"></i> <span>fixed shift</span></p>
-          </div>
-          <div class="flex-btn">
-            <a href="view_job.html" class="btn">view details</a>
-            <button class="far fa-heart"></button>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="company">
-            <div>
-              <h3>info statics</h3>
-              <p>2 days ago</p>
-            </div>
-          </div>
-          <h3 class="job-title">junior assistant</h3>
-          <p class="location">
-            <i class="fas fa-map-marker-alt"></i> <span>mumbai, india</span>
-          </p>
-          <div class="tags">
-            <p><i class="fas fa-indian-rupee-sign"></i> <span>5000</span></p>
-            <p><i class="fas fa-briefcase"></i> <span>temperary</span></p>
-            <p><i class="fas fa-clock"></i> <span>flexible shifts</span></p>
-          </div>
-          <div class="flex-btn">
-            <a href="view_job.html" class="btn">view details</a>
-            <button class="far fa-heart"></button>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="company">
-            <div>
-              <h3>mass idea</h3>
-              <p>2 days ago</p>
-            </div>
-          </div>
-          <h3 class="job-title">PHP developer</h3>
-          <p class="location">
-            <i class="fas fa-map-marker-alt"></i> <span>mumbai, india</span>
-          </p>
-          <div class="tags">
-            <p>
-              <i class="fas fa-indian-rupee-sign"></i> <span>30k - 1 lakh</span>
-            </p>
-            <p><i class="fas fa-briefcase"></i> <span>fresher</span></p>
-            <p><i class="fas fa-clock"></i> <span>fixhed shift</span></p>
-          </div>
-          <div class="flex-btn">
-            <a href="view_job.html" class="btn">view details</a>
-            <button class="far fa-heart"></button>
-          </div>
-        </div>
+      {% endfor %}
       </div>
+
 
       <div style="text-align: center; margin-top: 2rem">
         <a href="jobs.html" class="btn">view all</a>
