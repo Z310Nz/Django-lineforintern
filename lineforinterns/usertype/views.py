@@ -243,6 +243,135 @@ def addinfo(request, role, username):
             "context": context,
         },
     )
+@login_required
+def editinfo(request, role, username):
+    user = request.user
+    student = None
+    company = None
+    context = {
+        "role": role,
+        "username": username,
+    }
+    
+    if user.role == "STUDENT":
+        form = _get_student_form(request, user)
+        student = _save_student_info(request, form, user)
+
+    elif user.role == "COMPANY":
+        form = _get_company_form(request, user)
+        company = _save_company_info(request, form, user)
+
+    return render(
+        request,
+        "userweb/addinfo.html",
+        {
+            "form": form,
+            "student": student,
+            "company": company,
+            "user": user,
+            "context": context,
+        },
+    )
+
+
+def _get_student_form(request, user):
+    try:
+        student = StudentProfile.objects.get(user=user)
+        student_info = student.studentinfo
+        return SignUpStudentForm(request.POST or None, request.FILES or None, instance=student_info)
+    except StudentProfile.DoesNotExist:
+        return SignUpStudentForm(request.POST or None, request.FILES or None, initial={"username": user.username})
+
+
+def _save_student_info(request, form, user):
+    if request.method == "POST" and form.is_valid():
+        profile_image = form.cleaned_data["profile"]
+        cv = form.cleaned_data["cv"]
+        first_name = form.cleaned_data["first_name"]
+        last_name = form.cleaned_data["last_name"]
+        nick_name = form.cleaned_data["nick_name"]
+        student_id = form.cleaned_data["student_id"]
+        email = form.cleaned_data["email"]
+        phone = form.cleaned_data["phone"]
+        gender = form.cleaned_data["gender"]
+        birthday = form.cleaned_data["birthday"]
+        last_job = form.cleaned_data["last_job"]
+        intern_company = form.cleaned_data["intern_company"]
+        interest_job = form.cleaned_data["interest_job"]
+        skill = form.cleaned_data["skill"]
+        eng_skill = form.cleaned_data["eng_skill"]
+        university = form.cleaned_data["university"]
+        faculty = form.cleaned_data["faculty"]
+        major = form.cleaned_data["major"]
+        intern_start = form.cleaned_data["intern_start"]
+        intern_end = form.cleaned_data["intern_end"]
+
+        # Save or update student info
+        if hasattr(user, 'studentprofile'):
+            student = user.studentprofile
+            student_info = student.studentinfo
+        else:
+            student = StudentProfile(user=user)
+            student.save()
+            student_info = StudentInfo()
+
+        student_info.profile = profile_image
+        student_info.cv = cv
+        # Set other fields
+        student_info.save()
+
+        student.studentinfo = student_info
+        student.save()
+
+        return student
+
+
+def _get_company_form(request, user):
+    try:
+        company = CompanyProfile.objects.get(user=user)
+        company_info = company.companyinfo
+        return SignUpCompanyForm(request.POST or None, request.FILES or None, instance=company_info)
+    except CompanyProfile.DoesNotExist:
+        return SignUpCompanyForm(request.POST or None, request.FILES or None, initial={"username": user.username})
+
+
+def _save_company_info(request, form, user):
+    if request.method == "POST" and form.is_valid():
+        company_logo = form.cleaned_data["logoc"]
+        company_eng = form.cleaned_data["company_name_eng"]
+        company_thai = form.cleaned_data["company_name_thai"]
+        company_info = form.cleaned_data["company_des"]
+        foundation = form.cleaned_data["foundation_date"]
+        employees = form.cleaned_data["number_of_employees"]
+        websitec = form.cleaned_data["website"]
+        emailc = form.cleaned_data["email"]
+        address = form.cleaned_data["address"]
+        sub_dis = form.cleaned_data["sub_district"]
+        district = form.cleaned_data["district"]
+        country = form.cleaned_data["country"]
+        province = form.cleaned_data["province"]
+        postal_code = form.cleaned_data["postal_code"]
+        line_id = form.cleaned_data["line_id"]
+
+        # Save or update company info
+        if hasattr(user, 'companyprofile'):
+            company = user.companyprofile
+            company_info = company.companyinfo
+        else:
+            company = CompanyProfile(user=user)
+            company.save()
+            company_info = CompanyInfo()
+
+        company_info.logoc = company_logo
+        company_info.company_name_eng = company_eng
+        # Set other fields
+        company_info.save()
+
+        company.companyinfo = company_info
+        company.save()
+
+        return company
+
 
 @login_required
 def postjob(request, role, username):

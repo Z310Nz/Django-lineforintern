@@ -14,6 +14,7 @@ urlpatterns = [
     path("error/", error_view, name="error_page"),
     path("profile/<str:role>/<str:username>/", views.profile, name="profile"),
     path("addinfo/<str:role>/<str:username>/", views.addinfo, name="addinfo"),
+    path("editinfo/<str:role>/<str:username>/", views.editinfo, name="editinfo"),
     path('viewjob/<str:job_id>/', views.viewjob, name='view_job'),
     path("addjob/<str:role>/<str:username>/", views.postjob, name="postjob"),
     path("companyselect/<str:role>/<str:username>/", views.viewselectcompany, name="companyselect"),

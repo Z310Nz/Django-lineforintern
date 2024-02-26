@@ -27,7 +27,7 @@
       <section class="account-form">
         <form action="" method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          <h3>Edit Your Profile</h3>
+          <h3>Add Your Profile</h3>
           <p>Upload your profile image</p>
           <input
             name="profile"
@@ -212,7 +212,7 @@
             maxlength="50"
             class="input"
           />
-          <input type="submit" value="Edit" name="submit" class="btn" />
+          <input type="submit" value="SAVE" name="submit" class="btn" />
         </form>
       </section>
       <script src="{% static "js/script.js" %}"></script>
@@ -370,7 +370,7 @@
             maxlength="6"
             class="input"
           />
-          <input type="submit" value="Edit" name="submit" class="btn" />
+          <input type="submit" value="SAVE" name="submit" class="btn" />
         </form>
       </section>
     </div>
