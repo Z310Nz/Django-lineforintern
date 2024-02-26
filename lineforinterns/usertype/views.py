@@ -72,12 +72,12 @@ def welcome(request, username):
         {"username": username, "user": user, "role": role},
     )
 
-
+@login_required
 def logout_view(request):
     logout(request)
     return redirect("home")
 
-
+@login_required
 def profile(request, role, username):
     user = request.user
     student = None
@@ -125,7 +125,7 @@ def profile(request, role, username):
         },
     )
 
-
+@login_required
 def addinfo(request, role, username):
     user = request.user
     student = None
@@ -244,6 +244,7 @@ def addinfo(request, role, username):
         },
     )
 
+@login_required
 def postjob(request, role, username):
     user = request.user
     student = None
@@ -304,6 +305,7 @@ def postjob(request, role, username):
         },
     )
 
+@login_required
 def viewjob(request , job_id):
     job = Job.objects.get(id=job_id)
     return render(request, "userweb/view_job.html", {"job": job})

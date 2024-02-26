@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 AUTH_USER_MODEL = "usertype.CustomUser"
+LOGIN_REDIRECT_URL = "/"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -70,7 +71,7 @@ ROOT_URLCONF = "lineforinterns.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR/'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -122,6 +123,18 @@ AUTHENTICATION_BACKENDS = (
 )
 
 MULTIPLE_AUTH = {"auth_fields": ["username", "email"]}
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
