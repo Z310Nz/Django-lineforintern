@@ -1,6 +1,6 @@
 # forms.py
 from django import forms
-from .models import CustomUser
+from .models import CustomUser, StudentInfo, CompanyInfo, Job, Interview
 
 
 class LoginForm(forms.Form):
@@ -81,3 +81,22 @@ class InterviewForm(forms.Form):
     time = forms.TimeField()
     location = forms.CharField(max_length=100)
     link = forms.URLField()
+
+class EditStudentForm(forms.ModelForm):
+    class Meta:
+        model = StudentInfo
+        fields = ['profile', 'cv', 'first_name', 'last_name', 'nick_name', 'student_id', 'email', 'phone', 'gender', 'birthday', 'last_job', 'intern_company', 'interest_job', 'skill', 'eng_skill', 'university', 'faculty', 'major', 'intern_start', 'intern_end']
+
+    def __init__(self, *args, **kwargs):
+        super(EditStudentForm, self).__init__(*args, **kwargs)
+        self.fields['profile'].required = False
+        self.fields['cv'].required = False
+
+class EditCompanyForm(forms.ModelForm):
+    class Meta:
+        model = CompanyInfo
+        fields = ['company_name_eng', 'company_name_thai', 'email', 'phone', 'company_des', 'logoc', 'foundation_date', 'number_of_employees', 'website', 'address', 'sub_district', 'district', 'province', 'country', 'postal_code', 'phone', 'line_id']
+
+    def __init__(self, *args, **kwargs):
+        super(EditCompanyForm, self).__init__(*args, **kwargs)
+        self.fields['logoc'].required = False
