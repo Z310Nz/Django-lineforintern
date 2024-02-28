@@ -223,8 +223,6 @@ class CompanyInfo(models.Model):
     postal_code = models.CharField(max_length=255)
     phone = models.CharField(max_length=15)
     line_id = models.CharField(max_length=255, blank=True)
-    jobs = models.ManyToManyField(Job, related_name='companies')
-
     def __str__(self):
         return (
             self.company_name_eng
@@ -301,5 +299,6 @@ class CompanyProfile(models.Model):
     companyinfo = models.ForeignKey(
         CompanyInfo, on_delete=models.CASCADE, null=True, blank=True
     )
+    job = models.ManyToManyField(Job, related_name="companies")
     interview = models.ManyToManyField(Interview, related_name="companies")
     student = models.ManyToManyField(StudentInfo, related_name="companies")

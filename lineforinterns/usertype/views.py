@@ -17,6 +17,7 @@ from .forms import LoginForm, SignUpStudentForm, SignUpCompanyForm, PostJobForm,
 from django.views.generic import TemplateView
 from student.views import register
 from django.shortcuts import get_object_or_404
+from itertools import groupby
 
 
 def error_view(request):
@@ -336,8 +337,7 @@ def postjob(request, role, username):
         },
     )
 
-@login_required
-def viewjob(request , job_id):
+def viewjob(request, job_id):
     job = Job.objects.get(id=job_id)
     return render(request, "userweb/view_job.html", {"job": job})
 
@@ -345,16 +345,18 @@ def viewselectcompany(request , role, username):
     jobs = Job.objects.all()
     return render(request, "userweb/companyselect.html", {"jobs": jobs})
 
-def positionview(request , role, username):
-    jobs = Job.objects.all()
+def positionview(request, role, username):
+    company_profile = CompanyProfile.objects.get(user__username=username)
+    jobs = company_profile.job.all()
     return render(request, "userweb/position.html", {"jobs": jobs})
 
 def studentview(request , role, username):
     student = StudentInfo.objects.all()
     return render(request, "userweb/student.html", {"students": student})
 
-def view_student(request):
-    return render(request, "userweb/view_student.html")
+def view_student(request, student_id):
+    student_id = StudentInfo.objects.get(id=student_id)
+    return render(request, "userweb/view_student.html", { "student_id": student_id})
 
 def interview(request, role, username):
     user = request.user
