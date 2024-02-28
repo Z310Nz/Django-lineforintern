@@ -17,7 +17,7 @@ class CustomUser(AbstractUser):
         STUDENT = "STUDENT", "Student"
         COMPANY = "COMPANY", "Company"
         ADMIN = "ADMIN", "Admin"
-    
+
     BASE_ROLE = Role.ADMIN
 
     role = models.CharField(max_length=50, choices=Role.choices)
@@ -34,13 +34,15 @@ class CustomUser(AbstractUser):
 
     class StatusUser(models.Model):
         STATUS_USER = {
-        "FINDING":"Finding",
-        "PENDING":"Pending",
-        "APPROVED":"Approved",
-        "REJECTED":"Rejected",
-        "INTERVIEW":"Interview",
+            "FINDING": "Finding",
+            "PENDING": "Pending",
+            "APPROVED": "Approved",
+            "REJECTED": "Rejected",
+            "INTERVIEW": "Interview",
         }
         status = models.CharField(max_length=50, choices=STATUS_USER.items())
+
+
 # Student-----------------------------------------------------------------
 class StudentManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
@@ -128,6 +130,8 @@ class StudentInfo(models.Model):
             + " "
             + self.line_id
         )
+
+
 # Student----------------------------------------------------------------
 
 
@@ -205,6 +209,8 @@ class Job(models.Model):
             + " "
             + self.country
         )
+
+
 class CompanyInfo(models.Model):
     company_name_eng = models.CharField(max_length=100, unique=True, primary_key=True)
     company_name_thai = models.CharField(max_length=100)
@@ -222,6 +228,7 @@ class CompanyInfo(models.Model):
     postal_code = models.CharField(max_length=255)
     phone = models.CharField(max_length=15)
     line_id = models.CharField(max_length=255, blank=True)
+
     def __str__(self):
         return (
             self.company_name_eng
@@ -245,19 +252,20 @@ class CompanyInfo(models.Model):
             + self.postal_code
             + " "
             + self.line_id
-            +" "
-            +self.company_des
-            +""
-            +self.logoc
-            +""
-            +self.sub_district
-            +""
-            +self.district
-            +""
-            +self.phone
-            +""
+            + " "
+            + self.company_des
+            + ""
+            + self.logoc
+            + ""
+            + self.sub_district
+            + ""
+            + self.district
+            + ""
+            + self.phone
+            + ""
         )
-    
+
+
 class Interview(models.Model):
     company = models.ForeignKey(CompanyInfo, on_delete=models.CASCADE)
     student = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
@@ -283,13 +291,17 @@ class Interview(models.Model):
             + " "
             + self.link
         )
-    
+
+
 class StudentAccpetOrNot(models.Model):
     student = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
     company = models.ForeignKey(CompanyInfo, on_delete=models.CASCADE)
-    status = models.CharField(max_length=50, choices=CustomUser.StatusUser.STATUS_USER.items())
+    status = models.CharField(
+        max_length=50, choices=CustomUser.StatusUser.STATUS_USER.items()
+    )
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     interview = models.ForeignKey(Interview, on_delete=models.CASCADE)
+
     def __str__(self):
         return (
             self.student
@@ -302,14 +314,20 @@ class StudentAccpetOrNot(models.Model):
             + " "
             + self.interview
         )
+
+
 # Company----------------------------------------------------------------
+
 
 # Matching----------------------------------------------------------------
 class StudentProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     studentinfo = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
-    status = models.CharField(max_length=50, choices=CustomUser.StatusUser.STATUS_USER.items())
+    status = models.CharField(
+        max_length=50, choices=CustomUser.StatusUser.STATUS_USER.items()
+    )
     company = models.ManyToManyField(CompanyInfo, related_name="students")
+
 
 class CompanyProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
