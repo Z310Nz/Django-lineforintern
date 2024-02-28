@@ -89,13 +89,22 @@
             <br />
           </ul>
         </div>
+        {% if student %}
         <form action="{% url 'addinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
           {% csrf_token %}
           <input type="submit" value="edit profile" class="btn" />
           <input type="hidden" name="role" value="{{ context.role }}">
           <input type="hidden" name="username" value="{{ context.username }}">
         </form>
-        
+
+        {% else %}
+        <form action="{% url 'addinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
+          {% csrf_token %}
+          <input type="submit" value="Add info" class="btn" />
+          <input type="hidden" name="role" value="{{ context.role }}">
+          <input type="hidden" name="username" value="{{ context.username }}">
+        </form>
+        {% endif %}
       </div>
     </section>
 
@@ -177,11 +186,22 @@
           <li>established at 21-05-2004</li>
           <li>253 working employess</li>
         </ul> {% endcomment %}
+        {% if company %}
         <form action="{% url 'addinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
           {% csrf_token %}
           <input type="submit" value="edit profile" class="btn" />
           <input type="hidden" name="role" value="{{ context.role }}">
           <input type="hidden" name="username" value="{{ context.username }}">
+        </form>
+
+        {% else %}
+        <form action="{% url 'addinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
+          {% csrf_token %}
+          <input type="submit" value="Add info" class="btn" />
+          <input type="hidden" name="role" value="{{ context.role }}">
+          <input type="hidden" name="username" value="{{ context.username }}">
+        </form>
+        {% endif %}
       </div>
     </section>
 
@@ -195,7 +215,6 @@
         {% for job in jobs %}
         <div class="box">
             <div class="company">
-                {% comment %} <img src="{{ job.company.companyinfo.logoc.url }}" alt="" /> {% endcomment %}
                 <div>
                     <h3>{{ job.company }}</h3>
                     <p></p>
@@ -213,7 +232,6 @@
                 <p><i class="fas fa-clock"></i> <span>{{ job.workday }}</span></p>
             </div>
             <div class="flex-btn">
-                {% comment %} <a href="{% url 'view_job' job.id %}" class="btn">view details</a> {% endcomment %}
                 <a href="{% url 'view_job' job.id %}" class="btn">Views</a>
                 <button type="submit" class="far fa-heart" name="save"></button>
             </div>

@@ -18,7 +18,6 @@
       style="margin-top: 0"
       >logout</a
     >
-
     {% elif user.role == 'COMPANY' %}
     <a
       href="{% url 'profile' role='COMPANY' username=user.username %}"

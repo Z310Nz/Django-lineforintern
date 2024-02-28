@@ -6,6 +6,10 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import uuid
 from django.contrib.auth.models import User, Group, Permission
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group
+from django.contrib.sites.models import Site
 
 
 class CustomUser(AbstractUser):
@@ -26,7 +30,15 @@ class CustomUser(AbstractUser):
                 self.is_superuser = True
         return super().save(*args, **kwargs)
 
-
+    class StatusUser(models.Model):
+        STATUS_USER = {
+        "FINDING":"Finding",
+        "PENDING":"Pending",
+        "APPROVED":"Approved",
+        "REJECTED":"Rejected",
+        "INTERVIEW":"Interview",
+        }
+        status = models.CharField(max_length=50, choices=STATUS_USER.items())
 # Student-----------------------------------------------------------------
 class StudentManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
@@ -117,13 +129,6 @@ class StudentInfo(models.Model):
             + " "
             + self.line_id
         )
-
-
-class StudentProfile(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    studentinfo = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
-
-
 # Student----------------------------------------------------------------
 
 
@@ -218,8 +223,6 @@ class CompanyInfo(models.Model):
     postal_code = models.CharField(max_length=255)
     phone = models.CharField(max_length=15)
     line_id = models.CharField(max_length=255, blank=True)
-    jobs = models.ManyToManyField(Job, related_name='companies')
-
     def __str__(self):
         return (
             self.company_name_eng
@@ -282,12 +285,20 @@ class Interview(models.Model):
             + self.link
         )
 
+# Company----------------------------------------------------------------
+
+# Matching----------------------------------------------------------------
+class StudentProfile(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    studentinfo = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
+    status = models.CharField(max_length=50, choices=CustomUser.StatusUser.STATUS_USER.items())
+    company = models.ManyToManyField(CompanyInfo, related_name="students")
+
 class CompanyProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     companyinfo = models.ForeignKey(
         CompanyInfo, on_delete=models.CASCADE, null=True, blank=True
     )
-
-
-
-# Company----------------------------------------------------------------
+    job = models.ManyToManyField(Job, related_name="companies")
+    interview = models.ManyToManyField(Interview, related_name="companies")
+    student = models.ManyToManyField(StudentInfo, related_name="companies")

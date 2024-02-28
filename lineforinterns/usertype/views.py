@@ -13,10 +13,11 @@ from .models import (
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm, SignUpStudentForm, SignUpCompanyForm, PostJobForm, InterviewForm
+from .forms import LoginForm, SignUpStudentForm, SignUpCompanyForm, PostJobForm, InterviewForm, EditStudentForm, EditCompanyForm
 from django.views.generic import TemplateView
 from student.views import register
 from django.shortcuts import get_object_or_404
+from itertools import groupby
 
 
 def error_view(request):
@@ -72,12 +73,12 @@ def welcome(request, username):
         {"username": username, "user": user, "role": role},
     )
 
-
+@login_required
 def logout_view(request):
     logout(request)
     return redirect("home")
 
-
+@login_required
 def profile(request, role, username):
     user = request.user
     student = None
@@ -125,7 +126,7 @@ def profile(request, role, username):
         },
     )
 
-
+@login_required
 def addinfo(request, role, username):
     user = request.user
     student = None
@@ -243,7 +244,39 @@ def addinfo(request, role, username):
             "context": context,
         },
     )
+@login_required
+def editinfo(request, role, username):
+    user = request.user
+    context = {
+        "role": role,
+        "username": username,
+    }
 
+    if user.role == "STUDENT":
+        student = StudentProfile.objects.get(user=user)
+        form = EditStudentForm(request.POST or None, request.FILES or None, instance=student.studentinfo)
+
+    elif user.role == "COMPANY":
+        company = CompanyProfile.objects.get(user=user)
+        form = EditCompanyForm(request.POST or None, request.FILES or None, instance=company.companyinfo)
+
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect("profile", username=user.username, role=user.role)
+
+    return render(
+        request,
+        "userweb/editinfo.html",
+        {
+            "form": form,
+            "user": user,
+            "context": context,
+        },
+    )
+
+
+@login_required
 def postjob(request, role, username):
     user = request.user
     student = None
@@ -304,7 +337,7 @@ def postjob(request, role, username):
         },
     )
 
-def viewjob(request , job_id):
+def viewjob(request, job_id):
     job = Job.objects.get(id=job_id)
     return render(request, "userweb/view_job.html", {"job": job})
 
@@ -312,16 +345,18 @@ def viewselectcompany(request , role, username):
     jobs = Job.objects.all()
     return render(request, "userweb/companyselect.html", {"jobs": jobs})
 
-def positionview(request , role, username):
-    jobs = Job.objects.all()
+def positionview(request, role, username):
+    company_profile = CompanyProfile.objects.get(user__username=username)
+    jobs = company_profile.job.all()
     return render(request, "userweb/position.html", {"jobs": jobs})
 
 def studentview(request , role, username):
     student = StudentInfo.objects.all()
     return render(request, "userweb/student.html", {"students": student})
 
-def view_student(request):
-    return render(request, "userweb/view_student.html")
+def view_student(request, student_id):
+    student_id = StudentInfo.objects.get(id=student_id)
+    return render(request, "userweb/view_student.html", { "student_id": student_id})
 
 def interview(request, role, username):
     user = request.user

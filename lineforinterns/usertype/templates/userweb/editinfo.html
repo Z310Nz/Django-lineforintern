@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
+  </head>
+  <body>
+    <!-- header section starts  -->
+    {% csrf_token %} 
+    <!-- Navbar  -->
+    {% include "navbarmain.html" %}
+    <!-- Navbar  -->
+    
+    <!-- Navbar  -->
+    {% include  'navbarprofile.html'%}
+    <!-- Navbar  -->
+    {% if user.role == 'STUDENT' %}
+    <!-- header section ends  -->
+    <!-- student profile section starts  -->
+    <div class="account-form-container">
+      <section class="account-form">
+        <form action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <h3>Edit Your Profile</h3>
+          <p>Upload your profile image</p>
+          <input
+            name="profile"
+            type="file"
+            accept="image/png, image/jpeg"
+            placeholder="upload your profile image"
+            class="input"
+            value="{{student.studentinfo.profile}}"
+          />
+          <p>Upload your CV</p>
+          <input
+            name="cv"
+            type="website"
+            accept="image/png, image/jpeg, file"
+            placeholder="CV link"
+            class="input"
+            value="{{student.studentinfo.cv}}"
+          />
+          <p>First name <span>*</span></p>
+          <input
+            name="first_name"
+            type="text"
+            placeholder="enter your full name"
+            required
+            maxlength="50"
+            class="input"
+            value="{{student.studentinfo.first_name}}"
+          />
+          <p>Last name <span>*</span></p>
+          <input
+            name="last_name"
+            type="text"
+            placeholder="enter your full name"
+            required
+            maxlength="50"
+            class="input"
+            value="{{student.studentinfo.last_name}}"
+          />
+          <p>Nick name <span>*</span></p>
+          <input
+            name="nick_name"
+            type="text"
+            placeholder="enter your full name"
+            required
+            maxlength="50"
+            class="input"
+            value="{{student.studentinfo.nick_name}}"
+          />
+          <p>Student ID <span>*</span></p>
+          <input
+            name="student_id"
+            type="number"
+            placeholder="enter your sutudent id"
+            required
+            maxlength="20"
+            class="input"
+            value="{{student.studentinfo.student_id}}"
+          />
+          <p>Email address<span>*</span></p>
+          <input
+            name="email"
+            type="email"
+            placeholder="enter your email address"
+            required
+            maxlength="50"
+            class="input"
+            value="{{student.studentinfo.email}}"
+          />
+          <p>Phone number<span>*</span></p>
+          <input
+            name="phone"
+            type="number"
+            placeholder="enter your phone number"
+            required
+            maxlength="20"
+            class="input"
+            value="{{student.studentinfo.phone}}"
+          />
+          <div class="select-box">
+            <select name="gender" class="select" value="{{student.studentinfo.gender}}">
+              <option hidden>Gender</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Prefer not to say</option>
+            </select>
+          </div>
+          <p>Birthday<span>*</span></p>
+          <input
+            name="birthday"
+            type="date"
+            placeholder="choose your start date of internship"
+            required
+            maxlength="50"
+            class="input"
+            value="{{student.studentinfo.birthday}}"
+          />
+          <br />
+          <h3>about internship</h3>
+          <p>Your last job <span>*</span></p>
+          <input
+            name="last_job"
+            type="text"
+            placeholder="enter your last job"
+            required
+            maxlength="50"
+            class="input"
+            value="{{student.studentinfo.last_job}}"
+          />
+          <p>Company name <span>*</span></p>
+          <input
+            name="intern_company"
+            type="text"
+            placeholder="enter company name that you was trainee"
+            required
+            maxlength="50"
+            class="input"
+            value="{{student.studentinfo.intern_company}}"
+          />
+          <p>Interested job <span>*</span></p>
+          <input
+            name="interest_job"
+            type="text"
+            placeholder="enter your interested job"
+            required
+            maxlength="50"
+            class="input"
+            value="{{student.studentinfo.interest_job}}"
+          />
+          <p>Skills <span>*</span></p>
+          <input
+            name="skill"
+            type="text"
+            placeholder="enter your interested job"
+            required
+            maxlength="50"
+            class="input"
+            value="{{student.studentinfo.skill}}"
+          />
+          <p>English skills <span>*</span></p>
+          <div class="select-box">
+            <select name="eng_skill"  id="eng_skill" value="{{student.studentinfo.eng_skill}}">
+              <option hidden>Select your english level</option>
+              <option>A1</option>
+              <option>A2</option>
+              <option>B1</option>
+              <option>B2</option>
+              <option>C1</option>
+              <option>C2</option>
+            </select>
+          </div>
+          <br />
+          <p>Start date of internship <span>*</span></p>
+          <input
+            name="intern_start"
+            type="date"
+            placeholder="choose your start date of internship"
+            required
+            maxlength="50"
+            class="input"
+            value="{{student.studentinfo.intern_start}}"
+          />
+          <p>End date of internship <span>*</span></p>
+          <input
+            name="intern_end"
+            type="date"
+            placeholder="choose your end date of internship"
+            required
+            maxlength="50"
+            class="input"
+            value="{{student.studentinfo.intern_end}}"
+          />
+          <h3>education</h3>
+          <p>University <span>*</span></p>
+          <input
+            name="university"
+            type="text"
+            placeholder="enter your university name"
+            required
+            maxlength="50"
+            class="input"
+            value="{{student.studentinfo.university}}"
+          />
+          <p>Faculty <span>*</span></p>
+          <input
+            name="faculty"
+            type="text"
+            placeholder="enter your faculty"
+            required
+            maxlength="50"
+            class="input"
+            value="{{student.studentinfo.faculty}}"
+          />
+          <p>Major <span>*</span></p>
+          <input
+            name="major"
+            type="text"
+            placeholder="enter your major"
+            required
+            maxlength="50"
+            class="input"
+            value="{{student.studentinfo.major}}"
+          />
+          <input type="submit" value="SAVE" name="submit" class="btn" />
+        </form>
+      </section>
+      <script src="{% static "js/script.js" %}"></script>
+    </div>
+    <!-- student profile section ends  -->
+    {% elif user.role == 'COMPANY' %}
+    <!-- company profile section starts  -->
+    <div class="account-form-container">
+      <section class="account-form">
+        <form action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <h3>create new profile!</h3>
+          <p>Upload your company logo</p>
+          <input
+            name="logoc"
+            type="file"
+            accept="image/png, image/jpeg"
+            placeholder="upload your profile image"
+            class="input"
+          />
+          <p>Company name English <span>*</span></p>
+          <input
+            name="company_name_eng"
+            type="text"
+            placeholder="enter your company name"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>Company name Thai <span>*</span></p>
+          <input
+            name="company_name_thai"
+            type="text"
+            placeholder="enter your company name"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>Foundation date<span>*</span></p>
+          <input
+            name="foundation_date"
+            type="date"
+            placeholder="choose your start date of internship"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>About company <span>*</span></p>
+          <input
+            name="company_des"
+            type="text"
+            placeholder="enter your company description"
+            required
+            maxlength="20"
+            class="input"
+          />
+          <p>Number of employee <span>*</span></p>
+          <input
+            name="number_of_employees"
+            type="number"
+            placeholder="enter your sutudent id"
+            required
+            maxlength="20"
+            class="input"
+          />
+          <p>Website<span>*</span></p>
+          <input
+            name="website"
+            type="text"
+            placeholder="enter your company website"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>Email address<span>*</span></p>
+          <input
+            name="email"
+            type="email"
+            placeholder="enter your company email address"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>Phone number<span>*</span></p>
+          <input
+            name="phone"
+            type="number"
+            placeholder="enter your company phone number"
+            required
+            maxlength="20"
+            class="input"
+          />
+          <p>Line ID <span>*</span></p>
+          <input
+            name="line_id"
+            type="text"
+            placeholder="enter your company description"
+            required
+            maxlength="20"
+            class="input"
+          />
+          <br /><br />
+          <h3>company address</h3>
+          <p>Address <span>*</span></p>
+          <input
+            name = "address"
+            type="text"
+            placeholder="enter your company address"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>Sub district <span>*</span></p>
+          <input
+            name="sub_district"
+            type="text"
+            placeholder="enter your company sub-district"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>District <span>*</span></p>
+          <input
+            name="district"
+            type="text"
+            placeholder="enter your company district"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>Province <span>*</span></p>
+          <input
+            name="province"
+            type="text"
+            placeholder="enter your company province"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>Country <span>*</span></p>
+          <input
+            name="country"
+            type="text"
+            placeholder="enter your company country"
+            required
+            maxlength="50"
+            class="input"
+          />
+          <p>Postal code <span>*</span></p>
+          <input
+            name="postal_code"
+            type="number"
+            placeholder="enter postal code"
+            required
+            maxlength="6"
+            class="input"
+          />
+          <input type="submit" value="SAVE" name="submit" class="btn" />
+        </form>
+      </section>
+    </div>
+    <!-- company profile section ends  -->
+    {% endif %}
+    <script src="{% static "js/script.js" %}"></script>
+  </body>
+</html>
