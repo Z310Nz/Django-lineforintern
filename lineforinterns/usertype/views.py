@@ -23,7 +23,6 @@ from .forms import (
     EditCompanyForm,
 )
 from django.views.generic import TemplateView
-from student.views import register
 from django.shortcuts import get_object_or_404
 from itertools import groupby
 
