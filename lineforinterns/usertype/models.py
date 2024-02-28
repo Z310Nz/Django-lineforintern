@@ -17,6 +17,8 @@ class CustomUser(AbstractUser):
         STUDENT = "STUDENT", "Student"
         COMPANY = "COMPANY", "Company"
         ADMIN = "ADMIN", "Admin"
+    
+    BASE_ROLE = Role.ADMIN
 
     role = models.CharField(max_length=50, choices=Role.choices)
 
@@ -78,17 +80,14 @@ class StudentInfo(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length=10)
     line_id = models.CharField(max_length=200)
-    # website = models.URLField()
     cv = models.URLField()
     last_job = models.CharField(max_length=200)
-    # intern_des = models.CharField(max_length=200)
     intern_company = models.CharField(max_length=200)
     interest_job = models.CharField(max_length=200)
     skill = models.CharField(max_length=200)
     university = models.CharField(max_length=200)
     faculty = models.CharField(max_length=50, blank=True)
     major = models.CharField(max_length=50, blank=True)
-    # gpa = models.CharField(max_length=10)
     intern_start = models.DateField()
     intern_end = models.DateField()
     eng_skill = models.CharField(max_length=200)
@@ -260,13 +259,13 @@ class CompanyInfo(models.Model):
         )
     
 class Interview(models.Model):
-    # company = models.ForeignKey(CompanyInfo, on_delete=models.CASCADE)
-    # student = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
+    company = models.ForeignKey(CompanyInfo, on_delete=models.CASCADE)
+    student = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
     date = models.DateField()
     time = models.TimeField()
     location = models.CharField(max_length=255)
     link = models.URLField()
-    # status = models.CharField(max_length=255)
+    status = models.CharField(max_length=255)
 
     def __str__(self):
         return (
@@ -283,6 +282,25 @@ class Interview(models.Model):
             + self.status
             + " "
             + self.link
+        )
+    
+class StudentAccpetOrNot(models.Model):
+    student = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
+    company = models.ForeignKey(CompanyInfo, on_delete=models.CASCADE)
+    status = models.CharField(max_length=50, choices=CustomUser.StatusUser.STATUS_USER.items())
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    interview = models.ForeignKey(Interview, on_delete=models.CASCADE)
+    def __str__(self):
+        return (
+            self.student
+            + " "
+            + self.company
+            + " "
+            + self.status
+            + " "
+            + self.job
+            + " "
+            + self.interview
         )
 # Company----------------------------------------------------------------
 
