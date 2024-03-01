@@ -121,7 +121,6 @@
             maxlength="50"
             class="input"
           />
-
           <h3>Location</h3>
           <p>Company <span>*</span></p>
           <input
@@ -130,6 +129,7 @@
             placeholder="enter skills required"
             required
             maxlength="50"
+            value="{{ company.companyinfo.company_name_eng }}"
             class="input"
           />
           <p>City <span>*</span></p>
@@ -139,6 +139,7 @@
             placeholder="enter skills required"
             required
             maxlength="50"
+            value="{{ company.companyinfo.Province }}"
             class="input"
           />
           <p>Country <span>*</span></p>
@@ -148,6 +149,7 @@
             placeholder="enter skills required"
             required
             maxlength="50"
+            value="{{ company.companyinfo.country }}"
             class="input"
           />
           <input type="submit" value="create job" name="submit" class="btn" />

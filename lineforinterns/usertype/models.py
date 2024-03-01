@@ -18,7 +18,7 @@ class CustomUser(AbstractUser):
         COMPANY = "COMPANY", "Company"
         ADMIN = "ADMIN", "Admin"
 
-    BASE_ROLE = Role.ADMIN
+    base_role = Role.ADMIN
 
     role = models.CharField(max_length=50, choices=Role.choices)
 
@@ -32,15 +32,31 @@ class CustomUser(AbstractUser):
                 self.is_superuser = True
         return super().save(*args, **kwargs)
 
-    class StatusUser(models.Model):
-        STATUS_USER = {
-            "FINDING": "Finding",
-            "PENDING": "Pending",
-            "APPROVED": "Approved",
-            "REJECTED": "Rejected",
-            "INTERVIEW": "Interview",
-        }
-        status = models.CharField(max_length=50, choices=STATUS_USER.items())
+    class StatusUser(models.TextChoices):
+        FINDING = (
+            "FINDING",
+            "Finding",
+        )
+        PENDING = (
+            "PENDING",
+            "Pending",
+        )
+        APPROVED = (
+            "APPROVED",
+            "Approved",
+        )
+        REJECTED = (
+            "REJECTED",
+            "Rejected",
+        )
+        INTERVIEW = (
+            "INTERVIEW",
+            "Interview",
+        )
+
+    base_status = StatusUser.FINDING
+
+    status = models.CharField(max_length=50, choices=StatusUser.choices)
 
 
 # Student-----------------------------------------------------------------
@@ -53,6 +69,7 @@ class StudentManager(BaseUserManager):
 class Student(CustomUser):
 
     base_role = CustomUser.Role.STUDENT
+    base_status = CustomUser.StatusUser.FINDING
 
     student = StudentManager()
 
@@ -255,8 +272,6 @@ class CompanyInfo(models.Model):
             + " "
             + self.company_des
             + ""
-            + self.logoc
-            + ""
             + self.sub_district
             + ""
             + self.district
@@ -293,40 +308,41 @@ class Interview(models.Model):
         )
 
 
-class StudentAccpetOrNot(models.Model):
-    student = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
-    company = models.ForeignKey(CompanyInfo, on_delete=models.CASCADE)
-    status = models.CharField(
-        max_length=50, choices=CustomUser.StatusUser.STATUS_USER.items()
-    )
-    job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    interview = models.ForeignKey(Interview, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return (
-            self.student
-            + " "
-            + self.company
-            + " "
-            + self.status
-            + " "
-            + self.job
-            + " "
-            + self.interview
-        )
-
-
 # Company----------------------------------------------------------------
 
 
-# Matching----------------------------------------------------------------
+# Admin----------------------------------------------------------------
+class AdminManager(BaseUserManager):
+    def get_queryset(self, *args, **kwargs):
+        results = super().get_queryset(*args, **kwargs)
+        return results.filter(role=CustomUser.Role.ADMIN)
+
+
+class Admin(CustomUser):
+    base_role = CustomUser.Role.ADMIN
+    admin = AdminManager()
+
+    class Meta:
+        proxy = True
+
+    def welcome(self):
+        return "Only for Admin"
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            if self.role == self.Role.ADMIN:
+                self.is_staff = True
+                self.is_superuser = True
+        return super().save(*args, **kwargs)
+
+
+# Admin----------------------------------------------------------------
+
+
+# Profile----------------------------------------------------------------
 class StudentProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     studentinfo = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
-    status = models.CharField(
-        max_length=50, choices=CustomUser.StatusUser.STATUS_USER.items()
-    )
-    company = models.ManyToManyField(CompanyInfo, related_name="students")
 
 
 class CompanyProfile(models.Model):
@@ -336,4 +352,21 @@ class CompanyProfile(models.Model):
     )
     job = models.ManyToManyField(Job, related_name="companies")
     interview = models.ManyToManyField(Interview, related_name="companies")
-    student = models.ManyToManyField(StudentInfo, related_name="companies")
+
+
+# Profile----------------------------------------------------------------
+
+
+# Matching----------------------------------------------------------------
+class Matching(models.Model):
+    student = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    company = models.ForeignKey(CompanyInfo, on_delete=models.CASCADE)
+    interview = models.ForeignKey(Interview, on_delete=models.CASCADE)
+    status = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.student.first_name} - {self.job.jobname} - {self.company.company_name_eng}"
+
+
+# Matching----------------------------------------------------------------

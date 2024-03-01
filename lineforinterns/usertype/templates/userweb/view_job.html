@@ -59,7 +59,7 @@
           </ul>
         </div>
         {% if user.role == 'STUDENT' %}
-        <form action="" method="post" class="flex-btn">
+        <form action="{% url 'apply_job' job_id=job.id %}" method="post" class="flex-btn">
           {% csrf_token %}
           <input type="submit" value="apply now" name="apply" class="btn" />
           <button type="submit" class="save">

@@ -23,6 +23,9 @@ urlpatterns = [
     ),  # Edit info page
     path("viewjob/<str:job_id>/", views.viewjob, name="view_job"),  # View job page
     path(
+        "apply/<str:job_id>/", views.applyjob, name="apply_job"
+    ),  # apply job page
+    path(
         "addjob/<str:role>/<str:username>/", views.postjob, name="postjob"
     ),  # Add job page
     path(

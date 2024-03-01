@@ -9,6 +9,7 @@ from .models import (
     CompanyInfo,
     Job,
     Interview,
+    Matching,
 )
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -336,14 +337,14 @@ def postjob(request, role, username):
             requirement=require,
             qualifications=qualifi,
             skills=skill,
-            company=com,
             city=cit,
             country=cou,
         )
-        job.save()
-        company_profile = get_object_or_404(CompanyProfile, user=user)
+
+        company_profile = get_object_or_404(CompanyProfile, companyinfo__company_name_eng=com)
         company_info = company_profile.companyinfo
-        company_info.jobs.add(job)
+        job.company = company_info
+        job.save()
 
         return redirect("position", username=user.username, role=user.role)
 
@@ -363,6 +364,27 @@ def postjob(request, role, username):
 def viewjob(request, job_id):
     job = Job.objects.get(id=job_id)
     return render(request, "userweb/view_job.html", {"job": job})
+
+def applyjob(request, job_id):
+    job = Job.objects.get(id=job_id)
+    user = request.user
+    student = StudentProfile.objects.get(user=user)
+    student_info = student.studentinfo
+
+    # ดึงชื่อบริษัทที่เกี่ยวข้องกับ job
+    company_name = job.company
+
+    # หา instance ของ CompanyProfile ที่เกี่ยวข้องกับชื่อบริษัท
+    company_profile = CompanyProfile.objects.get(companyinfo__company_name_eng=company_name)
+
+    # ดึงข้อมูล companyinfo
+    company_info = company_profile.companyinfo
+
+    # สร้าง Matching โดยใช้ข้อมูลของบริษัทที่ดึงมา
+    matching = Matching.objects.create(student=student_info, job=job, company=company_info)
+    matching.save()
+
+    return redirect("view_job", role=user.role, username=user.username)
 
 
 def viewselectcompany(request, role, username):
