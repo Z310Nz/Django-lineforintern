@@ -22,11 +22,11 @@
     <!-- Navbarprofile  -->
     <section class="jobs-container">
       <h1 class="heading">Position</h1>
-      <div class="box-container">
+      {% include  'navbarstatus.html'%}
+      {% comment %} <div class="box-container">
         {% for job in jobs %}
         <div class="box">
             <div class="company">
-                {% comment %} <img src="{{ job.company.companyinfo.logoc.url }}" alt="" /> {% endcomment %}
                 <div>
                     <h3>{{ job.company }}</h3>
                     <p></p>
@@ -44,13 +44,12 @@
                 <p><i class="fas fa-clock"></i> <span>{{ job.workday }}</span></p>
             </div>
             <div class="flex-btn">
-                {% comment %} <a href="{% url 'view_job' job.id %}" class="btn">view details</a> {% endcomment %}
                 <a href="{% url 'view_job' job.id %}" class="btn">Views</a>
                 <button type="submit" class="far fa-heart" name="save"></button>
             </div>
         </div>
       {% endfor %}
-      </div>
+      </div> {% endcomment %}
     </section>
 
     <!-- jobs section ends -->

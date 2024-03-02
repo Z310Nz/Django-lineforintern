@@ -25,7 +25,7 @@ from .forms import (
 )
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
-from itertools import groupby
+from itertools import groupby, zip_longest
 
 
 def error_view(request):
@@ -383,26 +383,24 @@ def applyjob(request, job_id):
     user = request.user
     student = StudentProfile.objects.get(user=user)
     student_info = student.studentinfo
-
-    # ดึงชื่อบริษัทที่เกี่ยวข้องกับ job
     company_name = job.company
-
-    # หา instance ของ CompanyProfile ที่เกี่ยวข้องกับชื่อบริษัท
     company_profile = CompanyProfile.objects.get(companyinfo__company_name_eng=company_name)
-
-    # ดึงข้อมูล companyinfo
     company_info = company_profile.companyinfo
-
-    # สร้าง Matching โดยใช้ข้อมูลของบริษัทที่ดึงมา
-    matching = Matching.objects.create(student=student_info, job=job, company=company_info)
+    ststus = "Pending"
+    matching = Matching.objects.create(student=student_info, job=job, company=company_info ,status=ststus)
     matching.save()
 
     return redirect("view_job",job_id=job_id)
 
 
 def viewselectcompany(request, role, username):
-    jobs = Job.objects.all()
-    return render(request, "userweb/companyselect.html", {"jobs": jobs})
+    student = StudentProfile.objects.get(user__username=username)
+    match = Matching.objects.filter(student=student.studentinfo)
+    job = [m.job for m in match]
+    status = [m.status for m in match]
+    showcompany = [m.company for m in match]
+    companies = zip(showcompany, status, job)
+    return render(request, "userweb/companyselect.html", {"company": companies})
 
 
 def positionview(request, role, username):
@@ -415,13 +413,15 @@ def positionview(request, role, username):
 def applyview(request, role, username):
     company = CompanyProfile.objects.get(user__username=username)
     match = Matching.objects.filter(company=company.companyinfo)
-    student = [m.student for m in match]
-    return render(request, "userweb/student.html", {"students": student})
+    job = [m.job for m in match]
+    status = [m.status for m in match]
+    showstudent = [m.student for m in match]
+    students = zip(showstudent, status, job)
+    return render(request, "userweb/student.html", {"students": students})
 
-#ดูข้อมูลนิสิต
-def viewstudent(request, role, username, student_id):
-    student_info = get_object_or_404(StudentInfo, id=student_id)
-    return render(request, "userweb/view_student.html", {"student_info": student_info})
+def viewstudentinfo(request, student_id):
+    student = Student.objects.get(id=student_id)
+    return render(request, "userweb/studentinfo.html", {"student": student})
 
 def interview(request, role, username):
     user = request.user
@@ -457,3 +457,9 @@ def interview(request, role, username):
             "context": context,
         },
     )
+
+def approved(request , matching_id):
+    match = Matching.objects.get(id=matching_id)
+    match.status = "Approved"
+    match.save()
+    return redirect("studentview", matching_id=matching_id)
