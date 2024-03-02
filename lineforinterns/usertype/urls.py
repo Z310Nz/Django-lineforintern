@@ -4,7 +4,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from .views import login_view, error_view, logout_view, view_student
+from .views import login_view, error_view, logout_view
 
 urlpatterns = [
     path("", views.home_view, name="home"),  # Home page
@@ -37,10 +37,10 @@ urlpatterns = [
         "position/<str:role>/<str:username>/", views.positionview, name="position"
     ),  # Position page
     path(
-        "studentview/<str:role>/<str:username>/", views.studentview, name="studentview"
+        "studentview/<str:role>/<str:username>/", views.applyview, name="studentview"
     ),  # Show Student who want to work page
     path(
-        "viewstudent/<str:student_id>/", view_student, name="viewstudent"
+        "viewstudent/<str:role>/<str:username>/<str:student_id>/", views.viewstudent, name="viewstudent"
     ),  # View student to select status page
     path(
         "interviewform/<str:role>/<str:username>/",

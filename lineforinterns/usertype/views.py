@@ -411,20 +411,17 @@ def positionview(request, role, username):
     return render(request, "userweb/position.html", {"jobs": jobs})
 
 
-# def studentview(request, role, username):
-#     matching = Matching.objects.all()
-#     companies = [match.company for match in matching]
-#     student = [match.student for match in matching]
-#     return render(request, "userweb/student.html", {"student": student})
-
-def studentview(request, role, username):
-    student = StudentInfo.objects.all()
+#บริษัทดูนิสิตที่สมัครงาน
+def applyview(request, role, username):
+    company = CompanyProfile.objects.get(user__username=username)
+    match = Matching.objects.filter(company=company.companyinfo)
+    student = [m.student for m in match]
     return render(request, "userweb/student.html", {"students": student})
 
-def view_student(request, student_id):
-    student_id = StudentInfo.objects.get(id=student_id)
-    return render(request, "userweb/view_student.html", {"student_id": student_id})
-
+#ดูข้อมูลนิสิต
+def viewstudent(request, role, username, student_id):
+    student_info = get_object_or_404(StudentInfo, id=student_id)
+    return render(request, "userweb/view_student.html", {"student_info": student_info})
 
 def interview(request, role, username):
     user = request.user

@@ -337,7 +337,7 @@ class Admin(CustomUser):
 
 
 # Admin----------------------------------------------------------------
-
+    
 
 # Profile----------------------------------------------------------------
 class StudentProfile(models.Model):
@@ -362,10 +362,8 @@ class Matching(models.Model):
     student = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     company = models.ForeignKey(CompanyInfo, on_delete=models.CASCADE)
-    status = models.CharField(max_length=50)
+    status = models.CharField(max_length=255)
 
     def __str__(self):
         return f"{self.student.first_name} - {self.job.jobname} - {self.company.company_name_eng}"
-
-
 # Matching----------------------------------------------------------------

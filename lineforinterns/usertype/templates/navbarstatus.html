@@ -141,9 +141,13 @@
                   </p>
                 </div>
                 <div class="flex-btn">
-                  {% comment %}
-                  <a href="{% url 'viewstudent' %}" class="btn">Views</a>
-                  {%endcomment %}
+                  {% if student.id %}
+                  <a
+                    href="{% url 'viewstudent' role=role username=username student_id=student.id %}"
+                    class="btn"
+                    >Views</a
+                  >
+                  {% endif %}
                 </div>
               </div>
               {% endfor %}
