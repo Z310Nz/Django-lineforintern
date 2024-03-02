@@ -49,6 +49,9 @@ urlpatterns = [
     ),  # Interview form page
     path("logout/", logout_view, name="logout"),  # Logout page
     path("accounts/", include("allauth.urls")),  # Allauth page
+    path("delete/<str:job_id>/", views.deletejob, name="deletejob"),  # Delete job page
+    path("edit/<str:job_id>/", views.editjob, name="editjob"),  # Edit job page
+
 ]
 
 if settings.DEBUG:

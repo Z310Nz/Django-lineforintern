@@ -362,7 +362,6 @@ class Matching(models.Model):
     student = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     company = models.ForeignKey(CompanyInfo, on_delete=models.CASCADE)
-    interview = models.ForeignKey(Interview, on_delete=models.CASCADE)
     status = models.CharField(max_length=50)
 
     def __str__(self):

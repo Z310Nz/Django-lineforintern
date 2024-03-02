@@ -337,14 +337,14 @@ def postjob(request, role, username):
             requirement=require,
             qualifications=qualifi,
             skills=skill,
+            company=com,
             city=cit,
             country=cou,
         )
-
-        company_profile = get_object_or_404(CompanyProfile, companyinfo__company_name_eng=com)
-        company_info = company_profile.companyinfo
-        job.company = company_info
         job.save()
+        company_profile = get_object_or_404(CompanyProfile, user=user)
+        company_info = company_profile
+        company_info.job.add(job)
 
         return redirect("position", username=user.username, role=user.role)
 
@@ -359,6 +359,19 @@ def postjob(request, role, username):
             "context": context,
         },
     )
+
+def editjob(request, job_id):
+    job = Job.objects.get(id=job_id)
+    form = PostJobForm(request.POST or None, request.FILES or None, instance=job)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect("position", username=request.user.username, role=request.user.role)
+    return render(request, "userweb/post_jobs.html", {"form": form, "job": job})
+
+def deletejob (request, job_id):
+    job = Job.objects.get(id=job_id)
+    job.delete()
+    return redirect("position", username=request.user.username, role=request.user.role)
 
 
 def viewjob(request, job_id):
@@ -384,7 +397,7 @@ def applyjob(request, job_id):
     matching = Matching.objects.create(student=student_info, job=job, company=company_info)
     matching.save()
 
-    return redirect("view_job", role=user.role, username=user.username)
+    return redirect("view_job",job_id=job_id)
 
 
 def viewselectcompany(request, role, username):
@@ -398,10 +411,15 @@ def positionview(request, role, username):
     return render(request, "userweb/position.html", {"jobs": jobs})
 
 
+# def studentview(request, role, username):
+#     matching = Matching.objects.all()
+#     companies = [match.company for match in matching]
+#     student = [match.student for match in matching]
+#     return render(request, "userweb/student.html", {"student": student})
+
 def studentview(request, role, username):
     student = StudentInfo.objects.all()
     return render(request, "userweb/student.html", {"students": student})
-
 
 def view_student(request, student_id):
     student_id = StudentInfo.objects.get(id=student_id)

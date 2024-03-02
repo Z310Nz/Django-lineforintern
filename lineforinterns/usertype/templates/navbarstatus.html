@@ -1,0 +1,250 @@
+{% load static %} <link rel="stylesheet" href="{% static "css/css.css" %}" />
+<body>
+  <section>
+    <div class="progress">
+      <div class="progress_inner">
+        <div class="progress_inner__step">
+          <label for="step-1">APPLY</label>
+        </div>
+        <div class="progress_inner__step">
+          <label for="step-2">APPROVED</label>
+        </div>
+        <div class="progress_inner__step">
+          <label for="step-3">INTERVIEW</label>
+        </div>
+        <div class="progress_inner__step">
+          <label for="step-4">REJECTED</label>
+        </div>
+        <div class="progress_inner__step">
+          <label for="step-5">SUMMARY</label>
+        </div>
+        <input checked="checked" id="step-1" name="step" type="radio" />
+        <input id="step-2" name="step" type="radio" />
+        <input id="step-3" name="step" type="radio" />
+        <input id="step-4" name="step" type="radio" />
+        <input id="step-5" name="step" type="radio" />
+        <div class="progress_inner__bar"></div>
+        <div class="progress_inner__bar--set"></div>
+        <div class="progress_inner__tabs">
+          <div class="tab tab-0">
+            <h1>APPLY</h1>
+            <div class="box-container">
+              {% for student in students %}
+              <div class="box">
+                <div class="company">
+                  <div>
+                    <h3>{{ student.nick_name }}</h3>
+                    <p></p>
+                  </div>
+                </div>
+                <h3 class="job-title">
+                  {{ student.first_name }} {{ student.last_name }}
+                </h3>
+                <p class="location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>{{ student.interest_job }}, {{ student.skill }}</span>
+                </p>
+                <div class="tags">
+                  <p>
+                    <i class="fas fa-indian-rupee-sign"></i>
+                    <span>{{ student.email }}</span>
+                  </p>
+                  <p>
+                    <i class="fas fa-briefcase"></i>
+                    <span>{{ student.university }}</span>
+                  </p>
+                  <p>
+                    <i class="fas fa-clock"></i>
+                    <span>{{ student.birthday }}</span>
+                  </p>
+                </div>
+                <div class="flex-btn">
+                  {% comment %}
+                  <a href="{% url 'viewstudent' %}" class="btn">Views</a>
+                  {%endcomment %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="tab tab-1">
+            <h1>APPROVED</h1>
+            <div class="box-container">
+              {% for student in students %}
+              <div class="box">
+                <div class="company">
+                  <div>
+                    <h3>{{ student.nick_name }}</h3>
+                    <p></p>
+                  </div>
+                </div>
+                <h3 class="job-title">
+                  {{ student.first_name }} {{ student.last_name }}
+                </h3>
+                <p class="location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>{{ student.interest_job }}, {{ student.skill }}</span>
+                </p>
+                <div class="tags">
+                  <p>
+                    <i class="fas fa-indian-rupee-sign"></i>
+                    <span>{{ student.email }}</span>
+                  </p>
+                  <p>
+                    <i class="fas fa-briefcase"></i>
+                    <span>{{ student.university }}</span>
+                  </p>
+                  <p>
+                    <i class="fas fa-clock"></i>
+                    <span>{{ student.birthday }}</span>
+                  </p>
+                </div>
+                <div class="flex-btn">
+                  {% comment %}
+                  <a href="{% url 'viewstudent' %}" class="btn">Views</a>
+                  {%endcomment %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="tab tab-2">
+            <h1>INTERVIEW</h1>
+            <div class="box-container">
+              {% for student in students %}
+              <div class="box">
+                <div class="company">
+                  <div>
+                    <h3>{{ student.nick_name }}</h3>
+                    <p></p>
+                  </div>
+                </div>
+                <h3 class="job-title">
+                  {{ student.first_name }} {{ student.last_name }}
+                </h3>
+                <p class="location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>{{ student.interest_job }}, {{ student.skill }}</span>
+                </p>
+                <div class="tags">
+                  <p>
+                    <i class="fas fa-indian-rupee-sign"></i>
+                    <span>{{ student.email }}</span>
+                  </p>
+                  <p>
+                    <i class="fas fa-briefcase"></i>
+                    <span>{{ student.university }}</span>
+                  </p>
+                  <p>
+                    <i class="fas fa-clock"></i>
+                    <span>{{ student.birthday }}</span>
+                  </p>
+                </div>
+                <div class="flex-btn">
+                  {% comment %}
+                  <a href="{% url 'viewstudent' %}" class="btn">Views</a>
+                  {%endcomment %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="tab tab-3">
+            <h1>REJECTED</h1>
+            <div class="box-container">
+              {% for student in students %}
+              <div class="box">
+                <div class="company">
+                  <div>
+                    <h3>{{ student.nick_name }}</h3>
+                    <p></p>
+                  </div>
+                </div>
+                <h3 class="job-title">
+                  {{ student.first_name }} {{ student.last_name }}
+                </h3>
+                <p class="location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>{{ student.interest_job }}, {{ student.skill }}</span>
+                </p>
+                <div class="tags">
+                  <p>
+                    <i class="fas fa-indian-rupee-sign"></i>
+                    <span>{{ student.email }}</span>
+                  </p>
+                  <p>
+                    <i class="fas fa-briefcase"></i>
+                    <span>{{ student.university }}</span>
+                  </p>
+                  <p>
+                    <i class="fas fa-clock"></i>
+                    <span>{{ student.birthday }}</span>
+                  </p>
+                </div>
+                <div class="flex-btn">
+                  {% comment %}
+                  <a href="{% url 'viewstudent' %}" class="btn">Views</a>
+                  {%endcomment %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="tab tab-4">
+            <h1>SUMMARY</h1>
+            <div class="box-container">
+              {% for student in students %}
+              <div class="box">
+                <div class="company">
+                  <div>
+                    <h3>{{ student.nick_name }}</h3>
+                    <p></p>
+                  </div>
+                </div>
+                <h3 class="job-title">
+                  {{ student.first_name }} {{ student.last_name }}
+                </h3>
+                <p class="location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>{{ student.interest_job }}, {{ student.skill }}</span>
+                </p>
+                <div class="tags">
+                  <p>
+                    <i class="fas fa-indian-rupee-sign"></i>
+                    <span>{{ student.email }}</span>
+                  </p>
+                  <p>
+                    <i class="fas fa-briefcase"></i>
+                    <span>{{ student.university }}</span>
+                  </p>
+                  <p>
+                    <i class="fas fa-clock"></i>
+                    <span>{{ student.birthday }}</span>
+                  </p>
+                </div>
+                <div class="flex-btn">
+                  {% comment %}
+                  <a href="{% url 'viewstudent' %}" class="btn">Views</a>
+                  {%endcomment %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="progress_inner__status">
+          <div class="box_base"></div>
+          <div class="box_lid"></div>
+          <div class="box_ribbon"></div>
+          <div class="box_bow">
+            <div class="box_bow__left"></div>
+            <div class="box_bow__right"></div>
+          </div>
+          <div class="box_item"></div>
+          <div class="box_tag"></div>
+          <div class="box_string"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
