@@ -4,7 +4,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from .views import login_view, error_view, logout_view
+from .views import login_view, error_view, logout_view, search
 
 urlpatterns = [
     path("", views.home_view, name="home"),  # Home page
@@ -21,7 +21,6 @@ urlpatterns = [
     path("companyselect/<str:role>/<str:username>/", views.viewselectcompany, name="companyselect"),  # Company select page
     path("position/<str:role>/<str:username>/", views.positionview, name="position"),  # Position page
     path("studentview/<str:role>/<str:username>/", views.applyview, name="studentview"),  # Show Student who want to work page
-    # path('viewstudent/<int:student_id>/', views.viewstudentinfo, name='viewstudentinfo'),
     path("logout/", logout_view, name="logout"),  # Logout page
     path("accounts/", include("allauth.urls")),  # Allauth page
     path("delete/<str:job_id>/", views.deletejob, name="deletejob"),  # Delete job page
@@ -29,6 +28,9 @@ urlpatterns = [
     path("approved/<str:match_id>/", views.approved, name="approved"),  # Approved page
     path("rejected/<str:match_id>/", views.rejected, name="rejected"),  # Rejected page
     path("interviewed/<str:match_id>/", views.interviewed, name="interviewed"),  # Interviewed page
+    path("interview/<str:match_id>/", views.addschedule, name="addschedule"),  # Interview page
+    path("showalljob/", views.viewalljob, name="showalljob"),  # Show all job page
+    path("job/search/", search, name='job_search'),
 ]
 
 if settings.DEBUG:

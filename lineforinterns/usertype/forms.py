@@ -143,3 +143,6 @@ class EditCompanyForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(EditCompanyForm, self).__init__(*args, **kwargs)
         self.fields["logoc"].required = False
+
+class JobSearchForm(forms.Form):
+    query = forms.CharField(max_length=20, required=True)

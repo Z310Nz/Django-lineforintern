@@ -30,7 +30,7 @@
         <div class="progress_inner__tabs">
           <div class="tab tab-0">
             <h1>APPLY</h1>
-            {% for showstudent, status, job, match_id, student_id in students %}
+            {% for showstudent, status, job, match_id, student_id, interview in students %}
             {% if status == "Pending" %}
             <div class="box-container">
               <div class="box">
@@ -63,7 +63,7 @@
                 </div>
                 <div class="flex-btn-status">
                   <a href="{% url 'approved' match_id=match_id %}" class="btn-green">APPROVED</a>
-                  <a href="{% url 'interviewed' match_id=match_id %}" class="btn-bule">INTERVIEW</a>
+                  <a href="{% url 'addschedule' match_id=match_id %}" class="btn-bule">ADD SCHEDULE</a>
                   <a href="{% url 'rejected' match_id=match_id %}" class="btn-danger">REJECTED</a>
                 </div>
               </div>
@@ -74,7 +74,7 @@
 
           <div class="tab tab-1">
             <h1>APPROVED</h1>
-            {% for showstudent, status, job, match_id, student_id in students %}
+            {% for showstudent, status, job, match_id, student_id, interview in students %}
             {% if status == "Approved" %}
             <div class="box-container">
               <div class="box">
@@ -112,7 +112,7 @@
           </div>
           <div class="tab tab-2">
             <h1>INTERVIEW</h1>
-            {% for showstudent, status, job, match_id, student_id in students %}
+            {% for showstudent, status, job, match_id, student_id, interview in students %}
             {% if status == "Interview" %}
             <div class="box-container">
               <div class="box">
@@ -143,6 +143,11 @@
                     <span>{{ student.birthday }}</span>
                   </p>
                 </div>
+                <div class="flex-btn-status">
+                  <a href="{% url 'approved' match_id=match_id %}" class="btn-green">APPROVED</a>
+                  <a href="{% url 'addschedule' match_id=match_id %}" class="btn-bule">ADD SCHEDULE</a>
+                  <a href="{% url 'rejected' match_id=match_id %}" class="btn-danger">REJECTED</a>
+                </div>
               </div>
             </div>
             {% endif %}
@@ -150,7 +155,7 @@
           </div>
           <div class="tab tab-3">
             <h1>REJECTED</h1>
-            {% for showstudent, status, job, match_id, student_id in students %}
+            {% for showstudent, status, job, match_id, student_id, interview in students %}
             {% if status == "Rejected" %}
             <div class="box-container">
               <div class="box">
@@ -189,7 +194,7 @@
 
           <div class="tab tab-4">
             <h1>SUMMARY</h1>
-            {% for showstudent, status, job, match_id, student_id in students %}
+            {% for showstudent, status, job, match_id, student_id, interview in students %}
             <div class="box-container">
               <div class="box">
                 <div class="company">
@@ -271,7 +276,7 @@
         <div class="progress_inner__tabs">
           <div class="tab tab-0">
             <h1>APPLY</h1>
-            {% for company, status, job in company %}
+            {% for company, status, job, interview in company %}
             {% if status == "Pending" %}
             <div class="box-container">
               <div class="box">
@@ -302,11 +307,6 @@
                     <span>{{ job.workday }}</span>
                   </p>
                 </div>
-                {% if student_id %}
-                <div class="flex-btn">
-                    <a href="{% url 'viewstudentinfo' student_id=student_id %}" class="btn">Views</a>
-                </div>
-                {% endif %}
               </div>
             </div>
             {% endif %}
@@ -315,7 +315,7 @@
 
           <div class="tab tab-1">
             <h1>APPROVED</h1>
-            {% for showstudent, status, job, match_id, student_id in students %}
+            {% for company, status, job, interview in company %}
             {% if status == "Approved" %}
             <div class="box-container">
               <div class="box">
@@ -351,9 +351,10 @@
             {% endif %}
             {% endfor %}
           </div>
+          
           <div class="tab tab-2">
             <h1>INTERVIEW</h1>
-            {% for showstudent, status, job, match_id, student_id in students %}
+            {% for company, status, job, interview in company %}
             {% if status == "Interview" %}
             <div class="box-container">
               <div class="box">
@@ -389,9 +390,11 @@
             {% endif %}
             {% endfor %}
           </div>
+
+
           <div class="tab tab-3">
             <h1>REJECTED</h1>
-            {% for showstudent, status, job, match_id, student_id in students %}
+            {% for company, status, job, interview in company %}
             {% if status == "Rejected" %}
             <div class="box-container">
               <div class="box">
@@ -428,9 +431,10 @@
             {% endfor %}
           </div>
 
+
           <div class="tab tab-4">
             <h1>SUMMARY</h1>
-            {% for showstudent, status, job, match_id, student_id in students %}
+            {% for company, status, job, interview in company %}
             <div class="box-container">
               <div class="box">
                 <div class="company">
@@ -465,6 +469,7 @@
             {% endfor %}
           </div>
         </div>
+
         <div class="progress_inner__status">
           <div class="box_base"></div>
           <div class="box_lid"></div>

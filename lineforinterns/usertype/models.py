@@ -285,13 +285,10 @@ class CompanyInfo(models.Model):
 
 
 class Interview(models.Model):
-    company = models.ForeignKey(CompanyInfo, on_delete=models.CASCADE)
-    student = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
     date = models.DateField()
     time = models.TimeField()
     location = models.CharField(max_length=255)
     link = models.URLField()
-    status = models.CharField(max_length=255)
 
     def __str__(self):
         return (

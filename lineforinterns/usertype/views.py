@@ -22,10 +22,12 @@ from .forms import (
     InterviewForm,
     EditStudentForm,
     EditCompanyForm,
+    JobSearchForm,
 )
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
 from itertools import groupby, zip_longest
+from django.db.models import Q
 
 
 def error_view(request):
@@ -378,6 +380,10 @@ def viewjob(request, job_id):
     job = Job.objects.get(id=job_id)
     return render(request, "userweb/view_job.html", {"job": job})
 
+def viewalljob(request):
+    jobs = Job.objects.all()
+    return render(request, "userweb/jobs.html", {"jobs": jobs})
+
 def applyjob(request, job_id):
     job = Job.objects.get(id=job_id)
     user = request.user
@@ -399,7 +405,8 @@ def viewselectcompany(request, role, username):
     job = [m.job for m in match]
     status = [m.status for m in match]
     showcompany = [m.company for m in match]
-    companies = zip(showcompany, status, job)
+    interview = [m.interview for m in match]
+    companies = zip(showcompany, status, job, interview)
     return render(request, "userweb/companyselect.html", {"company": companies})
 
 
@@ -418,7 +425,8 @@ def applyview(request, role, username):
     status = [m.status for m in match]
     showstudent = [m.student for m in match]
     student_id = [s.student_id for s in showstudent]
-    students = zip(showstudent, status, job, match_id, student_id)
+    interview = [m.interview for m in match]
+    students = zip(showstudent, status, job, match_id, student_id, interview)
     return render(request, "userweb/student.html", {"students": students, "role": role, "username": username})
 
 def approved(request, match_id):
@@ -453,3 +461,14 @@ def addschedule(request, match_id):
         match.save()
         return redirect("studentview", role=request.user.role, username=request.user.username)
     return render(request, "userweb/interviewform.html", {"form": form})
+
+def search(request):
+    if request.method == 'POST':
+        form = JobSearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            jobs = Job.objects.filter(Q(jobname__icontains=query) | Q(company__icontains=query))
+            return render(request, 'usertype/search_results.html', {'jobs': jobs})
+    else:
+        form = JobSearchForm()
+    return render(request, 'usertype/home.html', {'form': form})

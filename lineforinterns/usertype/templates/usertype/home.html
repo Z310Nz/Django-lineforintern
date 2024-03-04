@@ -21,26 +21,27 @@
 
     <div class="home-container">
       <section class="home">
-        <form action="" method="post">
+        <form action="{% url 'job_search' %}" method="post">
+          {% csrf_token %}
           <h3>find your interested job</h3>
-          <p>job title <span>*</span></p>
+          <p>ตำแหน่ง หรือ บริษัท <span>*</span></p>
           <input
             type="text"
-            name="title"
-            placeholder="keyword, category or company"
+            name="query"
+            placeholder="ตำแหน่ง หรือ บริษัท"
             required
             maxlength="20"
             class="input"
           />
-          <p>job location</p>
+          {% comment %} <p>job location</p>
           <input
             type="text"
             name="location"
-            placeholder="city, state or country"
+            placeholder="อำเภอ หรือ จังหวัด"
             required
             maxlength="50"
             class="input"
-          />
+          /> {% endcomment %}
           <input type="submit" value="search job" name="search" class="btn" />
         </form>
       </section>
@@ -84,7 +85,7 @@
 
 
       <div style="text-align: center; margin-top: 2rem">
-        <a href="jobs.html" class="btn">view all</a>
+        <a href="{% url "showalljob" %}" class="btn">view all</a>
       </div>
     </section>
 
