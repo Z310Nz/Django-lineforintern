@@ -21,13 +21,14 @@ urlpatterns = [
     path("companyselect/<str:role>/<str:username>/", views.viewselectcompany, name="companyselect"),  # Company select page
     path("position/<str:role>/<str:username>/", views.positionview, name="position"),  # Position page
     path("studentview/<str:role>/<str:username>/", views.applyview, name="studentview"),  # Show Student who want to work page
-    path('viewstudent/<int:student_id>/', views.viewstudentinfo, name='viewstudentinfo'),
-    path("interviewform/<str:role>/<str:username>/", views.interview, name="interviewform",),  # Interview form page
+    # path('viewstudent/<int:student_id>/', views.viewstudentinfo, name='viewstudentinfo'),
     path("logout/", logout_view, name="logout"),  # Logout page
     path("accounts/", include("allauth.urls")),  # Allauth page
     path("delete/<str:job_id>/", views.deletejob, name="deletejob"),  # Delete job page
     path("edit/<str:job_id>/", views.editjob, name="editjob"),  # Edit job page
-    path("approved/", views.approved, name="approved"),  # Approved page
+    path("approved/<str:match_id>/", views.approved, name="approved"),  # Approved page
+    path("rejected/<str:match_id>/", views.rejected, name="rejected"),  # Rejected page
+    path("interviewed/<str:match_id>/", views.interviewed, name="interviewed"),  # Interviewed page
 ]
 
 if settings.DEBUG:

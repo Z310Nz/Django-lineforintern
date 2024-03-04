@@ -413,53 +413,43 @@ def positionview(request, role, username):
 def applyview(request, role, username):
     company = CompanyProfile.objects.get(user__username=username)
     match = Matching.objects.filter(company=company.companyinfo)
+    match_id = [m.id for m in match]
     job = [m.job for m in match]
     status = [m.status for m in match]
     showstudent = [m.student for m in match]
-    students = zip(showstudent, status, job)
-    return render(request, "userweb/student.html", {"students": students})
+    student_id = [s.student_id for s in showstudent]
+    students = zip(showstudent, status, job, match_id, student_id)
+    return render(request, "userweb/student.html", {"students": students, "role": role, "username": username})
 
-def viewstudentinfo(request, student_id):
-    student = Student.objects.get(id=student_id)
-    return render(request, "userweb/studentinfo.html", {"student": student})
+def approved(request, match_id):
+    match = get_object_or_404(Matching, id=match_id)
+    match.status = "Approved"
+    match.save()
+    return redirect("studentview", role=request.user.role, username=request.user.username)
 
-def interview(request, role, username):
-    user = request.user
-    student = None
-    company = None
-    context = {
-        "role": role,
-        "username": username,
-    }
-    form = InterviewForm(
-        request.POST or None, request.FILES or None, initial={"username": user.username}
-    )
+def interviewed(request, match_id):
+    match = get_object_or_404(Matching, id=match_id)
+    match.status = "Interview"
+    match.save()
+    return redirect("studentview", role=request.user.role, username=request.user.username)
+
+def rejected(request, match_id):
+    match = get_object_or_404(Matching, id=match_id)
+    match.status = "Rejected"
+    match.save()
+    return redirect("studentview", role=request.user.role, username=request.user.username)
+
+def addschedule(request, match_id):
+    match = get_object_or_404(Matching, id=match_id)
+    form = InterviewForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
         date = form.cleaned_data["date"]
         time = form.cleaned_data["time"]
         location = form.cleaned_data["location"]
         link = form.cleaned_data["link"]
-
-        inter = Interview.objects.create(
-            date=date, time=time, location=location, link=link
-        )
-        inter.save()
-        return redirect("studentview", username=user.username, role=user.role)
-
-    return render(
-        request,
-        "userweb/interviewform.html",
-        {
-            "form": form,
-            "student": student,
-            "company": company,
-            "user": user,
-            "context": context,
-        },
-    )
-
-def approved(request , matching_id):
-    match = Matching.objects.get(id=matching_id)
-    match.status = "Approved"
-    match.save()
-    return redirect("studentview", matching_id=matching_id)
+        interview = Interview.objects.create(date=date, time=time, location=location, link=link)
+        interview.save()
+        match.interview = interview
+        match.save()
+        return redirect("studentview", role=request.user.role, username=request.user.username)
+    return render(request, "userweb/interviewform.html", {"form": form})

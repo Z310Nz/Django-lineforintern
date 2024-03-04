@@ -31,6 +31,9 @@ class CustomUser(AbstractUser):
                 self.is_staff = True
                 self.is_superuser = True
         return super().save(*args, **kwargs)
+    
+    class Meta:
+        unique_together = ['username']
 
     class StatusUser(models.TextChoices):
         FINDING = (
@@ -351,7 +354,6 @@ class CompanyProfile(models.Model):
         CompanyInfo, on_delete=models.CASCADE, null=True, blank=True
     )
     job = models.ManyToManyField(Job, related_name="companies")
-    interview = models.ManyToManyField(Interview, related_name="companies")
 
 
 # Profile----------------------------------------------------------------
@@ -363,6 +365,7 @@ class Matching(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     company = models.ForeignKey(CompanyInfo, on_delete=models.CASCADE)
     status = models.CharField(max_length=255)
+    interview = models.ForeignKey(Interview, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.student.first_name} - {self.job.jobname} - {self.company.company_name_eng}"
