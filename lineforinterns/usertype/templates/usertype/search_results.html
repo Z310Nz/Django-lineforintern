@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>All Job</title>
+    <title>ค้นหางาน</title>
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="{% static "css/style.css" %}" />
@@ -16,7 +16,7 @@
   {% include "navbarmain.html" %}
 
     <section class="jobs-container">
-      <h1 class="heading">Search Results</h1>
+      <h1 class="heading">ผลการค้นหา</h1>
       <div class="box-container">
         {% for job in jobs %}
         <div class="box">
@@ -38,7 +38,7 @@
                 <p><i class="fas fa-clock"></i> <span>{{ job.workday }}</span></p>
             </div>
             <div class="flex-btn">
-                <a href="{% url 'view_job' job.id %}" class="btn">Views</a>
+                <a href="{% url 'view_job' job.id %}" class="btn">ดูเพิ่มเติม</a>
                 <button type="submit" class="far fa-heart" name="save"></button>
             </div>
         </div>

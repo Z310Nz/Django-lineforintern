@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>ค้นหางาน</title>
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="{% static "css/style.css" %}" />
@@ -15,16 +15,13 @@
 
   {% include "navbarmain.html" %}
 
-    <!-- header section ends -->
-
-    <!-- home section starts  -->
-
+    {% if user.role == 'STUDENT' %}
     <div class="home-container">
       <section class="home">
         <form action="{% url 'job_search' %}" method="post">
           {% csrf_token %}
-          <h3>find your interested job</h3>
-          <p>ตำแหน่ง หรือ บริษัท <span>*</span></p>
+          <h3>ค้นหาตำแหน่งหรือบริษัทที่สนใจ</h3>
+          <p>ค้นหางาน<span>*</span></p>
           <input
             type="text"
             name="query"
@@ -33,16 +30,7 @@
             maxlength="20"
             class="input"
           />
-          {% comment %} <p>job location</p>
-          <input
-            type="text"
-            name="location"
-            placeholder="อำเภอ หรือ จังหวัด"
-            required
-            maxlength="50"
-            class="input"
-          /> {% endcomment %}
-          <input type="submit" value="search job" name="search" class="btn" />
+          <input type="submit" value="ค้นหางาน" name="search" class="btn" />
         </form>
       </section>
     </div>
@@ -52,7 +40,7 @@
     <!-- jobs section starts  -->
 
     <section class="jobs-container">
-      <h1 class="heading">jobs they offer</h1>
+      <h1 class="heading">ตำแหน่งที่เปิดรับสมัคร</h1>
       <div class="box-container">
         {% for job in jobs %}
         <div class="box">
@@ -76,7 +64,7 @@
             </div>
             <div class="flex-btn">
                 {% comment %} <a href="{% url 'view_job' job.id %}" class="btn">view details</a> {% endcomment %}
-                <a href="{% url 'view_job' job.id %}" class="btn">Views</a>
+                <a href="{% url 'view_job' job.id %}" class="btn">ดูเพิ่มเติม</a>
                 <button type="submit" class="far fa-heart" name="save"></button>
             </div>
         </div>
@@ -85,13 +73,13 @@
 
 
       <div style="text-align: center; margin-top: 2rem">
-        <a href="{% url "showalljob" %}" class="btn">view all</a>
+        <a href="{% url "showalljob" %}" class="btn">ดูตำแหน่งทั้งหมด</a>
       </div>
     </section>
-
-    <!-- jobs section ends -->
-    <section></section>
-    <!-- custom js file link  -->
     <script src="{% static "js/script.js" %}"></script>
+
+    {% elif user.role == 'COMPANY'%}
+    {% include "navbarstatus.html" %}
+    {% endif %}
   </body>
 </html>

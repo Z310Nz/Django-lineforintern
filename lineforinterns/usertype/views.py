@@ -229,6 +229,7 @@ def addinfo(request, role, username):
             province = form.cleaned_data["province"]
             postal_code = form.cleaned_data["postal_code"]
             line_id = form.cleaned_data["line_id"]
+            phone = form.cleaned_data["phone"]
             profilec = CompanyInfo.objects.create(
                 profile=company_logo,
                 company_name_eng=company_eng,
@@ -245,6 +246,7 @@ def addinfo(request, role, username):
                 line_id=line_id,
                 sub_district=sub_dis,
                 district=district,
+                phone=phone,
             )
             profilec.save()
             company = CompanyProfile()

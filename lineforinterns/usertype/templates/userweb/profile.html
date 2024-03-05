@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile</title>
+    <title>โปรไฟล์</title>
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="{% static "css/style.css" %}" />
@@ -22,7 +22,7 @@
     <!-- Navbarprofile  -->
     {% if user.role == 'STUDENT' %}
     <section class="view-student">
-      <h1 class="heading">Student details</h1>
+      <h1 class="heading">โปรไฟล์ของ {{ student.studentinfo.first_name }} {{ student.studentinfo.last_name }}</h1>
 
       <div class="details">
         <div class="info">
@@ -32,67 +32,72 @@
         </div>
 
         <div class="description">
-          <h3>general information</h3>
+          <h3 style="font-size:250%;">----------ข้อมูลทั่วไป----------</h3>
           <ul>
-            <p>Curriculum vitae</p>
-            <li><a href="{{ student.studentinfo.cv.url }}">Click to view CV</a></li>
+            <p style="font-size:200%;"><b><i style="color:white;">Curriculum vitae (CV)</i></b></p>
+            <li style="font-size:180%;"><a href="{{ student.studentinfo.cv.url }}">Click to view CV</a></li>
             <br />
-            <p>Full name</p>
-            <li>{{ student.studentinfo.first_name }} {{ student.studentinfo.last_name }}</li>
+            <p style="font-size:200%;"><b><i style="color:white;">ชื่อจริง-นามสกุล</i></b></p>
+            <li style="font-size:180%;">{{ student.studentinfo.first_name }} {{ student.studentinfo.last_name }}</li>
             <br />
-            <p>Student id</p>
-            <li>{{ student.studentinfo.student_id }}</li>
+            <p style="font-size:200%;"><b><i style="color:white;">รหัสนิสิต</i></b></p>
+            <li style="font-size:180%;">{{ student.studentinfo.student_id }}</li>
             <br />
-            <p>Email address</p>
-            <li>{{ student.studentinfo.email }}</li>
+            <p style="font-size:200%;"><b><i style="color:white;">Email </i></b></p>
+            <li style="font-size:180%;">{{ student.studentinfo.email }}</li>
             <br />
-            <p>Phone number</p>
-            <li>{{ student.studentinfo.phone }}</li>
+            <p style="font-size:200%;"><b><i style="color:white;">เบอร์โทรติดต่อ</i></b></p>
+            <li style="font-size:180%;">{{ student.studentinfo.phone }}</li>
             <br />
-            <p>Gender</p>
-            <li>{{ student.studentinfo.gender }}</li>
+            <p style="font-size:200%;"><b><i style="color:white;">เพศ</i></b></p>
+            <li style="font-size:180%;">{{ student.studentinfo.gender }}</li>
             <br />
           </ul>
 
-          <h3>about internship</h3>
+          <h3 style="font-size:250%;">----------ประวัติการฝึกงานครั้งล่าสุด----------</h3>
           <ul>
-            <p>Last job</p>
-            <li>{{ student.studentinfo.last_job }}</li>
+            <p style="font-size:200%;"><b><i style="color:white;">ตำแหน่งที่ฝึกงานครั้งล่าสุด</i></b></p>
+            <li style="font-size:180%;">{{ student.studentinfo.last_job }}</li>
             <br />
-            <p>Company</p>
-            <li>{{ student.studentinfo.intern_company }}</li>
-            <br />
-            <p>Skills</p>
-            <li>{{ student.studentinfo.skill }}</li>
-            <br />
-            <p>English skills</p>
-            <li>{{ student.studentinfo.eng_skill }}</li>
-            <br />
-            <p>Start date of internship</p>
-            <li>{{ student.studentinfo.intern_start }}</li>
-            <br />
-            <p>End date of internship</p>
-            <li>{{ student.studentinfo.intern_end }}</li>
+            <p style="font-size:200%;"><b><i style="color:white;">บริษัทที่เคยฝึกงาน</i></b></p>
+            <li style="font-size:180%;">{{ student.studentinfo.intern_company }}</li>
             <br />
           </ul>
 
-          <h3>education</h3>
+          <h3 style="font-size:250%;">----------คุณสมบัติ----------</h3>
           <ul>
-            <p>University</p>
-            <li>{{ student.studentinfo.university }}</li>
             <br />
-            <p>Faculty</p>
-            <li>{{ student.studentinfo.faculty }}</li>
+            <p style="font-size:200%;"><b><i style="color:white;">ทักษะ</i></b></p>
+            <li style="font-size:180%;">{{ student.studentinfo.skill }}</li>
             <br />
-            <p>Major</p>
-            <li>{{ student.studentinfo.major }}</li>
+            <p style="font-size:200%;"><b><i style="color:white;">ทักษะภาษาอังกฤษ</i></b></p>
+            <li style="font-size:180%;">{{ student.studentinfo.eng_skill }}</li>
+            <br />
+            <p style="font-size:200%;"><b><i style="color:white;">วันที่เริ่มฝึกงาน (ปัจจุบัน)</i></b></p>
+            <li style="font-size:180%;">{{ student.studentinfo.intern_start }}</li>
+            <br />
+            <p style="font-size:200%;"><b><i style="color:white;">วันที่สิ้นสุดการฝึกงาน</i></b></p>
+            <li style="font-size:180%;">{{ student.studentinfo.intern_end }}</li>
+            <br />
+          </ul>
+          <h3 style="font-size:250%;">----------ระดับการศึกษา----------</h3>
+          <ul>
+            <br />
+            <p style="font-size:200%;"><b><i style="color:white;">มหาวิทยาลัย</i></b></p>
+            <li style="font-size:180%;">{{ student.studentinfo.university }}</li>
+            <br />
+            <p style="font-size:200%;"><b><i style="color:white;">คณะ</i></b></p>
+            <li style="font-size:180%;">{{ student.studentinfo.faculty }}</li>
+            <br />
+            <p style="font-size:200%;"><b><i style="color:white;">สาขา</i></b></p>
+            <li style="font-size:180%;">{{ student.studentinfo.major }}</li>
             <br />
           </ul>
         </div>
         {% if student %}
         <form action="{% url 'editinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
           {% csrf_token %}
-          <input type="submit" value="edit profile" class="btn" />
+          <input type="submit" value="แก้ไขข้อมูลนิสิต" class="btn" />
           <input type="hidden" name="role" value="{{ context.role }}">
           <input type="hidden" name="username" value="{{ context.username }}">
         </form>
@@ -100,7 +105,7 @@
         {% else %}
         <form action="{% url 'addinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
           {% csrf_token %}
-          <input type="submit" value="Add info" class="btn" />
+          <input type="submit" value="เพิ่มข้อมูลนิสิต" class="btn" />
           <input type="hidden" name="role" value="{{ context.role }}">
           <input type="hidden" name="username" value="{{ context.username }}">
         </form>
@@ -108,19 +113,11 @@
       </div>
     </section>
 
-    <!-- company details section ends -->
-
-    <!-- jobs section starts  -->
-
-    <section class="jobs-container">
-    </section>
-    <!-- jobs section ends  -->
-
     {% elif user.role == 'COMPANY' %}
     <!-- company details section starts  -->
 
     <section class="view-company">
-      <h1 class="heading">company details</h1>
+      <h1 class="heading">โปรไฟล์ของบริษัท {{ company.companyinfo.company_name_thai }} </h1>
 
       <div class="details">
         <div class="info">
@@ -131,65 +128,48 @@
 
         <div class="description">
           <ul>
-            <h3>about company</h3>
-            <li>{{ company.companyinfo.company_des }}</li>
+            <h3>----------ข้อมูลทั่วไปของบริษัท----------</h3>
+            <li style="font-size:180%;">{{ company.companyinfo.company_des }}</li>
+            <br />
           </ul>
           <ul>
-            <p>Company name</p>
-            <li>{{ company.companyinfo.company_name_thai }}</li>
+            <p style="font-size:200%;"><b><i style="color:white;">ชื่อบริษัท</i></b></p>
+            <li style="font-size:180%;">{{ company.companyinfo.company_name_eng }} | {{ company.companyinfo.company_name_thai }}</li>
             <br />
-            <p>Foundation date</p>
-            <li>{{ company.companyinfo.foundation_date }}</li>
+            <p style="font-size:200%;"><b><i style="color:white;">วันที่ก่อตั้งบริษัท</i></b></p>
+            <li style="font-size:180%;">{{ company.companyinfo.foundation_date }}</li>
             <br />
-            <p>Working employess</p>
-            <li>{{ company.companyinfo.number_of_employees }} person</li>
+            <p style="font-size:200%;"><b><i style="color:white;">จำนวนพนักงานในบริษัท</i></b></p>
+            <li style="font-size:180%;">{{ company.companyinfo.number_of_employees }} คน</li>
             <br />
-            <p>Email address</p>
-            <li>{{ company.companyinfo.email }}</li>
+            <p style="font-size:200%;"><b><i style="color:white;">Email ติดต่อ</i></b></p>
+            <li style="font-size:180%;">{{ company.companyinfo.email }}</li>
             <br />
-            <p>Phone number</p>
-            <li>{{ company.companyinfo.phone }}</li>
+            <p style="font-size:200%;"><b><i style="color:white;">เบอร์โทรติดต่อ</i></b></p>
+            <li style="font-size:180%;">{{ company.companyinfo.phone }}</li>
             <br />
-            <p>LineID</p>
-            <li>{{ company.companyinfo.line_id}}</li>
+            <p style="font-size:200%;"><b><i style="color:white;">LineID</i></b></p>
+            <li style="font-size:180%;">{{ company.companyinfo.line_id}}</li>
             <br />
-            <p>website</p>
-            <li>{{ company.companyinfo.website}}</li>
+            <p style="font-size:200%;"><b><i style="color:white;">เว็ปไซต์บริษัท</i></b></p>
+            <li style="font-size:180%;">{{ company.companyinfo.website}}</li>
             <br />
           </ul>
 
-          <h3>Company Address</h3>
+          <h3>----------ที่ตั้งบริษัท----------</h3>
           <ul>
-            <p>address</p>
-            <li>{{ company.companyinfo.address}}</li>
-            <br />
-            <p>Sub District</p>
-            <li>{{ company.companyinfo.sub_district}}</li>
-            <br />
-            <p>District</p>
-            <li>{{ company.companyinfo.district}}</li>
-            <br />
-            <p>Province</p>
-            <li>{{ company.companyinfo.Province}}</li>
-            <br />
-            <p>country</p>
-            <li>{{ company.companyinfo.country}}</li>
-            <br />
-            <p>Post code</p>
-            <li>{{ company.companyinfo.postal_code}}</li>
+            <li style="font-size:180%;">{{ company.companyinfo.address}}</li>
+            <li style="font-size:180%;">{{ company.companyinfo.sub_district}}
+              {{ company.companyinfo.district}} {{ company.companyinfo.province }} 
+              {{ company.companyinfo.country}} {{ company.companyinfo.postal_code}}</li>
             <br />
           </ul>
         </div>
 
-        {% comment %} <ul>
-          <li>3 jobs posted</li>
-          <li>established at 21-05-2004</li>
-          <li>253 working employess</li>
-        </ul> {% endcomment %}
         {% if company %}
         <form action="{% url 'editinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
           {% csrf_token %}
-          <input type="submit" value="edit profile" class="btn" />
+          <input type="submit" value="แก้ไขข้อมูลบริษัท" class="btn" />
           <input type="hidden" name="role" value="{{ context.role }}">
           <input type="hidden" name="username" value="{{ context.username }}">
         </form>
@@ -197,7 +177,7 @@
         {% else %}
         <form action="{% url 'addinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
           {% csrf_token %}
-          <input type="submit" value="Add info" class="btn" />
+          <input type="submit" value="เพิ่มข้อมูลบริษัท" class="btn" />
           <input type="hidden" name="role" value="{{ context.role }}">
           <input type="hidden" name="username" value="{{ context.username }}">
         </form>
@@ -205,41 +185,7 @@
       </div>
     </section>
 
-    <!-- company details section ends -->
-
-    <!-- jobs section starts  -->
     {% endif %}
-    <section class="jobs-container">
-      <h1 class="heading">jobs they offer</h1>
-      <div class="box-container">
-        {% for job in jobs %}
-        <div class="box">
-            <div class="company">
-                <div>
-                    <h3>{{ job.company }}</h3>
-                    <p></p>
-                </div>
-            </div>
-            <h3 class="job-title">{{ job.jobname }}</h3>
-            <p class="location">
-                <i class="fas fa-map-marker-alt"></i> <span>{{ job.city }}, {{job.country }}</span>
-            </p>
-            <div class="tags">
-                <p>
-                    <i class="fas fa-indian-rupee-sign"></i> <span>{{ job.benefit }}</span>
-                </p>
-                <p><i class="fas fa-briefcase"></i> <span>{{ job.worktype }}</span></p>
-                <p><i class="fas fa-clock"></i> <span>{{ job.workday }}</span></p>
-            </div>
-            <div class="flex-btn">
-                <a href="{% url 'view_job' job.id %}" class="btn">Views</a>
-                <button type="submit" class="far fa-heart" name="save"></button>
-            </div>
-        </div>
-      {% endfor %}
-      </div>
-    </section>
-
     <!-- jobs section ends -->
     <section></section>
     <!-- custom js file link  -->

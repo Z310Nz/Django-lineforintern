@@ -5,37 +5,37 @@
       href="{% url 'profile' role='STUDENT' username=user.username %}"
       class="navbar__item"
       style="margin-top: 0"
-      >{{ user.username }}</a
+      >โปรไฟล์</a
     >
     <a
       href="{% url 'companyselect' role='STUDENT' username=user.username %}"
       class="navbar__item"
-      >Company</a
+      >ใบสมัครงาน</a
     >
     <a
       href="{% url 'logout' %}"
       class="navbar__item-btn btn-danger"
       style="margin-top: 0"
-      >logout</a
+      >ออกจากระบบ</a
     >
     {% elif user.role == 'COMPANY' %}
     <a
       href="{% url 'profile' role='COMPANY' username=user.username %}"
       class="btn"
       style="margin-top: 0"
-      >{{ user.username }}</a
+      >โปรไฟล์</a
     >
     <a
       href="{% url 'position' role='COMPANY' username=user.username %}"
       class="navbar__item"
-      >Position</a
+      >ตำแหน่งงาน</a
     >
     <a
       href="{% url 'studentview' role='COMPANY' username=user.username %}"
       class="navbar__item"
-      >Student</a
+      >ใบสมัครงาน</a
     >
-    <a href="{% url 'logout' %}" class="btn-danger" style="margin-top: 0">logout</a>
+    <a href="{% url 'logout' %}" class="btn-danger" style="margin-top: 0">ออกจากระบบ</a>
     {% endif %}
   </div>
 </section>

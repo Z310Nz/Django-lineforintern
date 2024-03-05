@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>เข้าสู่ระบบ</title>
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="{% static "css/style.css" %}" />
@@ -22,16 +22,16 @@
     <div class="home-container">
       <section class="home">
         <form action="" method="post">
-          <h3>Login</h3>
+          <h3>เข้าสู่ระบบ</h3>
           {% csrf_token %} {{ form.as_p }}
-          <button type="submit" class="btn">Login</button>
+          <button type="submit" class="btn">เข้าสู่ระบบ</button>
         </form>
 
         <section class="home">
           <form action="" method="post">
-            <h3>SignUp</h3>
+            <h3>ลงทะเบียน</h3>
             {% csrf_token %} {{ form.as_p }}
-            <button type="submit" class="btn">SignUp</button>
+            <button type="submit" class="btn">ลงทะเบียน</button>
           </form>
         </section>
       </section>

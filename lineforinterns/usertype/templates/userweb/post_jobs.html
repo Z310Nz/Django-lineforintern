@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Select Role</title>
+    <title>เพิ่มตำแหน่งที่รับสมัคร</title>
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="{% static "css/style.css" %}" />
@@ -27,132 +27,123 @@
       <section class="account-form">
         <form action="" method="post">
           {% csrf_token %} {{ form.errors }}
-          <h3>create new job!</h3>
-          <p>Job title <span>*</span></p>
+          <h3>เพิ่มตำแหน่งที่รับสมัคร</h3>
+          <p>ตำแหน่ง <span>*</span></p>
           <input
             name="jobname"
             type="text"
-            placeholder="enter job title"
+            placeholder="กรอกตำแหน่งงานที่รับสมัคร"
             required
             maxlength="50"
             class="input"
           />
-          <p>Job description <span>*</span></p>
+          <p>รายละเอียดเพิ่มเติมเกี่ยวกับตำแหน่งนี้ <span>*</span></p>
           <input
             name="jobdes"
             type="text"
-            placeholder="enter job description"
+            placeholder="กรอกรายละเอียดตำแหน่งที่รับสมัคร"
             required
             maxlength="50"
             class="input"
           />
-          <p>Benefits<span>*</span></p>
+          <p>ค่าตอบแทน/สวัสดิการ<span>*</span></p>
           <input
             name="benefit"
             type="text"
-            placeholder="enter benefits"
+            placeholder="กรอกค่าค่าตอบแทน/สวัสดิการ"
             required
             maxlength="50"
             class="input"
           />
-          <p>Job type<span>*</span></p>
-          <input
-            name="worktype"
-            type="text"
-            placeholder="Full-time, Part-time, internship"
-            required
-            maxlength="20"
-            class="input"
-          />
-          <p>Time in <span>*</span></p>
+          <p>ประเภทการรับสมัคร<span>*</span></p>
+          <div class="select-box">
+            <select name="worktype">
+              <option hidden>ประเภทการรับสมัคร</option>
+              <option>internship</option>
+              <option>Part-time</option>
+              <option>Full-time</option>
+            </select>
+          </div>
+          <p>เวลาเข้างาน <span>*</span></p>
           <input
             name="workstart"
             type="time"
-            placeholder="enter job title"
+            placeholder="กรอกเวลาเข้างาน"
             required
             maxlength="50"
             class="input"
           />
-          <p>Time out <span>*</span></p>
+          <p>เวลาเลิกงาน <span>*</span></p>
           <input
             name="workend"
             type="time"
-            placeholder="enter job title"
+            placeholder="กรอกเวลาเลิกงาน"
             required
             maxlength="50"
             class="input"
           />
-          <p>Work day<span>*</span></p>
+          <p>วันทำงานต่อสัปห์ดา<span>*</span></p>
           <div class="select-box">
             <select name="workday" id="" required>
-              <option hidden>work day</option>
-              <option>5 days per week</option>
-              <option>6 days per week</option>
+              <option hidden>โปรดเลือกวันทำงาน</option>
+              <option>5 วันต่อสัปห์ดา</option>
+              <option>6 วันต่อสัปห์ดา</option>
               <option>others</option>
             </select>
           </div>
           <br />
           <br /><br />
-          <h3>Qualifications</h3>
-          <p>Requirements <span>*</span></p>
+          <h3>คุณสมบัติของผู้สมัคร</h3>
+          <p>คุณสมบัติ <span>*</span></p>
           <input
             name="requirement"
             type="text"
-            placeholder="enter requirements"
+            placeholder="กรอกคุณสมบัติของผู้สมัคร"
             required
             maxlength="50"
             class="input"
           />
-          <p>Qualifications <span>*</span></p>
-          <input
-            name="qualifications"
-            type="text"
-            placeholder="enter qualifications"
-            required
-            maxlength="50"
-            class="input"
-          />
-          <p>Skills <span>*</span></p>
+          <p>ความสามารถ <span>*</span></p>
           <input
             name="skills"
             type="text"
-            placeholder="enter skills required"
+            placeholder="กรอกความสามารถของผู้สมัคร"
             required
             maxlength="50"
             class="input"
           />
-          <h3>Location</h3>
-          <p>Company <span>*</span></p>
+          <h3>สถานที่ฝึกงาน</h3>
+          <p>บริษัท <span>*</span></p>
           <input
             name="company"
             type="text"
-            placeholder="enter skills required"
+            placeholder="กรอกบริษัทที่รับสมัคร"
             required
             maxlength="50"
             value="{{ company.companyinfo.company_name_eng }}"
             class="input"
           />
-          <p>City <span>*</span></p>
+          <p>อำเภอ/เขต <span>*</span></p>
           <input
             name="city"
             type="text"
-            placeholder="enter skills required"
+            placeholder="กรอกอำเภอ/เขตของบริษัท"
             required
             maxlength="50"
             value="{{ company.companyinfo.Province }}"
             class="input"
           />
-          <p>Country <span>*</span></p>
+          <p>จังหวัด <span>*</span></p>
           <input
             name="country"
             type="text"
-            placeholder="enter skills required"
+            placeholder="กรอกจังหวัดของบริษัท"
             required
             maxlength="50"
             value="{{ company.companyinfo.country }}"
             class="input"
           />
-          <input type="submit" value="create job" name="submit" class="btn" />
+          <input type="submit" value="เพิ่มตำแหน่ง" name="submit" class="btn" />
         </form>
       </section>
     </div>

@@ -909,6 +909,19 @@ section {
   text-decoration: none; /* เพิ่ม */
 }
 
+.btn-logout {
+  background-color: red;
+  display: inline-block;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--white);
+  border-radius: 0.5rem;
+  text-transform: capitalize;
+  text-align: center;
+  text-decoration: none; /* เพิ่ม */
+}
+
 .btn-green {
   background-color: green;
 }
@@ -927,3 +940,4 @@ section {
 .btn-danger:hover {
   background-color: var(--white);
 }
+

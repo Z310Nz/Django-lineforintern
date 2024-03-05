@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile</title>
+    <title>ตำแหน่ง</title>
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="{% static "css/style.css" %}" />
@@ -25,7 +25,7 @@
     <section class="jobs-container">
       <h1 class="heading">Position</h1>
       <div class="flex-btn">
-        <a href="{% url 'postjob' role='COMPANY' username=user.username %}" class="btn">Add Position</a>
+        <a href="{% url 'postjob' role='COMPANY' username=user.username %}" class="btn">เพิ่มตำแหน่งที่รับสมัคร</a>
     </div>
       <div class="box-container">
         {% for job in jobs %}
@@ -49,9 +49,9 @@
                 <p><i class="fas fa-clock"></i> <span>{{ job.workday }}</span></p>
             </div>
             <div class="flex-btn">
-                <a href="{% url 'view_job' job.id %}" class="btn">Views</a>
+                <a href="{% url 'view_job' job.id %}" class="btn">ดูรายละเอียด</a>
                 {% comment %} <a href="{% url 'editjob' job.id %}" class="btn">Edit</a> {% endcomment %}
-                <a href="{% url 'deletejob' job.id %}" class="btn">Delete</a>
+                <a href="{% url 'deletejob' job.id %}" class="btn">ลบงาน</a>
             </div>
         </div>
       {% endfor %}

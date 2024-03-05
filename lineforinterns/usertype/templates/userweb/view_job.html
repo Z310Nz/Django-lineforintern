@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Register</title>
+    <title>รายละเอียดตำแหน่ง</title>
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="{% static "css/style.css" %}" />
@@ -20,51 +20,44 @@
     <!-- view job section starts  -->
 
     <section class="job-details">
-      <h1 class="heading">job details</h1>
+      <h1 class="heading">รายละเอียดตำแหน่ง</h1>
 
       <div class="details">
         <div class="job-info">
-          <h3>{{ job.jobname }}</h3>
-          <a href="view_company.html">{{ job.company }}</a>
-          <p><i class="fas fa-map-marker-alt"></i> {{ job.city }}, {{job.country }}</p>
+          <h3 style="font-size:250%;">{{ job.jobname }}</h3>
+          <a style="font-size:230%;" href="view_company.html">บริษัท {{ job.company }}</a>
+          <p style="font-size:200%;"><i class="fas fa-map-marker-alt"></i>สถานที่ฝึกงาน : {{ job.city }}, {{job.country }}</p>
         </div>
         <div class="basic-details">
-          <h3>benefits</h3>
-          <p>{{ job.benefit }}</p>
-          <h3>job type</h3>
-          <p>{{ job.worktype }}</p>
-          <h3>Work day</h3>
-          <p>{{ job.workday }}</p>
+          <h3 style="font-size:220%;">รายละเอียดตำแหน่ง</h3>
+          <p style="font-size:190%;">{{ job.jobdes }}</p>
+          <h3 style="font-size:220%;">ค่าตอบแทน/สวัสดิการ</h3>
+          <p style="font-size:190%;">{{ job.benefit }}</p>
+          <h3 style="font-size:220%;">วันทำงานต่อสัปห์ดา</h3>
+          <p style="font-size:190%;">{{ job.workday }}</p>
+          <h3 style="font-size:220%;">คุณสมบัติ</h3>
+          <p style="font-size:190%;">{{ job.requirement }}</p>
+          <h3 style="font-size:220%;">ความสามารถ</h3>
+          <p style="font-size:190%;">{{ job.skills }}</p>
         </div>
         <ul>
-          <h3>requirements</h3>
-          <li>{{ job.requirement }}</li>
+          
         </ul>
         <ul>
-          <h3>qualifications</h3>
-          <li>{{ job.qualifications }}</li>
-        </ul>
-        <ul>
-          <h3>skills</h3>
-          <li>{{ job.skills }}</li>
+          
         </ul>
         <div class="description">
-          <h3>job description</h3>
-          <p>
-            {{ job.jobdes }}
-          </p>
           <ul>
             {% comment %} <li>Hiring 2 candidate for this role</li>
             <li>posted 2 days ago</li> {% endcomment %}
           </ul>
-        </div>
         {% if user.role == 'STUDENT' %}
         <form action="{% url 'apply_job' job_id=job.id %}" method="post" class="flex-btn">
           {% csrf_token %}
-          <input type="submit" value="apply now" name="apply" class="btn" />
-          <button type="submit" class="save">
+          <input type="submit" value="ส่งใบสมัคร" name="apply" class="btn" />
+          {% comment %} <button type="submit" class="save">
             <i class="far fa-heart"></i> <span>save job</span>
-          </button>
+          </button> {% endcomment %}
         </form>
         {% endif %}
       </div>

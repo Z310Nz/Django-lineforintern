@@ -193,7 +193,7 @@ class Job(models.Model):
     workend = models.TimeField()
     workday = models.CharField(max_length=255)
     requirement = models.CharField(max_length=255)
-    qualifications = models.CharField(max_length=255)
+    qualifications = models.CharField(max_length=255, blank=True, null=True)
     skills = models.CharField(max_length=255)
     company = models.CharField(max_length=255)
     city = models.CharField(max_length=255)

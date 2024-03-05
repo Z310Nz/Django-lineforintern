@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Select Role</title>
+    <title>นัดสัมภาษณ์</title>
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="{% static "css/style.css" %}" />
@@ -27,44 +27,43 @@
       <section class="account-form">
         <form action="" method="post">
           {% csrf_token %} {{ form.errors }}
-          <h3>Interview Form</h3>
-          <p>Date Interview <span>*</span></p>
+          <h3>แบบฟอร์มการนัดหมายสัมภาษณ์ฝึกงาน</h3>
+          <p>วันที่นัดหมาย <span>*</span></p>
           <input
             name="date"
             type="date"
-            placeholder="choose your start date of internship"
+            placeholder="กรอกวันที่นัดหมายสัมภาษณ์"
             required
             maxlength="50"
             class="input"
           />
-          <p>Time Interview <span>*</span></p>
+          <p>เวลา <span>*</span></p>
           <input
             name="time"
             type="time"
-            placeholder="choose your start date of internship"
+            placeholder="กรอกเวลาที่นัดหมายสัมภาษณ์"
             required
             maxlength="50"
             class="input"
           />
-          <p>Location Interview <span>*</span></p>
-            <input
-                name="location"
-                type="text"
-                placeholder="choose your start date of internship"
-                required
-                maxlength="50"
-                class="input"
-            />
-            <p>Link <span>*</span></p>
+          <p>สถานที่นัดสัมภาษณ์ <span>*</span></p>
+          <div class="select-box">
+            <select name="location">
+              <option hidden>สถานที่</option>
+              <option>Online</option>
+              <option>Onsite</option>
+            </select>
+          </div>
+            <p>ลิงค์สำหรับการสัมภาษณ์แบบ Online (Onsite ใส่ " - ") <span>*</span></p>
             <input
                 name="link"
                 type="text"
-                placeholder="choose your start date of internship"
+                placeholder="กรอกลิงค์สำหรับการสัมภาษณ์"
                 required
                 maxlength="50"
                 class="input"
             />
-          <input type="submit" value="submit" name="submit" class="btn" />
+          <input type="submit" value="สร้างการนัดหมาย" name="submit" class="btn" />
         </form>
       </section>
     </div>
