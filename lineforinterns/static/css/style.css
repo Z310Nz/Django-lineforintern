@@ -937,7 +937,8 @@ section {
 /* สร้าง hover effect */
 .btn-green:hover,
 .btn-bule:hover,
-.btn-danger:hover {
+.btn-danger:hover
+.btn-logout:hover {
   background-color: var(--white);
 }
 

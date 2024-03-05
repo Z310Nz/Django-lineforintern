@@ -441,7 +441,7 @@ def applyview(request, role, username):
     student_id = [s.student_id for s in showstudent]
     interview = [m.interview for m in match]
     students = zip(showstudent, status, job, match_id, student_id, interview)
-    return render(request, "userweb/student.html", {"students": students, "role": role, "username": username})
+    return render(request, "usertype/home_com.html", {"students": students, "role": role, "username": username})
 
 def approved(request, match_id):
     match = get_object_or_404(Matching, id=match_id)

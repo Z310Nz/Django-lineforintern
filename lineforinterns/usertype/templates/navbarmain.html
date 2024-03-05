@@ -15,10 +15,10 @@
       style="margin-top: 0"
       >โปรไฟล์</a
     >
-    
+
     {% elif user.role == 'COMPANY' %}
     <nav class="navbar">
-      <a href="{% url 'home' %}">ใบสมัครงาน</a>
+      <a href="{% url 'studentview' role=user.role username=user.username %}">ใบสมัครงาน</a>
     </nav>
     <a
       href="{% url 'profile' role='COMPANY' username=user.username %}"

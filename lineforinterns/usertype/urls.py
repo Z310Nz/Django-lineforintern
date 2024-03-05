@@ -20,7 +20,7 @@ urlpatterns = [
     path("addjob/<str:role>/<str:username>/", views.postjob, name="postjob"),  # Add job page
     path("companyselect/<str:role>/<str:username>/", views.viewselectcompany, name="companyselect"),  # Company select page
     path("position/<str:role>/<str:username>/", views.positionview, name="position"),  # Position page
-    path("studentview/<str:role>/<str:username>/", views.applyview, name="studentview"),  # Show Student who want to work page
+    path("home/<str:role>/<str:username>/", views.applyview, name="studentview"),  # Show Student who want to work page
     path("logout/", logout_view, name="logout"),  # Logout page
     path("accounts/", include("allauth.urls")),  # Allauth page
     path("delete/<str:job_id>/", views.deletejob, name="deletejob"),  # Delete job page
