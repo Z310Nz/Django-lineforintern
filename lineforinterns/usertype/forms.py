@@ -47,7 +47,7 @@ class SignUpCompanyForm(forms.Form):
     email = forms.EmailField()  #
     phone = forms.CharField(max_length=15)  #
     company_des = forms.CharField()  #
-    logoc = forms.ImageField()  #
+    profile = forms.ImageField()  #
     foundation_date = forms.DateField()  #
     number_of_employees = forms.IntegerField()  #
     website = forms.URLField()  #
@@ -126,7 +126,7 @@ class EditCompanyForm(forms.ModelForm):
             "email",
             "phone",
             "company_des",
-            "logoc",
+            "profile",
             "foundation_date",
             "number_of_employees",
             "website",
@@ -142,7 +142,7 @@ class EditCompanyForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(EditCompanyForm, self).__init__(*args, **kwargs)
-        self.fields["logoc"].required = False
+        self.fields["profile"].required = False
 
 class JobSearchForm(forms.Form):
     query = forms.CharField(max_length=20, required=True)

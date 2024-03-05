@@ -23,6 +23,19 @@
     {% if user.role == 'STUDENT' %}
     <!-- header section ends  -->
     <!-- student profile section starts  -->
+
+    <div class="account-form-container">
+      <section class="account-form">
+          <form action="" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <h3>Edit Your Profile</h3>
+              {{ form.as_p }}
+              <input type="submit" value="SAVE" name="submit" class="btn" />
+          </form>
+      </section>
+      <script src="{% static "js/script.js" %}"></script>
+    </div>
+  
     <div class="account-form-container">
       <section class="account-form">
         <form action="" method="post" enctype="multipart/form-data">
@@ -51,7 +64,6 @@
             name="first_name"
             type="text"
             placeholder="enter your full name"
-            required
             maxlength="50"
             class="input"
             value="{{student.studentinfo.first_name}}"
@@ -61,7 +73,7 @@
             name="last_name"
             type="text"
             placeholder="enter your full name"
-            required
+            
             maxlength="50"
             class="input"
             value="{{student.studentinfo.last_name}}"
@@ -71,7 +83,7 @@
             name="nick_name"
             type="text"
             placeholder="enter your full name"
-            required
+            
             maxlength="50"
             class="input"
             value="{{student.studentinfo.nick_name}}"
@@ -81,7 +93,7 @@
             name="student_id"
             type="number"
             placeholder="enter your sutudent id"
-            required
+            
             maxlength="20"
             class="input"
             value="{{student.studentinfo.student_id}}"
@@ -91,7 +103,7 @@
             name="email"
             type="email"
             placeholder="enter your email address"
-            required
+            
             maxlength="50"
             class="input"
             value="{{student.studentinfo.email}}"
@@ -101,7 +113,7 @@
             name="phone"
             type="number"
             placeholder="enter your phone number"
-            required
+            
             maxlength="20"
             class="input"
             value="{{student.studentinfo.phone}}"
@@ -119,7 +131,7 @@
             name="birthday"
             type="date"
             placeholder="choose your start date of internship"
-            required
+            
             maxlength="50"
             class="input"
             value="{{student.studentinfo.birthday}}"
@@ -131,7 +143,7 @@
             name="last_job"
             type="text"
             placeholder="enter your last job"
-            required
+            
             maxlength="50"
             class="input"
             value="{{student.studentinfo.last_job}}"
@@ -141,7 +153,7 @@
             name="intern_company"
             type="text"
             placeholder="enter company name that you was trainee"
-            required
+            
             maxlength="50"
             class="input"
             value="{{student.studentinfo.intern_company}}"
@@ -151,7 +163,7 @@
             name="interest_job"
             type="text"
             placeholder="enter your interested job"
-            required
+            
             maxlength="50"
             class="input"
             value="{{student.studentinfo.interest_job}}"
@@ -161,7 +173,7 @@
             name="skill"
             type="text"
             placeholder="enter your interested job"
-            required
+            
             maxlength="50"
             class="input"
             value="{{student.studentinfo.skill}}"
@@ -184,7 +196,7 @@
             name="intern_start"
             type="date"
             placeholder="choose your start date of internship"
-            required
+            
             maxlength="50"
             class="input"
             value="{{student.studentinfo.intern_start}}"
@@ -194,7 +206,7 @@
             name="intern_end"
             type="date"
             placeholder="choose your end date of internship"
-            required
+            
             maxlength="50"
             class="input"
             value="{{student.studentinfo.intern_end}}"
@@ -205,7 +217,7 @@
             name="university"
             type="text"
             placeholder="enter your university name"
-            required
+            
             maxlength="50"
             class="input"
             value="{{student.studentinfo.university}}"
@@ -215,7 +227,7 @@
             name="faculty"
             type="text"
             placeholder="enter your faculty"
-            required
+            
             maxlength="50"
             class="input"
             value="{{student.studentinfo.faculty}}"
@@ -225,7 +237,6 @@
             name="major"
             type="text"
             placeholder="enter your major"
-            required
             maxlength="50"
             class="input"
             value="{{student.studentinfo.major}}"
@@ -236,8 +247,28 @@
       <script src="{% static "js/script.js" %}"></script>
     </div>
     <!-- student profile section ends  -->
+
+
+
+
+
+
     {% elif user.role == 'COMPANY' %}
     <!-- company profile section starts  -->
+
+    <div class="account-form-container">
+      <section class="account-form">
+          <form action="" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <h3>Edit Your Profile</h3>
+              {{ form.as_p }}
+              <input type="submit" value="SAVE" name="submit" class="btn" />
+          </form>
+      </section>
+      <script src="{% static "js/script.js" %}"></script>
+    </div>
+
+
     <div class="account-form-container">
       <section class="account-form">
         <form action="" method="post" enctype="multipart/form-data">
@@ -245,7 +276,7 @@
           <h3>create new profile!</h3>
           <p>Upload your company logo</p>
           <input
-            name="logoc"
+            name="profile"
             type="file"
             accept="image/png, image/jpeg"
             placeholder="upload your profile image"
@@ -256,7 +287,7 @@
             name="company_name_eng"
             type="text"
             placeholder="enter your company name"
-            required
+            
             maxlength="50"
             class="input"
           />
@@ -265,7 +296,7 @@
             name="company_name_thai"
             type="text"
             placeholder="enter your company name"
-            required
+            
             maxlength="50"
             class="input"
           />
@@ -274,7 +305,7 @@
             name="foundation_date"
             type="date"
             placeholder="choose your start date of internship"
-            required
+            
             maxlength="50"
             class="input"
           />
@@ -283,7 +314,7 @@
             name="company_des"
             type="text"
             placeholder="enter your company description"
-            required
+            
             maxlength="20"
             class="input"
           />
@@ -292,7 +323,7 @@
             name="number_of_employees"
             type="number"
             placeholder="enter your sutudent id"
-            required
+            
             maxlength="20"
             class="input"
           />
@@ -301,7 +332,7 @@
             name="website"
             type="text"
             placeholder="enter your company website"
-            required
+            
             maxlength="50"
             class="input"
           />
@@ -310,7 +341,7 @@
             name="email"
             type="email"
             placeholder="enter your company email address"
-            required
+            
             maxlength="50"
             class="input"
           />
@@ -319,7 +350,7 @@
             name="phone"
             type="number"
             placeholder="enter your company phone number"
-            required
+            
             maxlength="20"
             class="input"
           />
@@ -328,7 +359,7 @@
             name="line_id"
             type="text"
             placeholder="enter your company description"
-            required
+            
             maxlength="20"
             class="input"
           />
@@ -339,7 +370,7 @@
             name = "address"
             type="text"
             placeholder="enter your company address"
-            required
+            
             maxlength="50"
             class="input"
           />
@@ -348,7 +379,7 @@
             name="sub_district"
             type="text"
             placeholder="enter your company sub-district"
-            required
+            
             maxlength="50"
             class="input"
           />
@@ -357,7 +388,7 @@
             name="district"
             type="text"
             placeholder="enter your company district"
-            required
+            
             maxlength="50"
             class="input"
           />
@@ -366,7 +397,7 @@
             name="province"
             type="text"
             placeholder="enter your company province"
-            required
+            
             maxlength="50"
             class="input"
           />
@@ -375,7 +406,7 @@
             name="country"
             type="text"
             placeholder="enter your company country"
-            required
+            
             maxlength="50"
             class="input"
           />
@@ -384,7 +415,7 @@
             name="postal_code"
             type="number"
             placeholder="enter postal code"
-            required
+            
             maxlength="6"
             class="input"
           />

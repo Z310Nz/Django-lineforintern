@@ -110,8 +110,8 @@ class StudentInfo(models.Model):
     university = models.CharField(max_length=200)
     faculty = models.CharField(max_length=50, blank=True)
     major = models.CharField(max_length=50, blank=True)
-    intern_start = models.DateField()
-    intern_end = models.DateField()
+    intern_start = models.DateField(blank=True, null=True)
+    intern_end = models.DateField(blank=True, null=True)
     eng_skill = models.CharField(max_length=200)
 
     def __str__(self):
@@ -235,7 +235,7 @@ class CompanyInfo(models.Model):
     company_name_eng = models.CharField(max_length=100, unique=True, primary_key=True)
     company_name_thai = models.CharField(max_length=100)
     company_des = models.CharField(max_length=255)
-    logoc = models.ImageField(upload_to="profile/", null=True, blank=True)
+    profile = models.ImageField(upload_to="profile/", null=True, blank=True)
     foundation_date = models.DateField()
     number_of_employees = models.IntegerField()
     website = models.URLField()

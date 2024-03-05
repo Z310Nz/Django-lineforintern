@@ -28,6 +28,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
 from itertools import groupby, zip_longest
 from django.db.models import Q
+from django.contrib import messages
 
 
 def error_view(request):
@@ -93,7 +94,7 @@ def profile(request, role, username):
     user = request.user
     student = None
     company = None
-    jobs = None  # Initialize jobs to None
+    jobs = None
 
     context = {
         "role": role,
@@ -213,7 +214,7 @@ def addinfo(request, role, username):
             initial={"username": user.username},
         )
         if request.method == "POST" and form.is_valid():
-            company_logo = form.cleaned_data["logoc"]
+            company_logo = form.cleaned_data["profile"]
             company_eng = form.cleaned_data["company_name_eng"]
             company_thai = form.cleaned_data["company_name_thai"]
             company_info = form.cleaned_data["company_des"]
@@ -229,7 +230,7 @@ def addinfo(request, role, username):
             postal_code = form.cleaned_data["postal_code"]
             line_id = form.cleaned_data["line_id"]
             profilec = CompanyInfo.objects.create(
-                logoc=company_logo,
+                profile=company_logo,
                 company_name_eng=company_eng,
                 company_name_thai=company_thai,
                 company_des=company_info,
@@ -268,27 +269,33 @@ def addinfo(request, role, username):
 @login_required
 def editinfo(request, role, username):
     user = request.user
+    student = None
+    company = None
+
     context = {
         "role": role,
         "username": username,
     }
 
-    if user.role == "STUDENT":
-        student = StudentProfile.objects.get(user=user)
-        form = EditStudentForm(
-            request.POST or None, request.FILES or None, instance=student.studentinfo
-        )
-
-    elif user.role == "COMPANY":
-        company = CompanyProfile.objects.get(user=user)
-        form = EditCompanyForm(
-            request.POST or None, request.FILES or None, instance=company.companyinfo
-        )
-
-    if request.method == "POST":
+    if user.role == CustomUser.Role.STUDENT:
+        studentinfo = StudentProfile.objects.get(user=user)
+        form = EditStudentForm( request.POST or None, request.FILES or None, instance=studentinfo.studentinfo)
         if form.is_valid():
             form.save()
-            return redirect("profile", username=user.username, role=user.role)
+            messages.success(request, 'Your profile was successfully updated!')
+            return redirect("profile", username=user.username, role=role)
+        else:
+            messages.error(request, 'Please correct the error below.')
+
+    elif user.role == CustomUser.Role.COMPANY:
+        companyinfo = CompanyProfile.objects.get(user=user)
+        form = EditCompanyForm(request.POST or None, request.FILES or None, instance=companyinfo.companyinfo)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile was successfully updated!')
+            return redirect("profile", username=user.username, role=role)
+        else:
+            messages.error(request, 'Please correct the error below.')
 
     return render(
         request,
@@ -297,8 +304,13 @@ def editinfo(request, role, username):
             "form": form,
             "user": user,
             "context": context,
+            "student": student,
+            "company": company,
         },
     )
+
+
+
 
 
 @login_required

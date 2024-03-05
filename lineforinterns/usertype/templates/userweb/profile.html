@@ -90,7 +90,7 @@
           </ul>
         </div>
         {% if student %}
-        <form action="{% url 'addinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
+        <form action="{% url 'editinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
           {% csrf_token %}
           <input type="submit" value="edit profile" class="btn" />
           <input type="hidden" name="role" value="{{ context.role }}">
@@ -124,7 +124,7 @@
 
       <div class="details">
         <div class="info">
-          <img src="{{ company.companyinfo.logos.url }}" alt="" />
+          <img src="{{ company.companyinfo.profile.url }}" alt="" />
           <h3>{{ company.companyinfo.company_name_eng }}</h3>
           <p><i class="fas fa-map-marker-alt"></i> {{ company.companyinfo.province }}, {{ company.companyinfo.country }}</p>
         </div>
@@ -187,7 +187,7 @@
           <li>253 working employess</li>
         </ul> {% endcomment %}
         {% if company %}
-        <form action="{% url 'addinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
+        <form action="{% url 'editinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
           {% csrf_token %}
           <input type="submit" value="edit profile" class="btn" />
           <input type="hidden" name="role" value="{{ context.role }}">
