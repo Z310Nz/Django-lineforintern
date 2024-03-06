@@ -200,7 +200,7 @@ section {
   color: var(--red);
 }
 
-.home-container .home form .input {
+.home-container .home form .input .textext {
   width: 100%;
   border-radius: 0.5rem;
   margin: 1rem 0;
@@ -565,6 +565,7 @@ section {
   font-size: 1.8rem;
   color: var(--white);
 }
+
 
 .account-form-container .account-form form .select-box select {
   width: 100%;

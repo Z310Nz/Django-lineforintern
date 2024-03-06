@@ -23,7 +23,7 @@
 
     
     <section class="jobs-container">
-      <h1 class="heading">Position</h1>
+      <h1 class="heading">ตำแหน่งที่เปิดรับสมัคร</h1>
       <div class="flex-btn">
         <a href="{% url 'postjob' role='COMPANY' username=user.username %}" class="btn">เพิ่มตำแหน่งที่รับสมัคร</a>
     </div>
@@ -51,7 +51,7 @@
             <div class="flex-btn">
                 <a href="{% url 'view_job' job.id %}" class="btn">ดูรายละเอียด</a>
                 {% comment %} <a href="{% url 'editjob' job.id %}" class="btn">Edit</a> {% endcomment %}
-                <a href="{% url 'deletejob' job.id %}" class="btn">ลบงาน</a>
+                <a href="{% url 'deletejob' job.id %}" class="btn">ลบตำแหน่ง</a>
             </div>
         </div>
       {% endfor %}
