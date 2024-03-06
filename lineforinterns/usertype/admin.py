@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import CompanyInfo, Job, CompanyProfile, Company
 from .models import StudentInfo, StudentProfile, Student, CustomUser
-from .models import StudentManager, CompanyManager, Interview
+from .models import StudentManager, CompanyManager, Interview, Matching
 
 # Register your models here.
 admin.site.register(CompanyInfo)
@@ -15,3 +15,4 @@ admin.site.register(CustomUser)
 # admin.site.register(StudentManager)
 # admin.site.register(CompanyManager)
 admin.site.register(Interview)
+admin.site.register(Matching)
