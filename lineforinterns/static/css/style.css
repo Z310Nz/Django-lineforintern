@@ -200,7 +200,7 @@ section {
   color: var(--red);
 }
 
-.home-container .home form .input .textext {
+.home-container .home form .input {
   width: 100%;
   border-radius: 0.5rem;
   margin: 1rem 0;
@@ -566,7 +566,6 @@ section {
   color: var(--white);
 }
 
-
 .account-form-container .account-form form .select-box select {
   width: 100%;
   border-radius: 0.5rem;
@@ -819,7 +818,25 @@ section {
   }
 }
 
-.navbar__links {
+.navbar__div {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.5rem;
+  font-size: 1.6rem;
+  color: var(--light-color);
+  border-radius: 0.5rem;
+  text-transform: capitalize;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s linear;
+  margin: 0 20rem;
+}
+
+.navbar__item {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -834,25 +851,19 @@ section {
   transition: 0.2s linear;
   margin: 0 20rem;
 }
-.navbar__div {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem 1.5rem;
-  font-size: 2rem;
-  color: var(--light-color);
-  border-radius: 0.5rem;
-  text-transform: capitalize;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.2s linear;
-  margin: 0 10rem;
+.navbar__item:hover {
+  background-color: var(--main-color);
+  color: var(--black);
 }
 
-.navbar__item {
-  position: relative;
+
+.navbar__container {
+  display: grid;
+  place-items: center; /* จัดให้ข้อความอยู่ตรงกลางทั้งแนวนอนและแนวดิ่ง */
+  height: 100px; /* กำหนดความสูงของ Navbar */
+}
+
+.navbar__links {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -884,10 +895,6 @@ section {
   transition: 0.2s linear;
   margin: 0 20rem;
 }
-.navbar__item:hover {
-  background-color: var(--main-color);
-  color: var(--black);
-}
 
 .flex-btn-status {
   display: flex;
@@ -902,7 +909,7 @@ section {
   display: inline-block;
   padding: 1rem 2rem;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: var(--black);
   border-radius: 0.5rem;
   text-transform: capitalize;
