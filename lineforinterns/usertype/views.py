@@ -336,7 +336,6 @@ def postjob(request, role, username):
         work_end = form.cleaned_data["workend"]
         work_day = form.cleaned_data["workday"]
         require = form.cleaned_data["requirement"]
-        qualifi = form.cleaned_data["qualifications"]
         skill = form.cleaned_data["skills"]
         com = form.cleaned_data["company"]
         cit = form.cleaned_data["city"]
@@ -351,7 +350,6 @@ def postjob(request, role, username):
             workend=work_end,
             workday=work_day,
             requirement=require,
-            qualifications=qualifi,
             skills=skill,
             company=com,
             city=cit,

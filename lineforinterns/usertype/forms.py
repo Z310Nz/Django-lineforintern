@@ -71,7 +71,6 @@ class PostJobForm(forms.Form):
     workend = forms.TimeField()
     workday = forms.CharField(max_length=100)
     requirement = forms.CharField(max_length=100)
-    qualifications = forms.CharField(max_length=100)
     skills = forms.CharField(max_length=100)
     company = forms.CharField(max_length=100)
     city = forms.CharField(max_length=100)
