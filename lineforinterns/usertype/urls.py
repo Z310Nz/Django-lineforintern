@@ -4,12 +4,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from .views import login_view, error_view, logout_view, search
+from .views import error_view, logout_view, search
 
 urlpatterns = [
     path("", views.home_view, name="home"),  # Home page
     path("homepage/", views.home_view, name="homepage"),  # Home page
-    path("login/", login_view, name="login_page"),  # Login page
+    path("login/", views.realregister, name="login_page"),  # Login page
+    path("reallogin/", views.reallogin, name="reallogin"),  # Signup page
     path("welcome/<str:username>/", views.welcome, name="welcome"),  # Welcome page
     path("error/", error_view, name="error_page"),  # Error page
     path("profile/<str:role>/<str:username>/", views.profile, name="profile"),  # Profile page

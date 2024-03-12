@@ -210,6 +210,16 @@ section {
   color: var(--white);
 }
 
+.home-container .home form .select-box select {
+  width: 100%;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  background-color: var(--light-bg);
+  padding: 1.4rem;
+  font-size: 1.8rem;
+  color: #aaa;
+}
+
 .jobs-container .box-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, 35rem);
@@ -856,6 +866,28 @@ section {
   color: var(--black);
 }
 
+.navbar__status {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1rem;
+  font-size: 2rem;
+  color: var(--light-color);
+  border-radius: 0.5rem;
+  text-transform: capitalize;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s linear;
+  margin: 1 1rem;
+}
+
+.navbar__status:hover {
+  background-color: var(--main-color);
+  color: var(--black);
+  margin: 1rem;
+}
 
 .navbar__container {
   display: grid;
@@ -923,7 +955,20 @@ section {
   padding: 1rem 2rem;
   cursor: pointer;
   font-size: 1.5rem;
-  color: var(--white);
+  color: var(--black);
+  border-radius: 0.5rem;
+  text-transform: capitalize;
+  text-align: center;
+  text-decoration: none; /* เพิ่ม */
+}
+
+.btn-register {
+  background-color: bisque;
+  display: inline-block;
+  padding: 1rem 1rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--black);
   border-radius: 0.5rem;
   text-transform: capitalize;
   text-align: center;
@@ -945,8 +990,43 @@ section {
 /* สร้าง hover effect */
 .btn-green:hover,
 .btn-bule:hover,
-.btn-danger:hover
-.btn-logout:hover {
+.btn-danger:hover,
+.btn-logout:hover,
+.btn-register:hover {
   background-color: var(--white);
 }
 
+.messages {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.error {
+  color: red; /* สีข้อความสำหรับ error */
+}
+
+.success {
+  color: green; /* สีข้อความสำหรับ success */
+}
+
+.warning {
+  color: orange; /* สีข้อความสำหรับ warning */
+}
+
+.info {
+  color: blue; /* สีข้อความสำหรับ info */
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+}

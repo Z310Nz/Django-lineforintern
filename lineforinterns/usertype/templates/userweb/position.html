@@ -24,6 +24,13 @@
     
     <section class="jobs-container">
       <h1 class="heading">ตำแหน่งที่เปิดรับสมัคร</h1>
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li style="font-size:150%;" class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
       <div class="flex-btn">
         <a href="{% url 'postjob' role='COMPANY' username=user.username %}" class="btn">เพิ่มตำแหน่งที่รับสมัคร</a>
     </div>

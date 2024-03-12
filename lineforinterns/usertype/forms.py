@@ -13,6 +13,16 @@ class LoginForm(forms.Form):
     ]
     role = forms.ChoiceField(choices=ROLE_CHOICES)
 
+    def clean_role(self):
+        role = self.cleaned_data.get('role')
+        if role not in dict(self.ROLE_CHOICES).keys():
+            raise forms.ValidationError("Invalid role.")
+        return role
+
+class RealLoginForm(forms.Form):
+    username = forms.CharField(max_length=100)
+    password = forms.CharField(widget=forms.PasswordInput)
+
 
 class SignUpStudentForm(forms.Form):
     profile = forms.ImageField()  #

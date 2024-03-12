@@ -18,26 +18,23 @@
     <!-- header section ends -->
 
     <!-- home section starts  -->
-
     <div class="home-container">
       <section class="home">
-        <form action="" method="post">
+        <form action="{% url 'reallogin' %}" method="post" class="login-form">
+          {% csrf_token %}
           <h3>เข้าสู่ระบบ</h3>
-          {% csrf_token %} {{ form.as_p }}
-          <button type="submit" class="btn">เข้าสู่ระบบ</button>
+          <div class="form-group">
+            <p>USERNAME: <span>*</span></p>
+            <input type="text" id="username" name="username" class="input">
+          </div>
+          <div class="form-group">
+            <p>PASSWORD: <span>*</span></p>
+            <input type="password" id="password" name="password" class="input">
+          </div>
+          <button type="submit" class="btn btn-primary">เข้าสู่ระบบ</button>
+          <p>ยังไม่ได้สมัครสมาชิก? ==> <a href="{% url 'login_page' %}" class="btn-register">สมัครสมาชิก</a></p>
         </form>
-
-        <section class="home">
-          <form action="" method="post">
-            <h3>ลงทะเบียน</h3>
-            {% csrf_token %} {{ form.as_p }}
-            <button type="submit" class="btn">ลงทะเบียน</button>
-          </form>
-        </section>
       </section>
-    </div>
-
-    <div class="home-container">
     </div>
 
     <!-- jobs section ends -->

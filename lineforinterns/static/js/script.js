@@ -32,3 +32,21 @@ window.onclick = function (event) {
     popup.style.display = "none";
   }
 };
+
+document.addEventListener('DOMContentLoaded', function() {
+  // เลือกปุ่มปิด
+  var closeBtn = document.getElementById('closeBtn');
+  // เลือก popup
+  var popup = document.getElementById('popup');
+
+  // เมื่อคลิกปุ่มปิด
+  closeBtn.addEventListener('click', function() {
+    popup.style.display = 'none';
+  });
+
+  // แสดง popup และปิดอัตโนมัติภายใน 5 วินาที
+  popup.style.display = 'block';
+  setTimeout(function() {
+    popup.style.display = 'none';
+  }, 5000); // 5000 มีความหมายว่าปิดหลังจาก 5 วินาที
+});

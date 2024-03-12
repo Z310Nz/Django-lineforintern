@@ -23,6 +23,7 @@ from .forms import (
     EditStudentForm,
     EditCompanyForm,
     JobSearchForm,
+    RealLoginForm,
 )
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
@@ -45,9 +46,39 @@ def home_view(request):
     return render(request, "usertype/home.html", {"jobs": jobs})
 
 
-def login_view(request):
+def realregister(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            role = form.cleaned_data["role"]
+            
+            # Check if the user already exists
+            if CustomUser.objects.filter(username=username).exists():
+                messages.error(request, 'Username is already taken.')
+                return redirect('reallogin')
+            
+            # Create the new user
+            new_user = CustomUser.objects.create_user(username=username, password=password, role=role)
+            
+            # Authenticate and login the user with the specified backend
+            user = authenticate(request, username=username, password=password)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            
+            messages.success(request, 'You have successfully registered and logged in! Welcome to InternSE!')
+            return redirect("profile", username=username, role=role)
+    else:
+        form = LoginForm()
+    context = {
+        'form': form,
+        'roles': CustomUser.Role.choices,
+    }
+    return render(request, "usertype/register.html", context)
+
+def reallogin(request):
+    if request.method == "POST":
+        form = RealLoginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
@@ -55,20 +86,15 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 if user.role == CustomUser.Role.STUDENT:
+                    messages.success(request, 'You have successfully logged in! Welcome to InternSE!')
                     return redirect("profile", username=username, role=user.role)
                 elif user.role == CustomUser.Role.COMPANY:
+                    messages.success(request, 'You have successfully logged in! Welcome to InternSE!')
                     return redirect("profile", username=username, role=user.role)
             else:
-                new_user = CustomUser.objects.create_user(
-                    username=username, password=password
-                )
-                new_user.role = form.cleaned_data["role"]
-                new_user.save()
-                user = authenticate(request, username=username, password=password)
-                login(request, user)
-                return redirect("profile", username=username, role=user.role)  # แก้ไขที่นี่
+                messages.error(request, 'Invalid username or password')
     else:
-        form = LoginForm()
+        form = RealLoginForm()
     return render(request, "usertype/login.html", {"form": form})
 
 
@@ -120,6 +146,7 @@ def profile(request, role, username):
         form = SignUpStudentForm(request.POST, initial={"username": user.username})
         if form.is_valid():
             form.save()
+            messages.success(request, 'Your account was successfully updated!')
             return redirect("welcome", username=user.username)
     else:
         form = SignUpStudentForm(initial={"username": user.username})
@@ -204,7 +231,7 @@ def addinfo(request, role, username):
             student.user = request.user
             student.studentinfo = profile
             student.save()
-
+            messages.success(request, 'Your profile was successfully updated!')
             return redirect("profile", username=user.username, role=user.role)
 
     elif user.role == "COMPANY":
@@ -253,6 +280,7 @@ def addinfo(request, role, username):
             company.user = request.user
             company.companyinfo = profilec
             company.save()
+            messages.success(request, 'Your profile was successfully updated!')
             return redirect("profile", username=user.username, role=user.role)
 
     return render(
@@ -325,8 +353,7 @@ def postjob(request, role, username):
         "username": username,
     }
     form = PostJobForm(
-        request.POST or None, request.FILES or None, initial={"username": user.username}
-    )
+        request.POST or None, request.FILES or None, initial={"username": user.username})
     if request.method == "POST" and form.is_valid():
         job_name = form.cleaned_data["jobname"]
         job_des = form.cleaned_data["jobdes"]
@@ -359,7 +386,7 @@ def postjob(request, role, username):
         company_profile = get_object_or_404(CompanyProfile, user=user)
         company_info = company_profile
         company_info.job.add(job)
-
+        messages.success(request, 'Your job was successfully posted!')
         return redirect("position", username=user.username, role=user.role)
 
     return render(
@@ -385,6 +412,7 @@ def editjob(request, job_id):
 def deletejob (request, job_id):
     job = Job.objects.get(id=job_id)
     job.delete()
+    messages.warning(request, 'Your job was successfully deleted!')
     return redirect("position", username=request.user.username, role=request.user.role)
 
 

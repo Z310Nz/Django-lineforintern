@@ -22,6 +22,13 @@
     <!-- Navbarprofile  -->
     {% if user.role == 'STUDENT' %}
     <section class="view-student">
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li style="font-size:150%;" class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
       <h1 class="heading">โปรไฟล์ของ {{ student.studentinfo.first_name }} {{ student.studentinfo.last_name }}</h1>
 
       <div class="details">

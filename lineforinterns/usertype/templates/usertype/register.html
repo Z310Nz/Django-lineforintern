@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load socialaccount %}
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>เข้าสู่ระบบ</title>
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
+  </head>
+  <body>
+    <!-- header section starts  -->
+    {% include "navbarmain.html" %}
+
+    <!-- header section ends -->
+
+    <!-- home section starts  -->
+
+    {% comment %} <div class="home-container">
+      <section class="home">
+          <form action="" method="post">
+            <h3>ลงทะเบียน</h3>
+            {% csrf_token %} {{ form.as_p }}
+            <button type="submit" class="btn">ลงทะเบียน</button>
+            <p>
+              มีบัญชีอยู่แล้ว? ==> <a href="{% url 'reallogin' %}" class="btn-register">เข้าสู่ระบบ</a>
+          </form>
+      </section>
+    </div> {% endcomment %}
+
+    <div class="home-container">
+      <section class="home">
+        <form action="{% url 'login_page' %}" method="post" class="login-form">
+          {% csrf_token %}
+          <h3>สมัครสมาชิก</h3>
+          <div class="form-group">
+            <p>USERNAME: <span>*</span></p>
+            <input type="text" id="username" name="username" class="input">
+          </div>
+          <div class="form-group">
+            <p>PASSWORD: <span>*</span></p>
+            <input type="password" id="password" name="password" class="input">
+          </div>
+          <div class="form-group">
+            <p>ROLE: <span>*</span></p>
+            <div class="select-box">
+              <select name="role" id="role" class="select">
+                <option value="" hidden>เลือก Role ของคุณ</option>
+                {% for key, value in roles %}
+                {% if key != 'ADMIN' %}
+                    <option value="{{ key }}">{{ value }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
+          <p>มีบัญชีอยู่แล้ว? ==> <a href="{% url 'reallogin' %}" class="btn-register">เข้าสู่ระบบ</a></p>
+        </form>
+      </section>
+    </div>
+
+    <!-- jobs section ends -->
+    <section></section>
+    <!-- custom js file link  -->
+    <script src="{% static "js/script.js" %}"></script>
+  </body>
+</html>
