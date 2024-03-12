@@ -91,9 +91,7 @@ def create_student_profile(sender, instance, created, **kwargs):
 
 class StudentInfo(models.Model):
     profile = models.ImageField(upload_to="profile/", null=True, blank=True)
-    student_id = models.IntegerField(
-        unique=True, primary_key=True, null=False, blank=False
-    )
+    student_id = models.IntegerField(null=False, blank=False)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     nick_name = models.CharField(max_length=100)
@@ -232,7 +230,7 @@ class Job(models.Model):
 
 
 class CompanyInfo(models.Model):
-    company_name_eng = models.CharField(max_length=100, unique=True, primary_key=True)
+    company_name_eng = models.CharField(max_length=100)
     company_name_thai = models.CharField(max_length=100)
     company_des = models.TextField()
     profile = models.ImageField(upload_to="profile/", null=True, blank=True)
@@ -248,6 +246,7 @@ class CompanyInfo(models.Model):
     postal_code = models.CharField(max_length=255)
     phone = models.CharField(max_length=15)
     line_id = models.CharField(max_length=255, blank=True)
+    facebook = models.URLField(blank=True)
 
     def __str__(self):
         return (
@@ -292,17 +291,11 @@ class Interview(models.Model):
 
     def __str__(self):
         return (
-            self.company
-            + " "
-            + self.student
-            + " "
             + str(self.date)
             + " "
             + str(self.time)
             + " "
             + self.location
-            + " "
-            + self.status
             + " "
             + self.link
         )
