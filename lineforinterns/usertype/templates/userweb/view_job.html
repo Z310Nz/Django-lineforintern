@@ -18,16 +18,15 @@
     <!-- Navbarmain -->
 
     <!-- view job section starts  -->
-    {% if messages %}
-    <ul class="messages">
-      {% for message in messages %}
-        <li style="font-size:150%;" class="{{ message.tags }}">{{ message }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %}
     <section class="job-details">
       <h1 class="heading">รายละเอียดตำแหน่ง</h1>
-
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li style="font-size:150%;" class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
       <div class="details">
         <div class="job-info">
           <h3 style="font-size:250%;">{{ job.jobname }}</h3>
@@ -54,16 +53,11 @@
         </ul>
         <div class="description">
           <ul>
-            {% comment %} <li>Hiring 2 candidate for this role</li>
-            <li>posted 2 days ago</li> {% endcomment %}
           </ul>
         {% if user.role == 'STUDENT' %}
         <form action="{% url 'apply_job' job_id=job.id %}" method="post" class="flex-btn">
           {% csrf_token %}
           <input type="submit" value="ส่งใบสมัคร" name="apply" class="btn" />
-          {% comment %} <button type="submit" class="save">
-            <i class="far fa-heart"></i> <span>save job</span>
-          </button> {% endcomment %}
         </form>
         {% endif %}
       </div>

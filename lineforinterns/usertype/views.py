@@ -436,6 +436,7 @@ def applyjob(request, job_id):
     ststus = "Pending"
     matching = Matching.objects.create(student=student_info, job=job, company=company_info ,status=ststus)
     matching.save()
+    messages.success(request, 'You have successfully applied for the job!')
     return redirect("view_job",job_id=job_id)
 
 
