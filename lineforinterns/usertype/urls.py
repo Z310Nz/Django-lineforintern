@@ -38,6 +38,9 @@ urlpatterns = [
     path("stdapproved/<str:role>/<str:username>/", views.stdapproved, name="approved"),  # Company select page
     path("stdrejected/<str:role>/<str:username>/", views.stdrejected, name="rejected"),  # Company select page
     path("stdinterviewed/<str:role>/<str:username>/", views.stdinterviewed, name="interviewed"),  # Company select page
+    path("inapproved/<str:match_id>/", views.inapproved, name="inapproved"),  # Approved page
+    path("inrejected/<str:match_id>/", views.inrejected, name="inrejected"),  # Rejected page
+    
 ]
 
 if settings.DEBUG:

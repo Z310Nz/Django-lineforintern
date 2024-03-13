@@ -64,9 +64,9 @@
           </div>
         </br>
         <div class="flex-btn-status">
-            <a href="{% url 'approved' match_id=match_id %}" class="btn-green">รับเข้าฝึกงาน</a>
+            <a href="{% url 'inapproved' match_id=match_id %}" class="btn-green">รับเข้าฝึกงาน</a>
             <a href="{% url 'addschedule' match_id=match_id %}" class="btn-bule">สร้างใบนัด</a>
-            <a href="{% url 'rejected' match_id=match_id %}" class="btn-danger">คุณสมบัติไม่ตรง</a>
+            <a href="{% url 'inrejected' match_id=match_id %}" class="btn-danger">คุณสมบัติไม่ตรง</a>
         </div>
       </div>
       {% endif %}
