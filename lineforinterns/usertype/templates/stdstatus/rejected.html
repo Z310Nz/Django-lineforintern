@@ -1,31 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+  {% load static %}
   <head>
-    {% load static %}
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ใบสมัครงาน</title>
+    <title>ดูใบสมัคร</title>
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="{% static "css/style.css" %}" />
   </head>
   <body>
-    <!-- header section starts  -->
-    {% csrf_token %} 
-    <!-- Navbarmain -->
     {% include "navbarmain.html" %}
-    <!-- Navbarmain --> 
-   
-    <!-- Navbarprofile  -->
     {% include  'navbarprofile.html'%}
-    {% include  'navbarstatus.html'%}
+    {% include "navbarstatus.html" %}
 
     <section class="position-container">
-      <h1 class="heading">ใบสมัคร</h1>
+      <h1 class="heading">คุณสมบัติไม่ตรง</h1>
             <div class="loop-container">
               {% for company, status, job, interview in company %}
-              {% if status == "Pending" %}
+              {% if status == "Rejected" %}
               <div class="boxs">
                 <div class="company">
                   <div>
@@ -64,10 +58,6 @@
               {% endfor %}
             </div>
     </section>
-
-    <!-- jobs section ends -->
-    <section></section>
-    <!-- custom js file link  -->
     <script src="{% static "js/script.js" %}"></script>
   </body>
 </html>

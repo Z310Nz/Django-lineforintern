@@ -891,8 +891,8 @@ section {
 
 .navbar__container {
   display: grid;
-  place-items: center; /* จัดให้ข้อความอยู่ตรงกลางทั้งแนวนอนและแนวดิ่ง */
-  height: 100px; /* กำหนดความสูงของ Navbar */
+  place-items: center; 
+  height: 100px;
 }
 
 .navbar__links {
@@ -972,7 +972,21 @@ section {
   border-radius: 0.5rem;
   text-transform: capitalize;
   text-align: center;
-  text-decoration: none; /* เพิ่ม */
+  text-decoration: none;
+}
+
+.btn-status {
+  background-color: #00d1ff;
+  display: inline-block;
+  padding: 1rem 1rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--black);
+  border-radius: 0.5rem;
+  text-transform: capitalize;
+  text-align: center;
+  text-decoration: none;
+
 }
 
 .btn-green {
@@ -992,7 +1006,8 @@ section {
 .btn-bule:hover,
 .btn-danger:hover,
 .btn-logout:hover,
-.btn-register:hover {
+.btn-register:hover,
+.btn-status:hover {
   background-color: var(--white);
 }
 
@@ -1029,4 +1044,132 @@ section {
   border: 1px solid #ccc;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 9999;
+}
+
+.content {
+  display: none; /* เริ่มต้นซ่อนเนื้อหาทั้งหมด */
+  text-align: center;
+}
+
+.position-container .loop-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 35rem);
+  gap: 1.5rem;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.position-container .loop-container .boxs {
+  background-color: var(--black);
+  border-radius: 0.5rem;
+  border: var(--border);
+  padding: 2rem;
+  overflow-x: hidden;
+}
+
+.position-container .loop-container .boxs img{
+  height: 10rem;
+  width: 10rem;
+  object-fit: contain;
+}
+
+.position-container .loop-container .boxs .company {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.position-container .loop-container .boxs .company img {
+  height: 6rem;
+  width: 6rem;
+  object-fit: contain;
+}
+
+.position-container .loop-container .boxs .company h3 {
+  font-size: 1.8rem;
+  color: var(--white);
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  text-transform: capitalize;
+  padding-bottom: 0.5rem;
+  font-weight: lighter;
+}
+
+.position-container .loop-container .boxs .company p {
+  color: var(--light-color);
+  font-size: 1.6rem;
+}
+
+.position-container .loop-container .boxs .job-title {
+  font-size: 2rem;
+  color: var(--white);
+  text-transform: capitalize;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+
+.position-container .loop-container .boxs .location {
+  padding: 0.7rem 1;
+  font-size: 1.6rem;
+  color: var(--light-color);
+}
+
+.position-container .loop-container .boxs .skill {
+  padding: 0.7rem 1;
+  font-size: 1.6rem;
+  color: var(--light-color);
+}
+
+.position-container .loop-container .boxs .skill i {
+  margin-right: 0.5rem;
+  color: var(--light-color);
+}
+
+.position-container .loop-container .boxs .location i {
+  margin-right: 0.5rem;
+  color: var(--main-color);
+}
+
+.position-container .loop-container .boxs .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.2rem 1;
+}
+
+.position-container .loop-container .boxs .tags p {
+  padding: 1.2rem;
+  border-radius: 0.5rem;
+  background-color: var(--light-bg);
+  font-size: 1.6rem;
+  color: var(--light-color);
+}
+
+.position-container .loop-container .boxs .tags p i {
+  margin-right: 0.5rem;
+  color: var(--white);
+}
+
+.position-container .loop-container .boxs .tags p span {
+  margin-left: 5px;
+  max-width: 50px; /* ปรับขนาดของกรอบตามต้องการ */
+  white-space: normal; /* ให้ข้อความขึ้นบรรทัดใหม่ */
+  word-wrap: break-word; /* ให้ข้อความขึ้นบรรทัดใหม่เมื่อเกินขอบความยาว */
+}
+
+.position-container .loop-container .boxs .fa-heart {
+  background-color: var(--light-bg);
+  border-radius: 0.5rem;
+  color: var(--light-color);
+  font-size: 1.8rem;
+  cursor: pointer;
+  height: 4rem;
+  width: 4.5rem;
+  line-height: 4rem;
+}
+
+.position-container .loop-container .boxs .fa-heart:hover {
+  background-color: var(--white);
+  color: var(--black);
 }

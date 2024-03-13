@@ -32,6 +32,12 @@ urlpatterns = [
     path("interview/<str:match_id>/", views.addschedule, name="addschedule"),  # Interview page
     path("showalljob/", views.viewalljob, name="showalljob"),  # Show all job page
     path("job/search/", search, name='job_search'),
+    path("approved/<str:role>/<str:username>/", views.approvedview, name="approvedview"),  # Approved view page
+    path("rejected/<str:role>/<str:username>/", views.rejectedview, name="rejectedview"),  # Rejected view page
+    path("interviewed/<str:role>/<str:username>/", views.interviewedview, name="interviewedview"),  # Interviewed view page
+    path("stdapproved/<str:role>/<str:username>/", views.stdapproved, name="approved"),  # Company select page
+    path("stdrejected/<str:role>/<str:username>/", views.stdrejected, name="rejected"),  # Company select page
+    path("stdinterviewed/<str:role>/<str:username>/", views.stdinterviewed, name="interviewed"),  # Company select page
 ]
 
 if settings.DEBUG:

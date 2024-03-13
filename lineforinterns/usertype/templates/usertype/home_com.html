@@ -13,6 +13,55 @@
   <body>
   {% include "navbarmain.html" %}
   {% include "navbarstatus.html" %}
+
+  <section class="position-container">
+    <h1 class="heading">ใบสมัคร</h1>
+    <div class="loop-container">
+      {% for showstudent, status, job, match_id, student_id, interview in students %}
+      {% if status == "Pending" %}
+      <div class="boxs">
+        <div class="company">
+          <div>
+            <h3>ตำแหน่ง : {{ job.jobname }}</h3>
+            <p></p>
+          </div>
+        </div>
+        <div><img src="{{ showstudent.profile.url }}" alt="" /></div>
+        <h3 class="job-title">
+          {{ showstudent.first_name }} {{ showstudent.last_name }} ({{ showstudent.nick_name }})
+        </h3>
+        <p class="location">
+          <i class="fa-brands fa-stack-overflow"></i>
+            <span>ตำแหน่งที่สนใจ : {{ showstudent.interest_job }}</span>
+        </p>
+
+        <p class="location">
+          <i class="fa-solid fa-link"></i>
+          <span><a href="{{ showstudent.cv }}">Curriculum vitae (CV)</a></span>
+        <div class="tags">
+          <p>
+            <i class="fa-solid fa-phone"></i>
+            <span>{{ showstudent.phone }}</span>
+          </p>
+          <p>
+            <i class="fa-solid fa-envelope"></i>
+            <span>{{ showstudent.email }}</span>
+          </p>
+          <p>
+            <i class="fa-solid fa-clock"></i>
+            <span>{{ showstudent.intern_start }} - {{ showstudent.intern_end }}</span>
+        </div>
+        <div class="flex-btn-status">
+            <a href="{% url 'approved' match_id=match_id %}" class="btn-green">รับเข้าฝึกงาน</a>
+            <a href="{% url 'interviewed' match_id=match_id %}" class="btn-bule">นัดสัมภาษณ์</a>
+            <a href="{% url 'rejected' match_id=match_id %}" class="btn-danger">คุณสมบัติไม่ตรง</a>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+
     <script src="{% static "js/script.js" %}"></script>
   </body>
 </html>

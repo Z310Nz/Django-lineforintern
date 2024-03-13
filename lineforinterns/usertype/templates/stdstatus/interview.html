@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ดูใบสมัคร</title>
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
+  </head>
+  <body>
+  {% include "navbarmain.html" %}
+  {% include  'navbarprofile.html'%}
+  {% include "navbarstatus.html" %}
+
+  <section class="position-container">
+    <h1 class="heading">นัดสัมภาษณ์</h1>
+          <div class="loop-container">
+            {% for company, status, job, interview in company %}
+            {% if status == "Interview" %}
+            <div class="boxs">
+              <div class="company">
+                <div>
+                  <h3>ตำแหน่ง : {{ job.jobname }}</h3>
+                  <p></p>
+                </div>
+              </div>
+              <div><img src="{{ company.profile.url }}" alt="" /></div>
+              <h3 class="job-title">
+                บริษัท : {{ company.company_name_eng }} | {{ company.company_name_thai }}
+              </h3>
+              <p class="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>{{ company.province }}, {{ company.country }}</span>
+              </p>
+            </br>
+              <div class="tags">
+                <p>
+                  <i class="fa-solid fa-calendar"></i>
+                  <span>วันที่ : {{ interview.date }}</span>
+                </p>
+                <p>
+                  <i class="fas fa-briefcase"></i>
+                  <span>รูปแบบ : {{ interview.location }}</span>
+                </p>
+                <p>
+                  <i class="fas fa-clock"></i>
+                  <span>เวลา : {{ interview.time }}</span>
+                </p>
+                <p>
+                  <i class="fa-solid fa-link"></i>
+                  <span>ลิงค์สัมภาษณ์ : <a href="{{ interview.link }}">ลิงค์สัมภาษณ์</a></span>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+  </section>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ดูใบสมัคร</title>
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
+  </head>
+  <body>
+    {% include "navbarmain.html" %}
+    {% include "navbarstatus.html" %}
+
+    <section class="position-container">
+        <h1 class="heading">คุณสมบัติไม่ตรง</h1>
+        <div class="loop-container">
+        {% for showstudent, status, job, match_id, student_id, interview in students %}
+        {% if status == "Rejected" %}
+        <div class="boxs">
+          <div class="company">
+            <div>
+              <h3>ตำแหน่ง : {{ job.jobname }}</h3>
+              <p></p>
+            </div>
+          </div>
+          <div><img src="{{ showstudent.profile.url }}" alt="" /></div>
+          <h3 class="job-title">
+            {{ showstudent.first_name }} {{ showstudent.last_name }} ({{ showstudent.nick_name }})
+          </h3>
+          <p class="location">
+            <i class="fa-brands fa-stack-overflow"></i>
+              <span>ตำแหน่งที่สนใจ : {{ showstudent.interest_job }}</span>
+          </p>
+  
+          <p class="location">
+            <i class="fa-solid fa-link"></i>
+            <span><a href="{{ showstudent.cv }}">Curriculum vitae (CV)</a></span>
+          <div class="tags">
+            <p>
+              <i class="fa-solid fa-phone"></i>
+              <span>{{ showstudent.phone }}</span>
+            </p>
+            <p>
+              <i class="fa-solid fa-envelope"></i>
+              <span>{{ showstudent.email }}</span>
+            </p>
+            <p>
+              <i class="fa-solid fa-clock"></i>
+              <span>{{ showstudent.intern_start }} - {{ showstudent.intern_end }}</span>
+          </div>
+        {% endif %}
+        {% endfor %}
+        </div>
+    </section>
+    <script src="{% static "js/script.js" %}"></script>
+  </body>
+</html>

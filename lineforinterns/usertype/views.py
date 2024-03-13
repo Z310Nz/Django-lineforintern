@@ -430,7 +430,7 @@ def applyjob(request, job_id):
     student = StudentProfile.objects.get(user=user)
     student_info = student.studentinfo
     company_name = job.company
-    company_profile = CompanyProfile.objects.get(companyinfo__company_name_eng=company_name)
+    company_profile = get_object_or_404(CompanyProfile, companyinfo__company_name_eng=company_name)
     company_info = company_profile.companyinfo
     ststus = "Pending"
     matching = Matching.objects.create(student=student_info, job=job, company=company_info ,status=ststus)
@@ -448,6 +448,36 @@ def viewselectcompany(request, role, username):
     interview = [m.interview for m in match]
     companies = zip(showcompany, status, job, interview)
     return render(request, "userweb/companyselect.html", {"company": companies})
+
+def stdapproved(request, role, username):
+    student = StudentProfile.objects.get(user__username=username)
+    match = Matching.objects.filter(student=student.studentinfo)
+    job = [m.job for m in match]
+    status = [m.status for m in match]
+    showcompany = [m.company for m in match]
+    interview = [m.interview for m in match]
+    companies = zip(showcompany, status, job, interview)
+    return render(request, "stdstatus/approved.html", {"company": companies})
+
+def stdrejected(request, role, username):
+    student = StudentProfile.objects.get(user__username=username)
+    match = Matching.objects.filter(student=student.studentinfo)
+    job = [m.job for m in match]
+    status = [m.status for m in match]
+    showcompany = [m.company for m in match]
+    interview = [m.interview for m in match]
+    companies = zip(showcompany, status, job, interview)
+    return render(request, "stdstatus/rejected.html", {"company": companies})
+
+def stdinterviewed(request, role, username):
+    student = StudentProfile.objects.get(user__username=username)
+    match = Matching.objects.filter(student=student.studentinfo)
+    job = [m.job for m in match]
+    status = [m.status for m in match]
+    showcompany = [m.company for m in match]
+    interview = [m.interview for m in match]
+    companies = zip(showcompany, status, job, interview)
+    return render(request, "stdstatus/interview.html", {"company": companies})
 
 
 def positionview(request, role, username):
@@ -468,6 +498,42 @@ def applyview(request, role, username):
     interview = [m.interview for m in match]
     students = zip(showstudent, status, job, match_id, student_id, interview)
     return render(request, "usertype/home_com.html", {"students": students, "role": role, "username": username})
+
+def approvedview(request, role, username):
+    company = CompanyProfile.objects.get(user__username=username)
+    match = Matching.objects.filter(company=company.companyinfo)
+    match_id = [m.id for m in match]
+    job = [m.job for m in match]
+    status = [m.status for m in match]
+    showstudent = [m.student for m in match]
+    student_id = [s.student_id for s in showstudent]
+    interview = [m.interview for m in match]
+    students = zip(showstudent, status, job, match_id, student_id, interview)
+    return render(request, "status/approved.html", {"students": students, "role": role, "username": username})
+
+def rejectedview(request, role, username):
+    company = CompanyProfile.objects.get(user__username=username)
+    match = Matching.objects.filter(company=company.companyinfo)
+    match_id = [m.id for m in match]
+    job = [m.job for m in match]
+    status = [m.status for m in match]
+    showstudent = [m.student for m in match]
+    student_id = [s.student_id for s in showstudent]
+    interview = [m.interview for m in match]
+    students = zip(showstudent, status, job, match_id, student_id, interview)
+    return render(request, "status/rejected.html", {"students": students, "role": role, "username": username})
+
+def interviewedview(request, role, username):
+    company = CompanyProfile.objects.get(user__username=username)
+    match = Matching.objects.filter(company=company.companyinfo)
+    match_id = [m.id for m in match]
+    job = [m.job for m in match]
+    status = [m.status for m in match]
+    showstudent = [m.student for m in match]
+    student_id = [s.student_id for s in showstudent]
+    interview = [m.interview for m in match]
+    students = zip(showstudent, status, job, match_id, student_id, interview)
+    return render(request, "status/interview.html", {"students": students, "role": role, "username": username})
 
 def approved(request, match_id):
     match = get_object_or_404(Matching, id=match_id)
