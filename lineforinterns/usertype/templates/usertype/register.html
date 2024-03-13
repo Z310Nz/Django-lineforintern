@@ -30,7 +30,13 @@
           </form>
       </section>
     </div> {% endcomment %}
-
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li style="font-size:150%;" class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
     <div class="home-container">
       <section class="home">
         <form action="{% url 'login_page' %}" method="post" class="login-form">

@@ -20,7 +20,13 @@
     <!-- Navbar  -->
     {% include "navbarprofile.html" %}
     <!-- Navbar  -->
-
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li style="font-size:150%;" class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
     <!-- account section starts  -->
     <div class="account-form-container">
       <section class="account-form">
@@ -81,12 +87,12 @@
             maxlength="1000"
             class="input"
           />
-          <p>วันทำงานต่อสัปห์ดา<span>*</span></p>
+          <p>วันทำงานต่อสัปดาห์<span>*</span></p>
           <div class="select-box">
             <select name="workday" id="" required>
               <option hidden>โปรดเลือกวันทำงาน</option>
-              <option>5 วันต่อสัปห์ดา</option>
-              <option>6 วันต่อสัปห์ดา</option>
+              <option>5 วันต่อสัปดาห์</option>
+              <option>6 วันต่อสัปดาห์</option>
               <option>others</option>
             </select>
           </div>

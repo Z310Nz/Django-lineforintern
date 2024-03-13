@@ -406,13 +406,14 @@ def editjob(request, job_id):
     form = PostJobForm(request.POST or None, request.FILES or None, instance=job)
     if request.method == "POST" and form.is_valid():
         form.save()
+        messages.success(request, 'Your job was successfully updated!')
         return redirect("position", username=request.user.username, role=request.user.role)
     return render(request, "userweb/post_jobs.html", {"form": form, "job": job})
 
 def deletejob (request, job_id):
     job = Job.objects.get(id=job_id)
     job.delete()
-    messages.warning(request, 'Your job was successfully deleted!')
+    messages.warning(request, 'Your job was deleted!')
     return redirect("position", username=request.user.username, role=request.user.role)
 
 
@@ -435,7 +436,7 @@ def applyjob(request, job_id):
     ststus = "Pending"
     matching = Matching.objects.create(student=student_info, job=job, company=company_info ,status=ststus)
     matching.save()
-
+    messages.success(request, 'You have successfully applied for the job!')
     return redirect("view_job",job_id=job_id)
 
 
@@ -457,6 +458,7 @@ def stdapproved(request, role, username):
     showcompany = [m.company for m in match]
     interview = [m.interview for m in match]
     companies = zip(showcompany, status, job, interview)
+    messages.success(request, 'You have been approved for the job!')
     return render(request, "stdstatus/approved.html", {"company": companies})
 
 def stdrejected(request, role, username):
@@ -467,6 +469,7 @@ def stdrejected(request, role, username):
     showcompany = [m.company for m in match]
     interview = [m.interview for m in match]
     companies = zip(showcompany, status, job, interview)
+    messages.warning(request, 'Your application has been rejected.')
     return render(request, "stdstatus/rejected.html", {"company": companies})
 
 def stdinterviewed(request, role, username):
@@ -477,6 +480,7 @@ def stdinterviewed(request, role, username):
     showcompany = [m.company for m in match]
     interview = [m.interview for m in match]
     companies = zip(showcompany, status, job, interview)
+    messages.success(request, 'You have been selected for an interview!')
     return render(request, "stdstatus/interview.html", {"company": companies})
 
 
@@ -539,18 +543,21 @@ def approved(request, match_id):
     match = get_object_or_404(Matching, id=match_id)
     match.status = "Approved"
     match.save()
+    messages.success(request, 'You have approved the student!')
     return redirect("studentview", role=request.user.role, username=request.user.username)
 
 def interviewed(request, match_id):
     match = get_object_or_404(Matching, id=match_id)
     match.status = "Interview"
     match.save()
+    messages.success(request, 'You have selected the student for an interview!')
     return redirect("studentview", role=request.user.role, username=request.user.username)
 
 def rejected(request, match_id):
     match = get_object_or_404(Matching, id=match_id)
     match.status = "Rejected"
     match.save()
+    messages.warning(request, 'You have rejected the student!')
     return redirect("studentview", role=request.user.role, username=request.user.username)
 
 def addschedule(request, match_id):
@@ -565,6 +572,7 @@ def addschedule(request, match_id):
         interview.save()
         match.interview = interview
         match.save()
+        messages.success(request, 'You have successfully added the interview schedule!')
         return redirect("studentview", role=request.user.role, username=request.user.username)
     return render(request, "userweb/interviewform.html", {"form": form})
 

@@ -20,7 +20,13 @@
     <!-- Navbarprofile  -->
     {% include  'navbarprofile.html'%}
     <!-- Navbarprofile  -->
-
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li style="font-size:150%;" class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
     
     <section class="jobs-container">
       <h1 class="heading">ตำแหน่งที่เปิดรับสมัคร</h1>
@@ -38,22 +44,22 @@
         {% for job in jobs %}
         <div class="box">
             <div class="company">
-                <img src="{{ job.company.companyinfo.profile.url }}" alt="" />
                 <div>
-                    <h3>{{ job.company }}</h3>
+                    <h3>บริษัท : {{ job.company }}</h3>
                     <p></p>
                 </div>
             </div>
-            <h3 class="job-title">{{ job.jobname }}</h3>
+            <h3 class="job-title">ตำแหน่ง : {{ job.jobname }}</h3>
             <p class="location">
                 <i class="fas fa-map-marker-alt"></i> <span>{{ job.city }}, {{job.country }}</span>
             </p>
             <div class="tags">
                 <p>
-                    <i class="fas fa-indian-rupee-sign"></i> <span>{{ job.benefit }}</span>
+                  <i class="fa-solid fa-money-check-dollar"></i>
+                    <span>{{ job.benefit }}</span>
                 </p>
-                <p><i class="fas fa-briefcase"></i> <span>{{ job.worktype }}</span></p>
-                <p><i class="fas fa-clock"></i> <span>{{ job.workday }}</span></p>
+                <p><i class="fas fa-briefcase"></i> <span>ประเภทการรับสมัคร : {{ job.worktype }}</span></p>
+                <p><i class="fas fa-clock"></i> <span>วันทำงาน : {{ job.workday }}</span></p>
             </div>
             <div class="flex-btn">
                 <a href="{% url 'view_job' job.id %}" class="btn">ดูรายละเอียด</a>

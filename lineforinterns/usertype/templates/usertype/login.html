@@ -16,7 +16,13 @@
     {% include "navbarmain.html" %}
 
     <!-- header section ends -->
-
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li style="font-size:150%;" class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
     <!-- home section starts  -->
     <div class="home-container">
       <section class="home">

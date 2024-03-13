@@ -14,7 +14,13 @@
     {% include "navbarmain.html" %}
     {% include  'navbarprofile.html'%}
     {% include "navbarstatus.html" %}
-
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li style="font-size:150%;" class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
     <section class="position-container">
       <h1 class="heading">คุณสมบัติไม่ตรง</h1>
             <div class="loop-container">

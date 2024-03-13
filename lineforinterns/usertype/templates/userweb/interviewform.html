@@ -20,7 +20,13 @@
     <!-- Navbar  -->
     {% include "navbarprofile.html" %}
     <!-- Navbar  -->
-
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li style="font-size:150%;" class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
     <!-- account section starts  -->
 
     <div class="account-form-container">
