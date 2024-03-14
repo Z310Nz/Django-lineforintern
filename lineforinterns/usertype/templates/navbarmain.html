@@ -2,30 +2,35 @@
   <s class="flex">
     <div id="menu-btn" class="fas fa-bars-staggered"></div>
 
-    <a href="#" class="logo"><i class="fas fa-briefcase"></i> Software Engineer.</a>
+    <a href="#" class="logo"><i class="fas fa-briefcase"></i> INTERNSEUP</a>
 
     {% if user.is_authenticated %} {% if user.role == 'STUDENT' %}
 
     <nav class="navbar">
       <a href="{% url 'home' %}">ค้นหางาน</a>
     </nav>
+    <a href="{% url 'companyselect' role='STUDENT' username=user.username %}" class="navbar__item">ใบสมัคร</a>
     <a
       href="{% url 'profile' role='STUDENT' username=user.username %}"
       class="btn"
       style="margin-top: 0"
       >โปรไฟล์</a
     >
+    <a href="{% url 'logout' %}" class="btn-logout">logout</a>
 
     {% elif user.role == 'COMPANY' %}
     <nav class="navbar">
       <a href="{% url 'studentview' role=user.role username=user.username %}">ใบสมัครงาน</a>
     </nav>
+    <a href="{% url 'position' role='COMPANY' username=user.username %}" class="navbar__item">ตำแหน่ง</a>
     <a
       href="{% url 'profile' role='COMPANY' username=user.username %}"
       class="btn"
       style="margin-top: 0"
       >โปรไฟล์</a
     >
+    <a href="{% url 'logout' %}" class="btn-logout">logout</a>
+
     {% endif %} {% else %}
     <nav class="navbar">
     <a href="{% url 'home' %}">ค้นหางาน</a>

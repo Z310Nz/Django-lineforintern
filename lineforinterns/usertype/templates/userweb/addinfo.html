@@ -13,12 +13,9 @@
   <body>
     <!-- header section starts  -->
     {% csrf_token %} 
-    <!-- Navbar  -->
     {% include "navbarmain.html" %}
-    <!-- Navbar  -->
+
     
-    <!-- Navbar  -->
-    {% include  'navbarprofile.html'%}
     {% if messages %}
       <ul class="messages">
         {% for message in messages %}
@@ -26,7 +23,6 @@
         {% endfor %}
       </ul>
       {% endif %}
-    <!-- Navbar  -->
     {% if user.role == 'STUDENT' %}
     <!-- header section ends  -->
     <!-- student profile section starts  -->

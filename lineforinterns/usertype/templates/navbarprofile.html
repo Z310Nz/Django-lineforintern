@@ -5,12 +5,6 @@
       <a href="{% url 'profile' role='STUDENT' username=user.username %}" class="btn" style="margin-top: 0">โปรไฟล์</a>
       <a href="{% url 'companyselect' role='STUDENT' username=user.username %}" class="navbar__item">ใบสมัคร</a>
       <a href="{% url 'logout' %}" class="btn-logout">logout</a>
-
-
-      {% elif user.role == 'COMPANY' %}
-      <a href="{% url 'profile' role='COMPANY' username=user.username %}" class="btn" style="margin-top: 0">โปรไฟล์</a>
-      <a href="{% url 'position' role='COMPANY' username=user.username %}" class="navbar__item">ตำแหน่ง</a>
-      <a href="{% url 'logout' %}" class="btn-logout">logout</a>
       {% endif %}
     </div>
   </div>
