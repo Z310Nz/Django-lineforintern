@@ -669,8 +669,8 @@ section {
 }
 
 .view-student .details .info img {
-  height: 10rem;
-  width: 10rem;
+  height: 20rem;
+  width: 20rem;
   object-fit: contain;
   margin-bottom: 1rem;
 }
@@ -692,24 +692,37 @@ section {
 }
 
 .view-student .details .description {
+  display: contents;
+  align-items: center;
+  justify-content: center;
   margin-top: 2rem;
+
 }
 
-.view-student .details .description h3 {
+.view-student .details .description .desbox {
+  border: 2px solid var(--white);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  background-color: var(--light-bg);
+}
+
+.view-student .details .description .desbox h3 {
   font-size: 2.5rem;
   color: var(--white);
   padding: 1rem 0;
   text-transform: capitalize;
 }
 
-.view-student .details .description p {
+.view-student .details .description .desbox p {
   padding: 0.5rem 0;
   font-size: 1.6rem;
   color: var(--light-color);
   line-height: 1.8;
 }
 
-.view-student .details ul li {
+.view-student .details .desbox ul li {
   margin-left: 3rem;
   font-size: 1.6rem;
   color: var(--light-color);
@@ -1172,4 +1185,83 @@ section {
 .position-container .loop-container .boxs .fa-heart:hover {
   background-color: var(--white);
   color: var(--black);
+}
+
+.view-profile .details {
+  background-color: var(--black);
+  border: var(--border);
+  border-radius: 0.5rem;
+  background-color: var(--black);
+  padding: 2rem;
+}
+
+.view-profile .details .info {
+  max-width: 30rem;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+  background-color: var(--light-bg);
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.view-profile .details .info img {
+  height: 20rem;
+  width: 20rem;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.view-profile .details .info h3 {
+  padding: 1.5rem 0;
+  font-size: 2rem;
+  color: var(--white);
+}
+
+.view-profile .details .info p {
+  font-size: 1.6rem;
+  color: var(--light-color);
+}
+
+.view-profile .details .info p i {
+  margin-right: 0.5rem;
+  color: var(--main-color);
+}
+
+.view-profile .details .description {
+  margin-top: 2rem;
+}
+
+.view-profile .details .description .desbox {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 35rem);
+  gap: 1.5rem;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 2rem;
+  border: #ccc;
+  border-radius: 0.5rem;
+  background-color: var(--light-bg);
+  padding: 2rem;
+  overflow-x: hidden;
+}
+
+.view-profile .details .description .desbox h3 {
+  font-size: 2.5rem;
+  color: var(--white);
+  padding: 1rem 0;
+  text-transform: capitalize;
+}
+
+.view-profile .details .description .desbox p {
+  padding: 0.5rem 0;
+  font-size: 1.6rem;
+  color: var(--light-color);
+  line-height: 1.8;
+}
+
+.view-profile .details .desbox ul li {
+  margin-left: 3rem;
+  font-size: 1.6rem;
+  color: var(--light-color);
+  padding-top: 1.5rem;
 }

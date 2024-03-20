@@ -101,8 +101,8 @@ class StudentInfo(models.Model):
     phone = models.CharField(max_length=15)
     line_id = models.CharField(max_length=200)
     cv = models.URLField()
-    last_job = models.TextField()
-    intern_company = models.TextField()
+    last_job = models.TextField(blank=True)
+    intern_company = models.TextField(blank=True)
     interest_job = models.TextField()
     skill = models.TextField()
     university = models.CharField(max_length=200)
@@ -242,7 +242,6 @@ class CompanyInfo(models.Model):
     sub_district = models.TextField()
     district = models.TextField()
     province = models.TextField()
-    country = models.TextField()
     postal_code = models.CharField(max_length=255)
     phone = models.CharField(max_length=15)
     line_id = models.CharField(max_length=255, blank=True)
@@ -264,8 +263,6 @@ class CompanyInfo(models.Model):
             + " "
             + self.address
             + ""
-            + self.country
-            + " "
             + self.province
             + " "
             + self.postal_code

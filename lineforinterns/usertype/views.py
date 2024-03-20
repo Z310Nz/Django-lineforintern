@@ -192,16 +192,16 @@ def addinfo(request, role, username):
             phone = form.cleaned_data["phone"]
             gender = form.cleaned_data["gender"]
             birthday = form.cleaned_data["birthday"]
-            last_job = form.cleaned_data["last_job"]
-            intern_company = form.cleaned_data["intern_company"]
-            interest_job = form.cleaned_data["interest_job"]
             skill = form.cleaned_data["skill"]
             eng_skill = form.cleaned_data["eng_skill"]
             university = form.cleaned_data["university"]
             faculty = form.cleaned_data["faculty"]
             major = form.cleaned_data["major"]
-            intern_start = form.cleaned_data["intern_start"]
-            intern_end = form.cleaned_data["intern_end"]
+
+            last_job = form.cleaned_data.get("last_job", "N/A")
+            intern_company = form.cleaned_data.get("intern_company", "N/A")
+            intern_start = form.cleaned_data.get("intern_start", None)
+            intern_end = form.cleaned_data.get("intern_end", None)
 
             profile = StudentInfo.objects.create(
                 profile=profile_image,
@@ -216,7 +216,7 @@ def addinfo(request, role, username):
                 birthday=birthday,
                 last_job=last_job,
                 intern_company=intern_company,
-                interest_job=interest_job,
+                interest_job="",
                 skill=skill,
                 eng_skill=eng_skill,
                 university=university,
@@ -252,7 +252,6 @@ def addinfo(request, role, username):
             address = form.cleaned_data["address"]
             sub_dis = form.cleaned_data["sub_district"]
             district = form.cleaned_data["district"]
-            country = form.cleaned_data["country"]
             province = form.cleaned_data["province"]
             postal_code = form.cleaned_data["postal_code"]
             line_id = form.cleaned_data["line_id"]
@@ -267,7 +266,6 @@ def addinfo(request, role, username):
                 website=websitec,
                 email=emailc,
                 address=address,
-                country=country,
                 province=province,
                 postal_code=postal_code,
                 line_id=line_id,

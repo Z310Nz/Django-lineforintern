@@ -18,13 +18,6 @@
     <!-- Navbarmain --> 
    
     <!-- Navbarprofile  -->
-    {% if messages %}
-      <ul class="messages">
-        {% for message in messages %}
-          <li style="font-size:150%;" class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-      </ul>
-      {% endif %}
     <!-- Navbarprofile  -->
     {% if user.role == 'STUDENT' %}
     <section class="view-student">
@@ -40,72 +33,80 @@
       <div class="details">
         <div class="info">
           <img src="{{ student.studentinfo.profile.url }}" alt="" />
-          <h3>{{ student.studentinfo.first_name }} {{ student.studentinfo.last_name }}</h3>
-          <p>{{ student.studentinfo.student_id }}</p>
         </div>
 
         <div class="description">
-          <h3 style="font-size:250%;">----------ข้อมูลทั่วไป----------</h3>
-          <ul>
-            <p style="font-size:200%;"><b><i style="color:white;">Curriculum vitae (CV)</i></b></p>
-            <li style="font-size:180%;"><a href="{{ student.studentinfo.cv }}">Click to view CV</a></li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">ชื่อจริง-นามสกุล</i></b></p>
-            <li style="font-size:180%;">{{ student.studentinfo.first_name }} {{ student.studentinfo.last_name }}</li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">รหัสนิสิต</i></b></p>
-            <li style="font-size:180%;">{{ student.studentinfo.student_id }}</li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">Email </i></b></p>
-            <li style="font-size:180%;">{{ student.studentinfo.email }}</li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">เบอร์โทรติดต่อ</i></b></p>
-            <li style="font-size:180%;">{{ student.studentinfo.phone }}</li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">เพศ</i></b></p>
-            <li style="font-size:180%;">{{ student.studentinfo.gender }}</li>
-            <br />
-          </ul>
+          <div class="desbox">
+            <h3 style="font-size:250%;">ข้อมูลทั่วไป</h3>
+            <ul>
+              <p style="font-size:200%;"><b><i style="color:white;">Curriculum vitae (CV)</i></b></p>
+              <li style="font-size:180%;"><a href="{{ student.studentinfo.cv }}">Click to view CV</a></li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">ชื่อจริง-นามสกุล</i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.first_name }} {{ student.studentinfo.last_name }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">รหัสนิสิต</i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.student_id }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">Email </i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.email }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">เบอร์โทรติดต่อ</i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.phone }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">เพศ</i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.gender }}</li>
+              <br />
+            </ul>
+          </div>
 
-          <h3 style="font-size:250%;">----------ประวัติการฝึกงานครั้งล่าสุด----------</h3>
-          <ul>
-            <p style="font-size:200%;"><b><i style="color:white;">ตำแหน่งที่ฝึกงานครั้งล่าสุด</i></b></p>
-            <li style="font-size:180%;">{{ student.studentinfo.last_job }}</li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">บริษัทที่เคยฝึกงาน</i></b></p>
-            <li style="font-size:180%;">{{ student.studentinfo.intern_company }}</li>
-            <br />
-          </ul>
+          <div class="desbox">
+            <h3 style="font-size:250%;">คุณสมบัติ</h3>
+            <ul>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">ทักษะ</i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.skill }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">ทักษะภาษาอังกฤษ</i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.eng_skill }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">วันที่เริ่มฝึกงาน (ปัจจุบัน)</i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.intern_start }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">วันที่สิ้นสุดการฝึกงาน</i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.intern_end }}</li>
+              <br />
+            </ul>
+          </div>
 
-          <h3 style="font-size:250%;">----------คุณสมบัติ----------</h3>
-          <ul>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">ทักษะ</i></b></p>
-            <li style="font-size:180%;">{{ student.studentinfo.skill }}</li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">ทักษะภาษาอังกฤษ</i></b></p>
-            <li style="font-size:180%;">{{ student.studentinfo.eng_skill }}</li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">วันที่เริ่มฝึกงาน (ปัจจุบัน)</i></b></p>
-            <li style="font-size:180%;">{{ student.studentinfo.intern_start }}</li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">วันที่สิ้นสุดการฝึกงาน</i></b></p>
-            <li style="font-size:180%;">{{ student.studentinfo.intern_end }}</li>
-            <br />
-          </ul>
-          <h3 style="font-size:250%;">----------ระดับการศึกษา----------</h3>
-          <ul>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">มหาวิทยาลัย</i></b></p>
-            <li style="font-size:180%;">{{ student.studentinfo.university }}</li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">คณะ</i></b></p>
-            <li style="font-size:180%;">{{ student.studentinfo.faculty }}</li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">สาขา</i></b></p>
-            <li style="font-size:180%;">{{ student.studentinfo.major }}</li>
-            <br />
-          </ul>
+          <div class="desbox">
+            <h3 style="font-size:250%;">การศึกษาปัจจุบัน</h3>
+            <ul>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">มหาวิทยาลัย</i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.university }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">คณะ</i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.faculty }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">สาขา</i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.major }}</li>
+              <br />
+            </ul>
+          </div>
+          
+          <div class="desbox">
+            <h3 style="font-size:250%;">ประวัติการฝึกงานครั้งล่าสุด</h3>
+            <ul>
+              <p style="font-size:200%;"><b><i style="color:white;">ตำแหน่งที่ฝึกงานครั้งล่าสุด</i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.last_job }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">บริษัทที่เคยฝึกงาน</i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.intern_company }}</li>
+              <br />
+            </ul>
+          </div>
+
         </div>
         {% if student %}
         <form action="{% url 'editinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
@@ -129,54 +130,64 @@
     {% elif user.role == 'COMPANY' %}
     <!-- company details section starts  -->
 
-    <section class="view-company">
+    <section class="view-student">
       <h1 class="heading">โปรไฟล์ของบริษัท {{ company.companyinfo.company_name_thai }} </h1>
 
       <div class="details">
         <div class="info">
           <img src="{{ company.companyinfo.profile.url }}" alt="" />
           <h3>{{ company.companyinfo.company_name_eng }}</h3>
-          <p><i class="fas fa-map-marker-alt"></i> {{ company.companyinfo.province }}, {{ company.companyinfo.country }}</p>
+          <p><i class="fas fa-map-marker-alt"></i> {{ company.companyinfo.province }}</p>
         </div>
 
         <div class="description">
-          <ul>
-            <h3>----------ข้อมูลทั่วไปของบริษัท----------</h3>
-            <li style="font-size:180%;">{{ company.companyinfo.company_des }}</li>
-            <br />
-          </ul>
-          <ul>
-            <p style="font-size:200%;"><b><i style="color:white;">ชื่อบริษัท</i></b></p>
-            <li style="font-size:180%;">{{ company.companyinfo.company_name_eng }} | {{ company.companyinfo.company_name_thai }}</li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">วันที่ก่อตั้งบริษัท</i></b></p>
-            <li style="font-size:180%;">{{ company.companyinfo.foundation_date }}</li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">จำนวนพนักงานในบริษัท</i></b></p>
-            <li style="font-size:180%;">{{ company.companyinfo.number_of_employees }} คน</li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">Email ติดต่อ</i></b></p>
-            <li style="font-size:180%;">{{ company.companyinfo.email }}</li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">เบอร์โทรติดต่อ</i></b></p>
-            <li style="font-size:180%;">{{ company.companyinfo.phone }}</li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">LineID</i></b></p>
-            <li style="font-size:180%;">{{ company.companyinfo.line_id}}</li>
-            <br />
-            <p style="font-size:200%;"><b><i style="color:white;">เว็ปไซต์บริษัท</i></b></p>
-            <li style="font-size:180%;">{{ company.companyinfo.website}}</li>
-            <br />
-          </ul>
+          <div class="desbox">
+            <ul>
+              <h3>ข้อมูลทั่วไปของบริษัท</h3>
+              <li style="font-size:180%;">{{ company.companyinfo.company_des }}</li>
+              <br />
+            </ul>
+            <ul>
+              <p style="font-size:200%;"><b><i style="color:white;">ชื่อบริษัท</i></b></p>
+              <li style="font-size:180%;">{{ company.companyinfo.company_name_eng }} | {{ company.companyinfo.company_name_thai }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">วันที่ก่อตั้งบริษัท</i></b></p>
+              <li style="font-size:180%;">{{ company.companyinfo.foundation_date }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">จำนวนพนักงานในบริษัท</i></b></p>
+              <li style="font-size:180%;">{{ company.companyinfo.number_of_employees }} คน</li>
+            </ul>
+          </div>
 
-          <h3>----------ที่ตั้งบริษัท----------</h3>
-          <ul>
-            <li style="font-size:180%;">{{ company.companyinfo.address}}</li>
-            <li style="font-size:180%;">{{ company.companyinfo.sub_district}}
-              {{ company.companyinfo.district}} {{ company.companyinfo.province }} 
-              {{ company.companyinfo.country}} {{ company.companyinfo.postal_code}}</li>
-            <br />
-          </ul>
+          <div class="desbox">
+            <ul>
+              <h3>ช่องทางติดต่อ</h3>
+            </ul>
+            <ul>
+              <p style="font-size:200%;"><b><i style="color:white;">Email ติดต่อ</i></b></p>
+              <li style="font-size:180%;">{{ company.companyinfo.email }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">เบอร์โทรติดต่อ</i></b></p>
+              <li style="font-size:180%;">{{ company.companyinfo.phone }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">LineID</i></b></p>
+              <li style="font-size:180%;">{{ company.companyinfo.line_id}}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">เว็ปไซต์บริษัท</i></b></p>
+              <li style="font-size:180%;">{{ company.companyinfo.website}}</li>
+              <br />
+            </ul>
+          </div>
+
+          <div class="desbox">
+            <h3>ที่ตั้งบริษัท</h3>
+            <ul>
+              <li style="font-size:180%;">{{ company.companyinfo.address}}</li>
+              <li style="font-size:180%;">{{ company.companyinfo.sub_district}}
+                {{ company.companyinfo.district}} {{ company.companyinfo.province }} {{ company.companyinfo.postal_code}}</li>
+              <br />
+            </ul>
+          </div>
         </div>
 
         {% if company %}

@@ -2,7 +2,7 @@
   <s class="flex">
     <div id="menu-btn" class="fas fa-bars-staggered"></div>
 
-    <a href="#" class="logo"><i class="fas fa-briefcase"></i> INTERNSEUP</a>
+    <a href="#" class="logo"><i class="fa-solid fa-gears"></i>INTERNSEUP</a>
 
     {% if user.is_authenticated %} {% if user.role == 'STUDENT' %}
 
@@ -33,7 +33,7 @@
 
     {% endif %} {% else %}
     <nav class="navbar">
-    <a href="{% url 'home' %}">ค้นหางาน</a>
+      <a href="{% url 'home' %}">ค้นหางาน</a>
     </nav>
     <a href="{% url 'reallogin' %}" class="btn" style="margin-top: 0"
       >เข้าสู่ระบบ/ลงทะเบียน</a

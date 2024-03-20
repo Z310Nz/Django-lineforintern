@@ -13,11 +13,9 @@
   <body>
     <!-- header section starts  -->
     {% csrf_token %} 
-    <!-- Navbar  -->
     {% include "navbarmain.html" %}
-    <!-- Navbar  -->
+
     
-    <!-- Navbar  -->
     {% if messages %}
       <ul class="messages">
         {% for message in messages %}
@@ -25,7 +23,6 @@
         {% endfor %}
       </ul>
       {% endif %}
-    <!-- Navbar  -->
     {% if user.role == 'STUDENT' %}
     <!-- header section ends  -->
     <!-- student profile section starts  -->
@@ -33,7 +30,7 @@
       <section class="account-form">
         <form action="" method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          <h3>แก้ไขข้อมูลโปรไฟล์</h3>
+          <h3>แก้ไขข้อมูลนิสิต</h3>
           <p>อัพโหลดรูปโปรไฟล์</p>
           <input
             name="profile"
@@ -55,7 +52,7 @@
             name="first_name"
             type="text"
             placeholder="กรอกชื่อจริง"
-            required
+            
             maxlength="1000"
             class="input"
           />
@@ -64,7 +61,7 @@
             name="last_name"
             type="text"
             placeholder="กรอกนามสกุล"
-            required
+            
             maxlength="1000"
             class="input"
           />
@@ -73,7 +70,7 @@
             name="nick_name"
             type="text"
             placeholder="กรอกชื่อเล่น"
-            required
+            
             maxlength="1000"
             class="input"
           />
@@ -82,6 +79,7 @@
             name="student_id"
             type="number"
             placeholder="กรอกรหัสนิสิต"
+            
             maxlength="20"
             class="input"
           />
@@ -90,7 +88,7 @@
             name="email"
             type="email"
             placeholder="กรอก email ของคุณ"
-            required
+            
             maxlength="1000"
             class="input"
           />
@@ -99,7 +97,7 @@
             name="phone"
             type="number"
             placeholder="กรแกเบอร์โทรติดต่อของคุณ"
-            required
+            
             maxlength="20"
             class="input"
           />
@@ -117,27 +115,25 @@
             name="birthday"
             type="date"
             placeholder="กรอกวันเกิดของคุณ"
-            required
+            
             maxlength="1000"
             class="input"
           />
           <br />
-          <h3>ประวัติการฝึกงาน</h3>
-          <p>ตำแหน่งที่ฝึกงานครั้งล่าสุด (ไม่มีให้ใส่ - ) <span>*</span></p>
+          <h3>ประวัติการฝึกงาน (ถ้ามี)</h3>
+          <p>ตำแหน่งที่ฝึกงานครั้งล่าสุด</p>
           <input
             name="last_job"
             type="text"
             placeholder="กรอกตำแหน่งที่ฝึกงานครั้งล่าสุด"
-            required
             maxlength="1000"
             class="input"
           />
-          <p>ชื่อบริษัทที่เคยฝึกงาน (ไม่มีให้ใส่ - ) <span>*</span></p>
+          <p>ชื่อบริษัทที่เคยฝึกงาน</p>
           <input
             name="intern_company"
             type="text"
             placeholder="กรอกชื่อบริษัทที่เคยฝึกงาน"
-            required
             maxlength="1000"
             class="input"
           />
@@ -147,19 +143,19 @@
             name="interest_job"
             type="text"
             placeholder="กรอกตำแหน่งที่สนใจ"
-            required
+            
             maxlength="1000"
             class="input"
           />
           <p>ทักษะ <span>*</span></p>
-          <input
+          <textarea
             name="skill"
             type="text"
             placeholder="กรอกทักษะของคุณ"
-            required
-            maxlength="1000"
-            class="input"
-          />
+            
+            rows="10"
+            cols="50"
+            class="input"></textarea>
           <p>ทักษะภาษาอังกฤษ <span>*</span></p>
           <div class="select-box">
             <select name="eng_skill">
@@ -170,21 +166,19 @@
             </select>
           </div>
           <br />
-          <p>วันที่เริ่มฝึกงาน (ปัจจุบัน) <span>*</span></p>
+          <p>วันที่เริ่มฝึกงาน (ปัจจุบัน)</p>
           <input
             name="intern_start"
             type="date"
             placeholder="กรอกวันที่เริ่มฝึกงาน"
-            required
             maxlength="1000"
             class="input"
           />
-          <p>วันที่สิ้นสุดการฝึกงาน <span>*</span></p>
+          <p>วันที่สิ้นสุดการฝึกงาน</p>
           <input
             name="intern_end"
             type="date"
             placeholder="กรอกวันที่สิ้นสุดการฝึกงาน"
-            required
             maxlength="1000"
             class="input"
           />
@@ -194,7 +188,7 @@
             name="university"
             type="text"
             placeholder="กรอกมหาวิทยาลัยของคุณ"
-            required
+            
             maxlength="1000"
             class="input"
           />
@@ -203,7 +197,7 @@
             name="faculty"
             type="text"
             placeholder="กรอกคณะของคุณ"
-            required
+            
             maxlength="1000"
             class="input"
           />
@@ -212,7 +206,7 @@
             name="major"
             type="text"
             placeholder="กรอกสาขาของคุณ"
-            required
+            
             maxlength="1000"
             class="input"
           />
@@ -242,7 +236,7 @@
             name="company_name_eng"
             type="text"
             placeholder="กรอกชื่อบริษัทภาษาอังกฤษ"
-            required
+            
             maxlength="1000"
             class="input"
           />
@@ -251,7 +245,7 @@
             name="company_name_thai"
             type="text"
             placeholder="กรอกชื่อบริษัทภาษาไทย"
-            required
+            
             maxlength="1000"
             class="input"
           />
@@ -260,52 +254,52 @@
             name="foundation_date"
             type="date"
             placeholder="วว/ดด/ปปปป"
-            required
+            
             maxlength="1000"
             class="input"
           />
-          <p>เกี่ยวกับบริษัท<span>*</span></p>
-          <input
+          <p>เกี่ยวกับบริษัท <span>*</span></p>
+          <textarea
             name="company_des"
             type="text"
             placeholder="กรอกรายละเอียดของบริษัท"
-            required
-            maxlength="1000"
-            class="input"
-          />
+            
+            rows="5"
+            cols="50"
+            class="input"></textarea>
           <p>จำนวนพนักงานในบริษัท <span>*</span></p>
           <input
             name="number_of_employees"
             type="number"
             placeholder="กรอกจำนวนพนักงานในบริษัท"
-            required
+            
             maxlength="20"
             class="input"
           />
-          <p>เว็ปไซต์บริษัท<span>*</span></p>
+          <p>เว็ปไซต์บริษัท <span>*</span></p>
           <input
             name="website"
             type="text"
             placeholder="กรอกเว็ปไซต์ของบริษัท"
-            required
+            
             maxlength="1000"
             class="input"
           />
-          <p>Email สำหรับติดต่อฝึกงาน<span>*</span></p>
+          <p>Email สำหรับติดต่อฝึกงาน <span>*</span></p>
           <input
             name="email"
             type="email"
             placeholder="กรอก email สำหรับติดต่อของบริษัท"
-            required
+            
             maxlength="1000"
             class="input"
           />
-          <p>เบอร์โทรติดต่อ (HR/บริษัท)<span>*</span></p>
+          <p>เบอร์โทรติดต่อ (HR/บริษัท) <span>*</span></p>
           <input
             name="phone"
             type="number"
             placeholder="กรอกเบอร์โทรติดต่อของบริษัท"
-            required
+            
             maxlength="20"
             class="input"
           />
@@ -314,27 +308,27 @@
             name="line_id"
             type="text"
             placeholder="กรอก Line ID สำหรับติดต่อฝึกงาน"
-            required
+            
             maxlength="20"
             class="input"
           />
           <br /><br />
           <h3>ที่ตั้งบริษัท</h3>
           <p>ที่อยู่ <span>*</span></p>
-          <input
-            name = "address"
+          <textarea
+            name="address"
             type="text"
             placeholder="กรอกที่อยู่ของบริษัท"
-            required
-            maxlength="1000"
-            class="input"
-          />
+            
+            rows="5"
+            cols="50"
+            class="input"></textarea>
           <p>ตำบล/แขวง <span>*</span></p>
           <input
             name="sub_district"
             type="text"
             placeholder="กรอกตำบล/แขวงที่ตั้งของบริษัท"
-            required
+            
             maxlength="1000"
             class="input"
           />
@@ -343,7 +337,7 @@
             name="district"
             type="text"
             placeholder="กรอกอำเภอ/เขตที่ตั้งของบริษัท"
-            required
+            
             maxlength="1000"
             class="input"
           />
@@ -352,16 +346,7 @@
             name="province"
             type="text"
             placeholder="กรอกจังหวัดที่ตั้งของบริษัท"
-            required
-            maxlength="1000"
-            class="input"
-          />
-          <p>ประเทศ <span>*</span></p>
-          <input
-            name="country"
-            type="text"
-            placeholder="กรอกประเทศที่ตั้งของบริษัท"
-            required
+            
             maxlength="1000"
             class="input"
           />
@@ -370,7 +355,7 @@
             name="postal_code"
             type="number"
             placeholder="กรอกรหัสไปรษณีย์"
-            required
+            
             maxlength="10"
             class="input"
           />
