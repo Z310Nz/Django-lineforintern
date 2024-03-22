@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>โปรไฟล์</title>
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
+  </head>
+  <body>
+    <!-- header section starts  -->
+    {% csrf_token %}
+    <!-- Navbarmain -->
+    {% include "navbarmain.html" %}
+    <!-- Navbarmain -->
+
+    <!-- Navbarprofile  -->
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li style="font-size: 150%" class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <!-- Navbarprofile  -->
+    <section class="view-student">
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li style="font-size: 150%" class="{{ message.tags }}">
+          {{ message }}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <h1 class="heading">โปรไฟล์ของ {{ student.first_name }} {{ student.last_name }}</h1>
+
+      <div class="details">
+        <div class="info">
+          <img src="{{ student.profile.url }}" alt="" />
+        </div>
+
+        <div class="description">
+          <div class="desbox">
+            <h3 style="font-size:250%;">ข้อมูลทั่วไป</h3>
+            <ul>
+              <p style="font-size:200%;"><b><i style="color:white;">Curriculum vitae (CV)</i></b></p>
+              <li style="font-size:180%;"><a href="{{ student.cv }}">Click to view CV</a></li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">ชื่อจริง-นามสกุล</i></b></p>
+              <li style="font-size:180%;">{{ student.first_name }} {{ student.last_name }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">ชื่อเล่น</i></b></p>
+              <li style="font-size:180%;">{{ student.nick_name }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">วันเกิด</i></b></p>
+              <li style="font-size:180%;">{{ student.birthday }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">รหัสนิสิต</i></b></p>
+              <li style="font-size:180%;">{{ student.student_id }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">Email </i></b></p>
+              <li style="font-size:180%;">{{ student.email }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">เบอร์โทรติดต่อ</i></b></p>
+              <li style="font-size:180%;">{{ student.phone }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">เพศ</i></b></p>
+              <li style="font-size:180%;">{{ student.gender }}</li>
+              <br />
+            </ul>
+          </div>
+
+          <div class="desbox">
+            <h3 style="font-size:250%;">คุณสมบัติ</h3>
+            <ul>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">ตำแหน่งที่สนใจ</i></b></p>
+              <li style="font-size:180%;">{{ student.interested_job }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">ทักษะ</i></b></p>
+              <li style="font-size:180%;">{{ student.skill }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">ทักษะภาษาอังกฤษ</i></b></p>
+              <li style="font-size:180%;">{{ student.eng_skill }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">วันที่เริ่มฝึกงาน (ปัจจุบัน)</i></b></p>
+              <li style="font-size:180%;">{{ student.intern_start }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">วันที่สิ้นสุดการฝึกงาน</i></b></p>
+              <li style="font-size:180%;">{{ student.intern_end }}</li>
+              <br />
+            </ul>
+          </div>
+
+          <div class="desbox">
+            <h3 style="font-size:250%;">การศึกษาปัจจุบัน</h3>
+            <ul>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">มหาวิทยาลัย</i></b></p>
+              <li style="font-size:180%;">{{ student.university }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">คณะ</i></b></p>
+              <li style="font-size:180%;">{{ student.faculty }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">สาขา</i></b></p>
+              <li style="font-size:180%;">{{ student.major }}</li>
+              <br />
+            </ul>
+          </div>
+          
+          <div class="desbox">
+            <h3 style="font-size:250%;">ประวัติการฝึกงานครั้งล่าสุด</h3>
+            <ul>
+              <p style="font-size:200%;"><b><i style="color:white;">ตำแหน่งที่ฝึกงานครั้งล่าสุด</i></b></p>
+              <li style="font-size:180%;">{{ student.last_job }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">บริษัทที่เคยฝึกงาน</i></b></p>
+              <li style="font-size:180%;">{{ student.intern_company }}</li>
+              <br />
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section></section>
+    <!-- custom js file link  -->
+    <script src="{% static "js/script.js" %}"></script>
+  </body>
+</html>

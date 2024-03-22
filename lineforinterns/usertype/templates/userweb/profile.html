@@ -40,10 +40,16 @@
             <h3 style="font-size:250%;">ข้อมูลทั่วไป</h3>
             <ul>
               <p style="font-size:200%;"><b><i style="color:white;">Curriculum vitae (CV)</i></b></p>
-              <li style="font-size:180%;"><a href="{{ student.studentinfo.cv }}">Click to view CV</a></li>
+              <li style="font-size:180%;"><a href="{{ student.studentinfo.cv }}" target="_blank">Click to view CV</a></li>
               <br />
               <p style="font-size:200%;"><b><i style="color:white;">ชื่อจริง-นามสกุล</i></b></p>
               <li style="font-size:180%;">{{ student.studentinfo.first_name }} {{ student.studentinfo.last_name }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">ชื่อเล่น</i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.nick_name }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">วันเกิด</i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.birthday }}</li>
               <br />
               <p style="font-size:200%;"><b><i style="color:white;">รหัสนิสิต</i></b></p>
               <li style="font-size:180%;">{{ student.studentinfo.student_id }}</li>
@@ -63,6 +69,9 @@
           <div class="desbox">
             <h3 style="font-size:250%;">คุณสมบัติ</h3>
             <ul>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">ตำแหน่งที่สนใจ</i></b></p>
+              <li style="font-size:180%;">{{ student.studentinfo.interested_job }}</li>
               <br />
               <p style="font-size:200%;"><b><i style="color:white;">ทักษะ</i></b></p>
               <li style="font-size:180%;">{{ student.studentinfo.skill }}</li>

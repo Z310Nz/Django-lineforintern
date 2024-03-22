@@ -327,7 +327,10 @@ class Admin(CustomUser):
 
 
 # Admin----------------------------------------------------------------
-    
+
+class CompanyJob(models.Model):
+    company = models.ForeignKey(CompanyInfo, on_delete=models.CASCADE)
+    job = models.ManyToManyField(Job, related_name="companiesjob")
 
 # Profile----------------------------------------------------------------
 class StudentProfile(models.Model):

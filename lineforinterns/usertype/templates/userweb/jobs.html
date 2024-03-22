@@ -38,8 +38,7 @@
                 <p><i class="fas fa-clock"></i> <span>{{ job.workday }}</span></p>
             </div>
             <div class="flex-btn">
-                <a href="{% url 'view_job' job.id %}" class="btn">ดูเพิ่มเติม</a>
-                <button type="submit" class="far fa-heart" name="save"></button>
+                <a href="{% url 'view_job' job_id=job.id %}" class="btn-more">ดูเพิ่มเติม</a>
             </div>
         </div>
       {% endfor %}

@@ -30,7 +30,7 @@
             maxlength="1000"
             class="input"
           />
-          <input type="submit" value="ค้นหางาน" name="search" class="btn" />
+          <input type="submit" value="ค้นหางาน" name="search" style="font-size:200%;" class="btn-green" />
         </form>
       </section>
     </div>
@@ -63,7 +63,7 @@
             </div>
             <div class="flex-btn">
                 {% comment %} <a href="{% url 'view_job' job.id %}" class="btn">view details</a> {% endcomment %}
-                <a href="{% url 'view_job' job.id %}" class="btn">ดูเพิ่มเติม</a>
+                <a href="{% url 'view_job' job_id=job.id %}" class="btn-more">ดูเพิ่มเติม</a>
             </div>
         </div>
       {% endfor %}
@@ -94,7 +94,7 @@
             maxlength="1000"
             class="input"
           />
-          <input type="submit" value="ค้นหางาน" name="search" class="btn" />
+          <input type="submit" value="ค้นหางาน" name="search" style="font-size:200%;" class="btn-green" />
         </form>
       </section>
     </div>
@@ -127,7 +127,7 @@
             </div>
             <div class="flex-btn">
                 {% comment %} <a href="{% url 'view_job' job.id %}" class="btn">view details</a> {% endcomment %}
-                <a href="{% url 'view_job' job.id %}" class="btn">ดูเพิ่มเติม</a>
+                <a href="{% url 'view_job' job.id %}" class="btn-more">ดูเพิ่มเติม</a>
             </div>
         </div>
       {% endfor %}

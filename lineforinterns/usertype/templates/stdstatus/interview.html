@@ -33,31 +33,30 @@
                 </div>
               </div>
               <div><img src="{{ company.profile.url }}" alt="" /></div>
-              <h3 class="job-title">
-                บริษัท : {{ company.company_name_eng }} | {{ company.company_name_thai }}
+              <h3 class="job-title">{{ company.company_name_eng }} | {{ company.company_name_thai }}
               </h3>
               <p class="location">
                 <i class="fas fa-map-marker-alt"></i>
-                <span>{{ company.province }}, {{ company.country }}</span>
+                <span>{{ company.district }}, {{ company.province }}</span>
               </p>
             </br>
-              <div class="tags">
-                <p>
-                  <i class="fa-solid fa-calendar"></i>
-                  <span>วันที่ : {{ interview.date }}</span>
-                </p>
-                <p>
-                  <i class="fas fa-briefcase"></i>
-                  <span>รูปแบบ : {{ interview.location }}</span>
-                </p>
-                <p>
-                  <i class="fas fa-clock"></i>
-                  <span>เวลา : {{ interview.time }}</span>
-                </p>
-                <p>
-                  <i class="fa-solid fa-link"></i>
-                  <span>ลิงค์สัมภาษณ์ : <a href="{{ interview.link }}">ลิงค์สัมภาษณ์</a></span>
-              </div>
+            <div class="tags">
+              <p>
+                <i class="fa-solid fa-calendar"></i>
+                <span>วันที่ : {{ interview.date }}</span>
+              </p>
+              <p>
+                <i class="fas fa-briefcase"></i>
+                <span>รูปแบบ : {{ interview.location }}</span>
+              </p>
+              <p>
+                <i class="fas fa-clock"></i>
+                <span>เวลา : {{ interview.time }}</span>
+              </p>
+              <p>
+                <i class="fa-solid fa-link"></i>
+                <span>ลิงค์สัมภาษณ์ : <a href="{{ interview.link }}">ลิงค์สัมภาษณ์</a></span>
+            </div>
             </div>
             {% endif %}
             {% endfor %}

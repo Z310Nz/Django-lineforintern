@@ -27,7 +27,7 @@
     </ul>
     {% endif %}
     <section class="position-container">
-      <h1 class="heading">ใบสมัคร</h1>
+      <h1 class="heading">ใบสมัครงาน</h1>
             <div class="loop-container">
               {% for company, status, job, interview in company %}
               {% if status == "Pending" %}
@@ -44,7 +44,7 @@
                 </h3>
                 <p class="location">
                   <i class="fas fa-map-marker-alt"></i>
-                  <span>{{ company.province }}, {{ company.country }}</span>
+                  <span>{{ company.district }}, {{ company.province }}</span>
                 </p>
               </br>
                 <div class="tags">
@@ -56,7 +56,7 @@
                     <span>{{ company.line_id }}</span>
                   </p>
                   <p>
-                    <i class="fas fa-indian-rupee-sign"></i>
+                    <i class="fa-solid fa-envelope"></i>
                     <span>{{ company.email }}</span>
                   </p>
                   <p>

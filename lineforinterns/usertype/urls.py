@@ -40,6 +40,8 @@ urlpatterns = [
     path("stdinterviewed/<str:role>/<str:username>/", views.stdinterviewed, name="interviewed"),  # Company select page
     path("inapproved/<str:match_id>/", views.inapproved, name="inapproved"),  # Approved page
     path("inrejected/<str:match_id>/", views.inrejected, name="inrejected"),  # Rejected page
+    path('view_company/<str:company_name_eng>/', views.view_company, name='view_company'),  # ระบุพารามิเตอร์เป็น company_name_eng
+    path('view_student/<str:student_id>/', views.view_student, name='view_student'),  # ระบุพารามิเตอร์เป็น student_name
     
 ]
 

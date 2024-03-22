@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>โปรไฟล์</title>
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
+  </head>
+  <body>
+    <!-- header section starts  -->
+    {% csrf_token %} 
+    <!-- Navbarmain -->
+    {% include "navbarmain.html" %}
+    <!-- Navbarmain --> 
+   
+    <!-- Navbarprofile  -->
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li style="font-size:150%;" class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    <!-- Navbarprofile  -->
+    <section class="view-student">
+      <h1 class="heading">โปรไฟล์ของบริษัท {{ company_info.company_name_thai }} </h1>
+
+      <div class="details">
+        <div class="info">
+          <img src="{{ company_info.profile.url }}" alt="" />
+          <h3>{{ company_info.company_name_eng }}</h3>
+          <p><i class="fas fa-map-marker-alt"></i> {{ company_info.province }}</p>
+        </div>
+
+        <div class="description">
+          <div class="desbox">
+            <ul>
+              <h3>ข้อมูลทั่วไปของบริษัท</h3>
+              <li style="font-size:180%;">{{ company_info.company_des }}</li>
+              <br />
+            </ul>
+            <ul>
+              <p style="font-size:200%;"><b><i style="color:white;">ชื่อบริษัท</i></b></p>
+              <li style="font-size:180%;">{{ company_info.company_name_eng }} | {{ company_info.company_name_thai }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">วันที่ก่อตั้งบริษัท</i></b></p>
+              <li style="font-size:180%;">{{ company_info.foundation_date }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">จำนวนพนักงานในบริษัท</i></b></p>
+              <li style="font-size:180%;">{{ company_info.number_of_employees }} คน</li>
+            </ul>
+          </div>
+
+          <div class="desbox">
+            <ul>
+              <h3>ช่องทางติดต่อ</h3>
+            </ul>
+            <ul>
+              <p style="font-size:200%;"><b><i style="color:white;">Email ติดต่อ</i></b></p>
+              <li style="font-size:180%;">{{ company_info.email }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">เบอร์โทรติดต่อ</i></b></p>
+              <li style="font-size:180%;">{{ company_info.phone }}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">LineID</i></b></p>
+              <li style="font-size:180%;">{{ company_info.line_id}}</li>
+              <br />
+              <p style="font-size:200%;"><b><i style="color:white;">เว็ปไซต์บริษัท</i></b></p>
+              <li style="font-size:180%;">{{ company_info.website}}</li>
+              <br />
+            </ul>
+          </div>
+
+          <div class="desbox">
+            <h3>ที่ตั้งบริษัท</h3>
+            <ul>
+              <li style="font-size:180%;">{{ company_info.address}}</li>
+              <li style="font-size:180%;">{{ company_info.sub_district}}
+                {{ company_info.district}} {{ company_info.province }} {{ company_info.postal_code}}</li>
+              <br />
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- jobs section ends -->
+    <section></section>
+    <!-- custom js file link  -->
+    <script src="{% static "js/script.js" %}"></script>
+  </body>
+</html>

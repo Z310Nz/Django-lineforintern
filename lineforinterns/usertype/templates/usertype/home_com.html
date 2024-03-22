@@ -44,6 +44,11 @@
         <p class="location">
           <i class="fa-solid fa-link"></i>
           <span><a href="{{ showstudent.cv }}">Curriculum vitae (CV)</a></span>
+        </p>
+        <p class="location">
+          <i class="fa-solid fa-link"></i>
+          <span><a href="{% url "view_student" student_id=showstudent.id %}" target="_blank">ดูข้อมูลของนิสิตเพิ่มเติม</a></span>
+        </p>
         <div class="tags">
           <p>
             <i class="fa-solid fa-phone"></i>

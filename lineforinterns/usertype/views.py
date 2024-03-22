@@ -197,6 +197,7 @@ def addinfo(request, role, username):
             university = form.cleaned_data["university"]
             faculty = form.cleaned_data["faculty"]
             major = form.cleaned_data["major"]
+            interest_job = form.cleaned_data("interest_job")
 
             last_job = form.cleaned_data.get("last_job", "N/A")
             intern_company = form.cleaned_data.get("intern_company", "N/A")
@@ -216,7 +217,6 @@ def addinfo(request, role, username):
                 birthday=birthday,
                 last_job=last_job,
                 intern_company=intern_company,
-                interest_job="",
                 skill=skill,
                 eng_skill=eng_skill,
                 university=university,
@@ -224,6 +224,7 @@ def addinfo(request, role, username):
                 major=major,
                 intern_start=intern_start,
                 intern_end=intern_end,
+                interest_job=interest_job,
             )
             profile.save()
 
@@ -399,6 +400,7 @@ def postjob(request, role, username):
         },
     )
 
+
 def editjob(request, job_id):
     job = Job.objects.get(id=job_id)
     form = PostJobForm(request.POST or None, request.FILES or None, instance=job)
@@ -419,6 +421,15 @@ def viewjob(request, job_id):
     job = Job.objects.get(id=job_id)
     return render(request, "userweb/view_job.html", {"job": job})
 
+def view_company(request, company_name_eng):
+    # ค้นหาข้อมูลของบริษัทในโมเดล CompanyInfo โดยใช้ company_name_eng
+    company_info = get_object_or_404(CompanyInfo, company_name_eng=company_name_eng)
+
+    # ค้นหา job ที่เชื่อมโยงกับบริษัทนี้
+    jobs = Job.objects.filter(company=company_info)
+
+    return render(request, "userweb/view_company.html", {"company_info": company_info, "jobs": jobs})
+
 def viewalljob(request):
     jobs = Job.objects.all()
     return render(request, "userweb/jobs.html", {"jobs": jobs})
@@ -428,9 +439,11 @@ def applyjob(request, job_id):
     user = request.user
     student = StudentProfile.objects.get(user=user)
     student_info = student.studentinfo
-    company_name = job.company
-    company_profile = get_object_or_404(CompanyProfile, companyinfo__company_name_eng=company_name)
-    company_info = company_profile.companyinfo
+    companyjob = CompanyProfile.objects.get(job=job_id)
+    company_info = companyjob.companyinfo
+    # company_name = job.company
+    # company_profile = get_object_or_404(CompanyProfile, companyinfo__company_name_eng=company_name)
+    # company_info = company_profile.companyinfo
     ststus = "Pending"
     matching = Matching.objects.create(student=student_info, job=job, company=company_info ,status=ststus)
     matching.save()
@@ -497,6 +510,10 @@ def applyview(request, role, username):
     interview = [m.interview for m in match]
     students = zip(showstudent, status, job, match_id, student_id, interview)
     return render(request, "usertype/home_com.html", {"students": students, "role": role, "username": username})
+
+def view_student(request, student_id):
+    student = StudentInfo.objects.get(id=student_id)
+    return render(request, "userweb/view_student.html", {"student": student})
 
 def approvedview(request, role, username):
     company = CompanyProfile.objects.get(user__username=username)

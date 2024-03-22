@@ -29,8 +29,8 @@
       {% endif %}
       <div class="details">
         <div class="job-info">
-          <h3 style="font-size:250%;">{{ job.jobname }}</h3>
-          <a style="font-size:230%;" href="view_company.html">บริษัท {{ job.company }}</a>
+          <h3 style="font-size:250%;">{{ job.jobname}}</h3>
+          <a style="font-size:230%;" href="{% url 'view_company' company_name_eng=job.company %}" target="_blank">บริษัท {{ job.company }}</a><br/>
           <p style="font-size:200%;"><i class="fas fa-map-marker-alt"></i>สถานที่ฝึกงาน : {{ job.city }}, {{job.country }}</p>
         </div>
         <div class="basic-details">

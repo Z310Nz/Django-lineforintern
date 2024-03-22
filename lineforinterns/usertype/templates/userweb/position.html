@@ -30,7 +30,7 @@
       </ul>
       {% endif %}
       <div class="flex-btn">
-        <a href="{% url 'postjob' role='COMPANY' username=user.username %}" class="btn">เพิ่มตำแหน่งที่รับสมัคร</a>
+        <a href="{% url 'postjob' role='COMPANY' username=user.username %}" style="font-size:200%;" class="btn-register">เพิ่มตำแหน่งที่รับสมัคร</a>
     </div>
       <div class="box-container">
         {% for job in jobs %}
@@ -54,9 +54,9 @@
                 <p><i class="fas fa-clock"></i> <span>วันทำงาน : {{ job.workday }}</span></p>
             </div>
             <div class="flex-btn">
-                <a href="{% url 'view_job' job.id %}" class="btn">ดูรายละเอียด</a>
+                <a href="{% url 'view_job' job.id %}" style="font-size:200%;" class="btn-green">ดูรายละเอียด</a>
                 {% comment %} <a href="{% url 'editjob' job.id %}" class="btn">Edit</a> {% endcomment %}
-                <a href="{% url 'deletejob' job.id %}" class="btn">ลบตำแหน่ง</a>
+                <a href="{% url 'deletejob' job.id %}" style="font-size:200%;" class="btn-danger">ลบตำแหน่ง</a>
             </div>
         </div>
       {% endfor %}
