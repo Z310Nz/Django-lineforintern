@@ -1,6 +1,6 @@
 {% load static %} <link rel="stylesheet" href="{% static "css/css.css" %}" />
-<link rel="stylesheet" href="{% static "css/style.css" %}" />
-{% if user.role == 'COMPANY' %}
+<link rel="stylesheet" href="{% static "css/style.css" %}" /> {% if user.role ==
+'COMPANY' %}
 <body>
   <section>
     <div class="progress">
@@ -33,8 +33,8 @@
             <h1>ใบสมัคร</h1>
             <div class="box-container">
               <div class="box">
-                {% for showstudent, status, job, match_id, student_id, interview in students %}
-                {% if status == "Pending" %}
+                {% for showstudent, status, job, match_id, student_id, interview
+                in students %} {% if status == "Pending" %}
                 <div class="company">
                   <div>
                     <h3>{{ job.jobname }}</h3>
@@ -46,11 +46,14 @@
                 </h3>
                 <p class="location">
                   <i class="fas fa-map-marker-alt"></i>
-                  <span>{{ showstudent.interest_job }}, {{ showstudent.skill }}</span>
+                  <span
+                    >{{ showstudent.interest_job }}, {{ showstudent.skill
+                    }}</span
+                  >
                 </p>
                 <div class="tags">
                   <p>
-                    <i class="fas fa-indian-rupee-sign"></i>
+                    <i class="fa-solid fa-money-bill"></i>
                     <span>{{ showstudent.email }}</span>
                   </p>
                   <p>
@@ -63,12 +66,23 @@
                   </p>
                 </div>
                 <div class="flex-btn-status">
-                  <a href="{% url 'approved' match_id=match_id %}" class="btn-green">รับเข้าฝึกงาน</a>
-                  <a href="{% url 'addschedule' match_id=match_id %}" class="btn-bule">นัดสัมภาษณ์</a>
-                  <a href="{% url 'rejected' match_id=match_id %}" class="btn-danger">คุณสมบัติไม่ตรง</a>
+                  <a
+                    href="{% url 'approved' match_id=match_id %}"
+                    class="btn-green"
+                    >รับเข้าฝึกงาน</a
+                  >
+                  <a
+                    href="{% url 'addschedule' match_id=match_id %}"
+                    class="btn-bule"
+                    >นัดสัมภาษณ์</a
+                  >
+                  <a
+                    href="{% url 'rejected' match_id=match_id %}"
+                    class="btn-danger"
+                    >คุณสมบัติไม่ตรง</a
+                  >
                 </div>
-                {% endif %}
-                {% endfor %}
+                {% endif %} {% endfor %}
               </div>
             </div>
           </div>
@@ -78,8 +92,8 @@
             <h1>นัดสัมภาษณ์</h1>
             <div class="box-container">
               <div class="box">
-                {% for showstudent, status, job, match_id, student_id, interview in students %}
-                {% if status == "Interview" %}
+                {% for showstudent, status, job, match_id, student_id, interview
+                in students %} {% if status == "Interview" %}
                 <div class="company">
                   <div>
                     <h3>{{ student.nick_name }}</h3>
@@ -95,7 +109,7 @@
                 </p>
                 <div class="tags">
                   <p>
-                    <i class="fas fa-indian-rupee-sign"></i>
+                    <i class="fa-solid fa-money-bill"></i>
                     <span>{{ student.email }}</span>
                   </p>
                   <p>
@@ -108,12 +122,23 @@
                   </p>
                 </div>
                 <div class="flex-btn-status">
-                  <a href="{% url 'approved' match_id=match_id %}" class="btn-green">รับเข้าฝึกงาน</a>
-                  <a href="{% url 'addschedule' match_id=match_id %}" class="btn-bule">สร้างใบนัดหมาย</a>
-                  <a href="{% url 'rejected' match_id=match_id %}" class="btn-danger">คุณสมบัติไม่ตรง</a>
+                  <a
+                    href="{% url 'approved' match_id=match_id %}"
+                    class="btn-green"
+                    >รับเข้าฝึกงาน</a
+                  >
+                  <a
+                    href="{% url 'addschedule' match_id=match_id %}"
+                    class="btn-bule"
+                    >สร้างใบนัดหมาย</a
+                  >
+                  <a
+                    href="{% url 'rejected' match_id=match_id %}"
+                    class="btn-danger"
+                    >คุณสมบัติไม่ตรง</a
+                  >
                 </div>
-                {% endif %}
-                {% endfor %}
+                {% endif %} {% endfor %}
               </div>
             </div>
           </div>
@@ -123,8 +148,8 @@
             <h1>รับเข้าฝึกงาน</h1>
             <div class="box-container">
               <div class="box">
-                {% for showstudent, status, job, match_id, student_id, interview in students %}
-                {% if status == "Approved" %}
+                {% for showstudent, status, job, match_id, student_id, interview
+                in students %} {% if status == "Approved" %}
                 <div class="company">
                   <div>
                     <h3>{{ student.nick_name }}</h3>
@@ -140,7 +165,7 @@
                 </p>
                 <div class="tags">
                   <p>
-                    <i class="fas fa-indian-rupee-sign"></i>
+                    <i class="fa-solid fa-money-bill"></i>
                     <span>{{ student.email }}</span>
                   </p>
                   <p>
@@ -152,8 +177,7 @@
                     <span>{{ student.birthday }}</span>
                   </p>
                 </div>
-                {% endif %}
-                {% endfor %}
+                {% endif %} {% endfor %}
               </div>
             </div>
           </div>
@@ -163,8 +187,8 @@
             <h1>คุณสมบัติไม่ตรง</h1>
             <div class="box-container">
               <div class="box">
-                {% for showstudent, status, job, match_id, student_id, interview in students %}
-                {% if status == "Rejected" %}
+                {% for showstudent, status, job, match_id, student_id, interview
+                in students %} {% if status == "Rejected" %}
                 <div class="company">
                   <div>
                     <h3>{{ student.nick_name }}</h3>
@@ -180,7 +204,7 @@
                 </p>
                 <div class="tags">
                   <p>
-                    <i class="fas fa-indian-rupee-sign"></i>
+                    <i class="fa-solid fa-money-bill"></i>
                     <span>{{ student.email }}</span>
                   </p>
                   <p>
@@ -192,8 +216,7 @@
                     <span>{{ student.birthday }}</span>
                   </p>
                 </div>
-                {% endif %}
-                {% endfor %}
+                {% endif %} {% endfor %}
               </div>
             </div>
           </div>
@@ -203,7 +226,8 @@
             <h1>ภาพรวม</h1>
             <div class="box-container">
               <div class="box">
-                {% for showstudent, status, job, match_id, student_id, interview in students %}
+                {% for showstudent, status, job, match_id, student_id, interview
+                in students %}
                 <div class="company">
                   <div>
                     <h3>{{ student.nick_name }}</h3>
@@ -219,7 +243,7 @@
                 </p>
                 <div class="tags">
                   <p>
-                    <i class="fas fa-indian-rupee-sign"></i>
+                    <i class="fa-solid fa-money-bill"></i>
                     <span>{{ student.email }}</span>
                   </p>
                   <p>
@@ -235,9 +259,8 @@
               </div>
             </div>
           </div>
-
         </div>
-        
+
         <div class="progress_inner__status">
           <div class="box_base"></div>
           <div class="box_lid"></div>
@@ -285,8 +308,8 @@
         <div class="progress_inner__tabs">
           <div class="tab tab-0">
             <h1>ใบสมัคร</h1>
-            {% for company, status, job, interview in company %}
-            {% if status == "Pending" %}
+            {% for company, status, job, interview in company %} {% if status ==
+            "Pending" %}
             <div class="box-container">
               <div class="box">
                 <div class="company">
@@ -295,16 +318,14 @@
                     <p></p>
                   </div>
                 </div>
-                <h3 class="job-title">
-                  {{ company.company_name_eng }}
-                </h3>
+                <h3 class="job-title">{{ company.company_name_eng }}</h3>
                 <p class="location">
                   <i class="fas fa-map-marker-alt"></i>
                   <span>{{ company.province }}, {{ company.country }}</span>
                 </p>
                 <div class="tags">
                   <p>
-                    <i class="fas fa-indian-rupee-sign"></i>
+                    <i class="fa-solid fa-money-bill"></i>
                     <span>{{ company.email }}</span>
                   </p>
                   <p>
@@ -318,14 +339,13 @@
                 </div>
               </div>
             </div>
-            {% endif %}
-            {% endfor %}
+            {% endif %} {% endfor %}
           </div>
 
           <div class="tab tab-1">
             <h1>นัดสัมภาษณ์</h1>
-            {% for company, status, job, interview in company %}
-            {% if status == "Interview" %}
+            {% for company, status, job, interview in company %} {% if status ==
+            "Interview" %}
             <div class="box-container">
               <div class="box">
                 <div class="company">
@@ -334,16 +354,14 @@
                     <p></p>
                   </div>
                 </div>
-                <h3 class="job-title">
-                  {{ company.company_name_eng }}
-                </h3>
+                <h3 class="job-title">{{ company.company_name_eng }}</h3>
                 <p class="location">
                   <i class="fas fa-map-marker-alt"></i>
                   <span>{{ company.province }}, {{ company.country }}</span>
                 </p>
                 <div class="tags">
                   <p>
-                    <i class="fas fa-indian-rupee-sign"></i>
+                    <i class="fa-solid fa-money-bill"></i>
                     <span>{{ company.email }}</span>
                   </p>
                   <p>
@@ -357,54 +375,49 @@
                 </div>
               </div>
             </div>
-            {% endif %}
-            {% endfor %}
-          </div>
-          
-          <div class="tab tab-2">
-            <h1>รับเข้าฝึกงาน</h1>
-            {% for company, status, job, interview in company %}
-            {% if status == "Approved" %}
-            <div class="box-container">
-              <div class="box">
-                <div class="company">
-                  <div>
-                    <h3>{{ job.jobname }}</h3>
-                    <p></p>
-                  </div>
-                </div>
-                <h3 class="job-title">
-                  {{ company.company_name_eng }}
-                </h3>
-                <p class="location">
-                  <i class="fas fa-map-marker-alt"></i>
-                  <span>{{ company.province }}, {{ company.country }}</span>
-                </p>
-                <div class="tags">
-                  <p>
-                    <i class="fas fa-indian-rupee-sign"></i>
-                    <span>{{ company.email }}</span>
-                  </p>
-                  <p>
-                    <i class="fas fa-briefcase"></i>
-                    <span>{{ job.requirement }}</span>
-                  </p>
-                  <p>
-                    <i class="fas fa-clock"></i>
-                    <span>{{ job.workday }}</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            {% endif %}
-            {% endfor %}
+            {% endif %} {% endfor %}
           </div>
 
+          <div class="tab tab-2">
+            <h1>รับเข้าฝึกงาน</h1>
+            {% for company, status, job, interview in company %} {% if status ==
+            "Approved" %}
+            <div class="box-container">
+              <div class="box">
+                <div class="company">
+                  <div>
+                    <h3>{{ job.jobname }}</h3>
+                    <p></p>
+                  </div>
+                </div>
+                <h3 class="job-title">{{ company.company_name_eng }}</h3>
+                <p class="location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>{{ company.province }}, {{ company.country }}</span>
+                </p>
+                <div class="tags">
+                  <p>
+                    <i class="fa-solid fa-money-bill"></i>
+                    <span>{{ company.email }}</span>
+                  </p>
+                  <p>
+                    <i class="fas fa-briefcase"></i>
+                    <span>{{ job.requirement }}</span>
+                  </p>
+                  <p>
+                    <i class="fas fa-clock"></i>
+                    <span>{{ job.workday }}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            {% endif %} {% endfor %}
+          </div>
 
           <div class="tab tab-3">
             <h1>คุณสมบัติไม่ตรง</h1>
-            {% for company, status, job, interview in company %}
-            {% if status == "Rejected" %}
+            {% for company, status, job, interview in company %} {% if status ==
+            "Rejected" %}
             <div class="box-container">
               <div class="box">
                 <div class="company">
@@ -413,16 +426,14 @@
                     <p></p>
                   </div>
                 </div>
-                <h3 class="job-title">
-                  {{ company.company_name_eng }}
-                </h3>
+                <h3 class="job-title">{{ company.company_name_eng }}</h3>
                 <p class="location">
                   <i class="fas fa-map-marker-alt"></i>
                   <span>{{ company.province }}, {{ company.country }}</span>
                 </p>
                 <div class="tags">
                   <p>
-                    <i class="fas fa-indian-rupee-sign"></i>
+                    <i class="fa-solid fa-money-bill"></i>
                     <span>{{ company.email }}</span>
                   </p>
                   <p>
@@ -436,10 +447,8 @@
                 </div>
               </div>
             </div>
-            {% endif %}
-            {% endfor %}
+            {% endif %} {% endfor %}
           </div>
-
 
           <div class="tab tab-4">
             <h1>ภาพรวม</h1>
@@ -452,16 +461,14 @@
                     <p></p>
                   </div>
                 </div>
-                <h3 class="job-title">
-                  {{ company.company_name_eng }}
-                </h3>
+                <h3 class="job-title">{{ company.company_name_eng }}</h3>
                 <p class="location">
                   <i class="fas fa-map-marker-alt"></i>
                   <span>{{ company.province }}, {{ company.country }}</span>
                 </p>
                 <div class="tags">
                   <p>
-                    <i class="fas fa-indian-rupee-sign"></i>
+                    <i class="fa-solid fa-money-bill"></i>
                     <span>{{ company.email }}</span>
                   </p>
                   <p>

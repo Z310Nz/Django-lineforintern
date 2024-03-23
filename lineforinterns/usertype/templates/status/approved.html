@@ -41,10 +41,15 @@
             <i class="fa-brands fa-stack-overflow"></i>
               <span>ตำแหน่งที่สนใจ : {{ showstudent.interest_job }}</span>
           </p>
-          <p class="location">
-            <i class="fa-solid fa-link"></i>
-            <span><a href="{{ showstudent.cv }}">Curriculum vitae (CV)</a></span>
           <div class="tags">
+            <p>
+              <i class="fa-solid fa-link"></i>
+              <span><a href="{{ showstudent.cv }}">Curriculum vitae (CV)</a></span>
+            </p>
+            <p>
+              <i class="fa-solid fa-link"></i>
+              <span><a href="{% url "view_student" student_id=showstudent.id %}" target="_blank">ดูข้อมูลของนิสิตเพิ่มเติม</a></span>
+            </p>
             <p>
               <i class="fa-solid fa-phone"></i>
               <span>{{ showstudent.phone }}</span>
@@ -56,8 +61,7 @@
             <p>
               <i class="fa-solid fa-clock"></i>
               <span>{{ showstudent.intern_start }} - {{ showstudent.intern_end }}</span>
-        </div>
-        </div>
+          </div>
         {% endif %}
         {% endfor %}
     </div>
