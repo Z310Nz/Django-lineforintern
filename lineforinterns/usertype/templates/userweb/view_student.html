@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>โปรไฟล์</title>
+    <title>{{ student.first_name }} {{ student.last_name }}</title>
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="{% static "css/style.css" %}" />
@@ -125,6 +125,11 @@
           </div>
         </div>
       </div>
+      {% comment %} <div class="flex-btn-status">
+        <a href="{% url 'approvedtest' student_id=student.id %}" class="btn-green">รับเข้าฝึกงาน</a>
+        <a href="{% url 'interviewedtest' student_id=student.id %}" class="btn-bule">นัดสัมภาษณ์</a>
+        <a href="{% url 'rejectedtest' student_id=student.id %}" class="btn-danger">คุณสมบัติไม่ตรง</a>
+      </div> {% endcomment %}
     </section>
     <section></section>
     <!-- custom js file link  -->

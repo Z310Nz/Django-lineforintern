@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>โปรไฟล์</title>
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
+  </head>
+  <body>
+    <!-- header section starts  -->
+    {% csrf_token %} 
+    {% include "navbarmain.html" %}
+
+    
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li style="font-size:150%;" class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    {% if user.role == 'STUDENT' %}
+    <!-- header section ends  -->
+    <!-- student profile section starts  -->
+    <div class="account-form-container">
+      <section class="account-form">
+        <form action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <h3>เพิ่มวันที่เริ่มฝึกงาน</h3>
+          <p>วันที่เริ่มฝึกงาน (ปัจจุบัน)</p>
+          <input
+            name="intern_start"
+            type="date"
+            placeholder="กรอกวันที่เริ่มฝึกงาน"
+            maxlength="1000"
+            class="input"
+          />
+          <p>วันที่สิ้นสุดการฝึกงาน</p>
+          <input
+            name="intern_end"
+            type="date"
+            placeholder="กรอกวันที่สิ้นสุดการฝึกงาน"
+            maxlength="1000"
+            class="input"
+          />
+          <input type="submit" value="SAVE" name="submit" class="btn" />
+        </form>
+      </section>
+      <script src="{% static "js/script.js" %}"></script>
+    </div>
+    <!-- student profile section ends  -->
+    {% elif user.role == 'COMPANY' %}
+    <!-- company profile section starts  -->
+    <div class="account-form-container">
+      <section class="account-form">
+        <form action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <h3>เพิ่มข้อมูลบริษัท</h3>
+          <p>อัพโหลดโลโก้บริษัท</p>
+          <input
+            name="profile"
+            type="file"
+            accept="image/png, image/jpeg"
+            placeholder="อัพโหลดโลโก้บริษัท"
+            class="input"
+          />
+          <p>ชื่อบริษัท (ภาษาอังกฤษ)<span>*</span></p>
+          <input
+            name="company_name_eng"
+            type="text"
+            placeholder="กรอกชื่อบริษัทภาษาอังกฤษ"
+            required
+            maxlength="1000"
+            class="input"
+          />
+          <p>ชื่อบริษัท (ภาษาไทย) <span>*</span></p>
+          <input
+            name="company_name_thai"
+            type="text"
+            placeholder="กรอกชื่อบริษัทภาษาไทย"
+            required
+            maxlength="1000"
+            class="input"
+          />
+          <p>วันที่ก่อตั้งบริษัท<span>*</span></p>
+          <input
+            name="foundation_date"
+            type="date"
+            placeholder="วว/ดด/ปปปป"
+            required
+            maxlength="1000"
+            class="input"
+          />
+          <p>เกี่ยวกับบริษัท <span>*</span></p>
+          <textarea
+            name="company_des"
+            type="text"
+            placeholder="กรอกรายละเอียดของบริษัท"
+            required
+            rows="5"
+            cols="50"
+            class="input"></textarea>
+          <p>จำนวนพนักงานในบริษัท <span>*</span></p>
+          <input
+            name="number_of_employees"
+            type="number"
+            placeholder="กรอกจำนวนพนักงานในบริษัท"
+            required
+            maxlength="20"
+            class="input"
+          />
+          <p>เว็ปไซต์บริษัท <span>*</span></p>
+          <input
+            name="website"
+            type="text"
+            placeholder="กรอกเว็ปไซต์ของบริษัท"
+            required
+            maxlength="1000"
+            class="input"
+          />
+          <p>Email สำหรับติดต่อฝึกงาน <span>*</span></p>
+          <input
+            name="email"
+            type="email"
+            placeholder="กรอก email สำหรับติดต่อของบริษัท"
+            required
+            maxlength="1000"
+            class="input"
+          />
+          <p>เบอร์โทรติดต่อ (HR/บริษัท) <span>*</span></p>
+          <input
+            name="phone"
+            type="number"
+            placeholder="กรอกเบอร์โทรติดต่อของบริษัท"
+            required
+            maxlength="20"
+            class="input"
+          />
+          <p>Line ID สำหรับติดต่อฝึกงาน <span>*</span></p>
+          <input
+            name="line_id"
+            type="text"
+            placeholder="กรอก Line ID สำหรับติดต่อฝึกงาน"
+            required
+            maxlength="20"
+            class="input"
+          />
+          <br /><br />
+          <h3>ที่ตั้งบริษัท</h3>
+          <p>ที่อยู่ <span>*</span></p>
+          <textarea
+            name="address"
+            type="text"
+            placeholder="กรอกที่อยู่ของบริษัท"
+            required
+            rows="5"
+            cols="50"
+            class="input"></textarea>
+          <p>ตำบล/แขวง <span>*</span></p>
+          <input
+            name="sub_district"
+            type="text"
+            placeholder="กรอกตำบล/แขวงที่ตั้งของบริษัท"
+            required
+            maxlength="1000"
+            class="input"
+          />
+          <p>อำเภอ/เขต <span>*</span></p>
+          <input
+            name="district"
+            type="text"
+            placeholder="กรอกอำเภอ/เขตที่ตั้งของบริษัท"
+            required
+            maxlength="1000"
+            class="input"
+          />
+          <p>จังหวัด <span>*</span></p>
+          <input
+            name="province"
+            type="text"
+            placeholder="กรอกจังหวัดที่ตั้งของบริษัท"
+            required
+            maxlength="1000"
+            class="input"
+          />
+          <p>รหัสไปรษณีย์ <span>*</span></p>
+          <input
+            name="postal_code"
+            type="number"
+            placeholder="กรอกรหัสไปรษณีย์"
+            required
+            maxlength="10"
+            class="input"
+          />
+          <input type="submit" value="SAVE" name="submit" class="btn" />
+        </form>
+      </section>
+    </div>
+    <!-- company profile section ends  -->
+    {% endif %}
+    <script src="{% static "js/script.js" %}"></script>
+  </body>
+</html>

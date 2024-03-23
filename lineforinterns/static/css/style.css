@@ -303,6 +303,18 @@ section {
   color: var(--white);
 }
 
+.jobs-container .box-container .box .tags p span {
+  margin-left: 5px;
+  max-width: 50px;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.jobs-container .box-container .box .tags p span a {
+  margin-right: 0.5rem;
+  color: var(--white);
+}
+
 .jobs-container .box-container .box .fa-heart {
   background-color: var(--light-bg);
   border-radius: 0.5rem;

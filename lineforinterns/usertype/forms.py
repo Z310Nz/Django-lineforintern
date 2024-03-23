@@ -46,6 +46,13 @@ class SignUpStudentForm(forms.Form):
     intern_end = forms.DateField()  #
     eng_skill = forms.CharField(max_length=200)  #
 
+class StudentTimeForm(forms.Form):
+    intern_start = forms.DateField()  #
+    intern_end = forms.DateField()  #
+
+class StudentJobForm(forms.Form):
+    last_job = forms.CharField(max_length=200)  #
+    intern_company = forms.CharField(max_length=200)  #
 
 class SignUpCompanyForm(forms.Form):
     company_name_eng = forms.CharField(max_length=100)  #

@@ -15,6 +15,8 @@ urlpatterns = [
     path("error/", error_view, name="error_page"),  # Error page
     path("profile/<str:role>/<str:username>/", views.profile, name="profile"),  # Profile page
     path("addinfo/<str:role>/<str:username>/", views.addinfo, name="addinfo"),  # Add info page
+    path("addtime/<str:role>/<str:username>/", views.addtime, name="addtime"),  # Add info page
+    path("addpastjob/<str:role>/<str:username>/", views.addpastjob, name="addpastjob"),  # Add info page
     path("editinfo/<str:role>/<str:username>/", views.editinfo, name="editinfo"),  # Edit info page
     path("viewjob/<str:job_id>/", views.viewjob, name="view_job"),  # View job page
     path("apply/<str:job_id>/", views.applyjob, name="apply_job"),  # apply job page
@@ -42,7 +44,6 @@ urlpatterns = [
     path("inrejected/<str:match_id>/", views.inrejected, name="inrejected"),  # Rejected page
     path('view_company/<str:company_name_eng>/', views.view_company, name='view_company'),  # ระบุพารามิเตอร์เป็น company_name_eng
     path('view_student/<str:student_id>/', views.view_student, name='view_student'),  # ระบุพารามิเตอร์เป็น student_name
-    
 ]
 
 if settings.DEBUG:

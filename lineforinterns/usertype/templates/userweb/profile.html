@@ -24,7 +24,7 @@
       {% if messages %}
       <ul class="messages">
         {% for message in messages %}
-          <li style="font-size:150%;" class="{{ message.tags }}">{{ message }}</li>
+          <li style="font-size:200%;" class="{{ message.tags }}">{{ message }}</li>
         {% endfor %}
       </ul>
       {% endif %}
@@ -71,7 +71,7 @@
             <ul>
               <br />
               <p style="font-size:200%;"><b><i style="color:white;">ตำแหน่งที่สนใจ</i></b></p>
-              <li style="font-size:180%;">{{ student.studentinfo.interested_job }}</li>
+              <li style="font-size:180%;">{{ student.studentinfo.interest_job }}</li>
               <br />
               <p style="font-size:200%;"><b><i style="color:white;">ทักษะ</i></b></p>
               <li style="font-size:180%;">{{ student.studentinfo.skill }}</li>
@@ -132,13 +132,31 @@
           <input type="hidden" name="role" value="{{ context.role }}">
           <input type="hidden" name="username" value="{{ context.username }}">
         </form>
+        <form action="{% url 'addtime' role=context.role username=context.username %}" method="post" class="flex-btn">
+          {% csrf_token %}
+          <input type="submit" value="เพิ่มวันฝึกงาน" class="btn" />
+          <input type="hidden" name="role" value="{{ context.role }}">
+          <input type="hidden" name="username" value="{{ context.username }}">
+        </form>
+        <form action="{% url 'addpastjob' role=context.role username=context.username %}" method="post" class="flex-btn">
+          {% csrf_token %}
+          <input type="submit" value="เพิ่มประวัติการฝึกงาน" class="btn" />
+          <input type="hidden" name="role" value="{{ context.role }}">
+          <input type="hidden" name="username" value="{{ context.username }}">
+        </form>
         {% endif %}
       </div>
     </section>
 
     {% elif user.role == 'COMPANY' %}
     <!-- company details section starts  -->
-
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li style="font-size:200%;" class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
     <section class="view-student">
       <h1 class="heading">โปรไฟล์ของบริษัท {{ company.companyinfo.company_name_thai }} </h1>
 

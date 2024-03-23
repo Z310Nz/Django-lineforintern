@@ -197,8 +197,7 @@ def addinfo(request, role, username):
             university = form.cleaned_data["university"]
             faculty = form.cleaned_data["faculty"]
             major = form.cleaned_data["major"]
-            interest_job = form.cleaned_data("interest_job")
-
+            interest_job = form.cleaned_data["interest_job"]
             last_job = form.cleaned_data.get("last_job", "N/A")
             intern_company = form.cleaned_data.get("intern_company", "N/A")
             intern_start = form.cleaned_data.get("intern_start", None)
@@ -294,6 +293,90 @@ def addinfo(request, role, username):
         },
     )
 
+def addtime(request, role, username):
+    user = request.user
+    student = None
+    company = None
+    context = {
+        "role": role,
+        "username": username,
+    }
+
+    if user.role == "STUDENT":
+        form = SignUpStudentForm(
+            request.POST or None,
+            request.FILES or None,
+            initial={"username": user.username},
+        )
+        if request.method == "POST" and form.is_valid():
+            intern_start = form.cleaned_data.get("intern_start", None)
+            intern_end = form.cleaned_data.get("intern_end", None)
+
+            profile = StudentInfo.objects.create(
+                intern_start=intern_start,
+                intern_end=intern_end,
+            )
+            profile.save()
+
+            student = StudentProfile()
+            student.user = request.user
+            student.studentinfo = profile
+            student.save()
+            messages.success(request, 'Your profile was successfully updated!')
+            return redirect("profile", username=user.username, role=user.role)
+    return render(
+        request,
+        "userweb/addinfo.html",
+        {
+            "form": form,
+            "student": student,
+            "company": company,
+            "user": user,
+            "context": context,
+        },
+    )
+
+def addpastjob(request, role, username):
+    user = request.user
+    student = None
+    company = None
+    context = {
+        "role": role,
+        "username": username,
+    }
+
+    if user.role == "STUDENT":
+        form = SignUpStudentForm(
+            request.POST or None,
+            request.FILES or None,
+            initial={"username": user.username},
+        )
+        if request.method == "POST" and form.is_valid():
+            last_job = form.cleaned_data.get("last_job", "N/A")
+            intern_company = form.cleaned_data.get("intern_company", "N/A")
+            profile = StudentInfo.objects.create(
+                last_job=last_job,
+                intern_company=intern_company,
+            )
+            profile.save()
+
+            student = StudentProfile()
+            student.user = request.user
+            student.studentinfo = profile
+            student.save()
+            messages.success(request, 'Your profile was successfully updated!')
+            return redirect("profile", username=user.username, role=user.role)
+    return render(
+        request,
+        "userweb/addinfo.html",
+        {
+            "form": form,
+            "student": student,
+            "company": company,
+            "user": user,
+            "context": context,
+        },
+    )
 
 @login_required
 def editinfo(request, role, username):
@@ -422,12 +505,8 @@ def viewjob(request, job_id):
     return render(request, "userweb/view_job.html", {"job": job})
 
 def view_company(request, company_name_eng):
-    # ค้นหาข้อมูลของบริษัทในโมเดล CompanyInfo โดยใช้ company_name_eng
     company_info = get_object_or_404(CompanyInfo, company_name_eng=company_name_eng)
-
-    # ค้นหา job ที่เชื่อมโยงกับบริษัทนี้
     jobs = Job.objects.filter(company=company_info)
-
     return render(request, "userweb/view_company.html", {"company_info": company_info, "jobs": jobs})
 
 def viewalljob(request):
@@ -452,14 +531,22 @@ def applyjob(request, job_id):
 
 
 def viewselectcompany(request, role, username):
-    student = StudentProfile.objects.get(user__username=username)
-    match = Matching.objects.filter(student=student.studentinfo)
-    job = [m.job for m in match]
-    status = [m.status for m in match]
-    showcompany = [m.company for m in match]
-    interview = [m.interview for m in match]
-    companies = zip(showcompany, status, job, interview)
-    return render(request, "userweb/companyselect.html", {"company": companies})
+    # ตรวจสอบว่าบริษัทมีข้อมูลหรือไม่
+    student_exists = StudentProfile.objects.filter(user__username=username).exists()
+    if not student_exists:
+        # กระบวนการเพิ่มเงื่อนไขหรือการแจ้งเตือนในกรณีบริษัทยังไม่มีข้อมูล
+        messages.warning(request, 'กรุณากรอกข้อมูลส่วนตัว')
+        return redirect('profile', role=role, username=username)  # ระบุ path ที่ต้องการให้ผู้ใช้กรอกข้อมูลบริษัท
+    else:
+        # กระบวนการในกรณีที่บริษัทมีข้อมูลแล้ว
+        student = StudentProfile.objects.get(user__username=username)
+        match = Matching.objects.filter(student=student.studentinfo)
+        job = [m.job for m in match]
+        status = [m.status for m in match]
+        showcompany = [m.company for m in match]
+        interview = [m.interview for m in match]
+        companies = zip(showcompany, status, job, interview)
+        return render(request, "userweb/companyselect.html", {"company": companies})
 
 def stdapproved(request, role, username):
     student = StudentProfile.objects.get(user__username=username)
@@ -493,23 +580,34 @@ def stdinterviewed(request, role, username):
 
 
 def positionview(request, role, username):
-    company_profile = CompanyProfile.objects.get(user__username=username)
-    jobs = company_profile.job.all()
-    return render(request, "userweb/position.html", {"jobs": jobs})
+    company_exists = CompanyProfile.objects.filter(user__username=username).exists()
+    if not company_exists:
+        messages.warning(request, 'กรุณากรอกข้อมูลบริษัทก่อนทำการเพิ่มตำแหน่งงาน')
+        return redirect('profile', role=role, username=username)
+    else:
+        company_profile = CompanyProfile.objects.get(user__username=username)
+        jobs = company_profile.job.all()
+        return render(request, "userweb/position.html", {"jobs": jobs})
 
 
 #บริษัทดูนิสิตที่สมัครงาน
 def applyview(request, role, username):
-    company = CompanyProfile.objects.get(user__username=username)
-    match = Matching.objects.filter(company=company.companyinfo)
-    match_id = [m.id for m in match]
-    job = [m.job for m in match]
-    status = [m.status for m in match]
-    showstudent = [m.student for m in match]
-    student_id = [s.student_id for s in showstudent]
-    interview = [m.interview for m in match]
-    students = zip(showstudent, status, job, match_id, student_id, interview)
-    return render(request, "usertype/home_com.html", {"students": students, "role": role, "username": username})
+    company_exists = CompanyProfile.objects.filter(user__username=username).exists()
+    if not company_exists:
+        messages.warning(request, 'กรุณากรอกข้อมูลบริษัทก่อนทำการรับสมัคร')
+        return redirect('profile', role=role, username=username)
+    else:
+        company = CompanyProfile.objects.get(user__username=username)
+        match = Matching.objects.filter(company=company.companyinfo)
+        match_id = [m.id for m in match]
+        job = [m.job for m in match]
+        status = [m.status for m in match]
+        showstudent = [m.student for m in match]
+        student_id = [s.student_id for s in showstudent]
+        interview = [m.interview for m in match]
+        students = zip(showstudent, status, job, match_id, student_id, interview)
+        return render(request, "usertype/home_com.html", {"students": students, "role": role, "username": username})
+
 
 def view_student(request, student_id):
     student = StudentInfo.objects.get(id=student_id)

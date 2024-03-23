@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>โปรไฟล์</title>
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
+  </head>
+  <body>
+    <!-- header section starts  -->
+    {% csrf_token %} 
+    {% include "navbarmain.html" %}
+
+    
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li style="font-size:150%;" class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    {% if user.role == 'STUDENT' %}
+    <!-- header section ends  -->
+    <!-- student profile section starts  -->
+    <div class="account-form-container">
+      <section class="account-form">
+        <form action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <h3>เพิ่มประวัติการฝึกงาน</h3>
+          <br/>
+          <h3>ประวัติการฝึกงาน (ถ้ามี)</h3>
+          <p>ตำแหน่งที่ฝึกงานครั้งล่าสุด</p>
+          <input
+            name="last_job"
+            type="text"
+            placeholder="กรอกตำแหน่งที่ฝึกงานครั้งล่าสุด"
+            maxlength="1000"
+            class="input"
+          />
+          <p>ชื่อบริษัทที่เคยฝึกงาน</p>
+          <input
+            name="intern_company"
+            type="text"
+            placeholder="กรอกชื่อบริษัทที่เคยฝึกงาน"
+            maxlength="1000"
+            class="input"
+          />
+          <input type="submit" value="SAVE" name="submit" class="btn" />
+        </form>
+      </section>
+      <script src="{% static "js/script.js" %}"></script>
+    </div>
+    {% endif %}
+    <script src="{% static "js/script.js" %}"></script>
+  </body>
+</html>
