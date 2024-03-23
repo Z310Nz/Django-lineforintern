@@ -35,15 +35,11 @@ class SignUpStudentForm(forms.Form):
     email = forms.EmailField()  #
     phone = forms.CharField(max_length=10)  #
     cv = forms.URLField()  #
-    last_job = forms.CharField(max_length=200)  #
-    intern_company = forms.CharField(max_length=200)  #
     interest_job = forms.CharField(max_length=200)  #
     skill = forms.CharField(max_length=200)  #
     university = forms.CharField(max_length=200)  #
     faculty = forms.CharField(max_length=50)  #
     major = forms.CharField(max_length=50)  #
-    intern_start = forms.DateField()  #
-    intern_end = forms.DateField()  #
     eng_skill = forms.CharField(max_length=200)  #
 
 class StudentTimeForm(forms.Form):

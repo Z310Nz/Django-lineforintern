@@ -118,29 +118,30 @@
 
         </div>
         {% if student %}
-        <form action="{% url 'editinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
-          {% csrf_token %}
-          <input type="submit" value="แก้ไขข้อมูลนิสิต" class="btn" />
-          <input type="hidden" name="role" value="{{ context.role }}">
-          <input type="hidden" name="username" value="{{ context.username }}">
-        </form>
-
+        <div class="formbtn">
+          <form action="{% url 'editinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
+            {% csrf_token %}
+            <input type="submit" value="แก้ไขข้อมูลนิสิต" class="btn-more" />
+            <input type="hidden" name="role" value="{{ context.role }}">
+            <input type="hidden" name="username" value="{{ context.username }}">
+          </form>
+          <form action="{% url 'addtime' role=context.role username=context.username %}" method="post" class="flex-btn">
+            {% csrf_token %}
+            <input type="submit" value="เพิ่มวันฝึกงาน" style="font-size:180%;" class="btn-green" />
+            <input type="hidden" name="role" value="{{ context.role }}">
+            <input type="hidden" name="username" value="{{ context.username }}">
+          </form>
+          <form action="{% url 'addpastjob' role=context.role username=context.username %}" method="post" class="flex-btn">
+            {% csrf_token %}
+            <input type="submit" value="เพิ่มประวัติการฝึกงาน" style="font-size:180%;" class="btn-bule" />
+            <input type="hidden" name="role" value="{{ context.role }}">
+            <input type="hidden" name="username" value="{{ context.username }}">
+          </form>
+        </div>
         {% else %}
         <form action="{% url 'addinfo' role=context.role username=context.username %}" method="post" class="flex-btn">
           {% csrf_token %}
-          <input type="submit" value="เพิ่มข้อมูลนิสิต" class="btn" />
-          <input type="hidden" name="role" value="{{ context.role }}">
-          <input type="hidden" name="username" value="{{ context.username }}">
-        </form>
-        <form action="{% url 'addtime' role=context.role username=context.username %}" method="post" class="flex-btn">
-          {% csrf_token %}
-          <input type="submit" value="เพิ่มวันฝึกงาน" class="btn" />
-          <input type="hidden" name="role" value="{{ context.role }}">
-          <input type="hidden" name="username" value="{{ context.username }}">
-        </form>
-        <form action="{% url 'addpastjob' role=context.role username=context.username %}" method="post" class="flex-btn">
-          {% csrf_token %}
-          <input type="submit" value="เพิ่มประวัติการฝึกงาน" class="btn" />
+          <input type="submit" value="เพิ่มข้อมูลนิสิต" class="btn-add" />
           <input type="hidden" name="role" value="{{ context.role }}">
           <input type="hidden" name="username" value="{{ context.username }}">
         </form>

@@ -24,6 +24,8 @@ from .forms import (
     EditCompanyForm,
     JobSearchForm,
     RealLoginForm,
+    StudentTimeForm,
+    StudentJobForm,
 )
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
@@ -198,10 +200,6 @@ def addinfo(request, role, username):
             faculty = form.cleaned_data["faculty"]
             major = form.cleaned_data["major"]
             interest_job = form.cleaned_data["interest_job"]
-            last_job = form.cleaned_data.get("last_job", "N/A")
-            intern_company = form.cleaned_data.get("intern_company", "N/A")
-            intern_start = form.cleaned_data.get("intern_start", None)
-            intern_end = form.cleaned_data.get("intern_end", None)
 
             profile = StudentInfo.objects.create(
                 profile=profile_image,
@@ -214,15 +212,11 @@ def addinfo(request, role, username):
                 phone=phone,
                 gender=gender,
                 birthday=birthday,
-                last_job=last_job,
-                intern_company=intern_company,
                 skill=skill,
                 eng_skill=eng_skill,
                 university=university,
                 faculty=faculty,
                 major=major,
-                intern_start=intern_start,
-                intern_end=intern_end,
                 interest_job=interest_job,
             )
             profile.save()
@@ -303,38 +297,43 @@ def addtime(request, role, username):
     }
 
     if user.role == "STUDENT":
-        form = SignUpStudentForm(
-            request.POST or None,
-            request.FILES or None,
-            initial={"username": user.username},
-        )
+        form = StudentTimeForm(request.POST or None, request.FILES or None, initial={"username": user.username})
         if request.method == "POST" and form.is_valid():
-            intern_start = form.cleaned_data.get("intern_start", None)
-            intern_end = form.cleaned_data.get("intern_end", None)
+            intern_start = form.cleaned_data.get("intern_start")
+            intern_end = form.cleaned_data.get("intern_end")
 
-            profile = StudentInfo.objects.create(
-                intern_start=intern_start,
-                intern_end=intern_end,
-            )
-            profile.save()
+            # Check if the student profile already exists for this user
+            if hasattr(user, 'studentprofile'):
+                profile = user.studentprofile.studentinfo  # Get the existing profile
+                profile.intern_start = intern_start  # Update fields
+                profile.intern_end = intern_end
+                profile.save()  # Save the changes
+            else:
+                profile = StudentInfo.objects.create(
+                    student_id=user.id,
+                    intern_start=intern_start,
+                    intern_end=intern_end,
+                )
 
-            student = StudentProfile()
-            student.user = request.user
-            student.studentinfo = profile
+            # Create or update StudentProfile
+            if hasattr(user, 'studentprofile'):
+                student = user.studentprofile
+            else:
+                student = StudentProfile(user=user, studentinfo=profile)
             student.save()
+
             messages.success(request, 'Your profile was successfully updated!')
             return redirect("profile", username=user.username, role=user.role)
+    else:
+        form = StudentTimeForm(initial={"username": user.username})
+
     return render(
         request,
-        "userweb/addinfo.html",
-        {
-            "form": form,
-            "student": student,
-            "company": company,
-            "user": user,
-            "context": context,
-        },
+        "userweb/addtime.html",
+        {"form": form, "student": student, "company": company, "user": user, "context": context},
     )
+
+
 
 def addpastjob(request, role, username):
     user = request.user
@@ -346,36 +345,40 @@ def addpastjob(request, role, username):
     }
 
     if user.role == "STUDENT":
-        form = SignUpStudentForm(
-            request.POST or None,
-            request.FILES or None,
-            initial={"username": user.username},
-        )
+        form = StudentJobForm(request.POST or None, request.FILES or None, initial={"username": user.username})
         if request.method == "POST" and form.is_valid():
             last_job = form.cleaned_data.get("last_job", "N/A")
             intern_company = form.cleaned_data.get("intern_company", "N/A")
-            profile = StudentInfo.objects.create(
-                last_job=last_job,
-                intern_company=intern_company,
-            )
-            profile.save()
 
-            student = StudentProfile()
-            student.user = request.user
-            student.studentinfo = profile
+            # Check if the student profile already exists for this user
+            if hasattr(user, 'studentprofile'):
+                profile = user.studentprofile.studentinfo  # Get the existing profile
+                profile.last_job = last_job  # Update fields
+                profile.intern_company = intern_company
+                profile.save()  # Save the changes
+            else:
+                profile = StudentInfo.objects.create(
+                    student_id=user.id,
+                    last_job=last_job,
+                    intern_company=intern_company,
+                )
+
+            # Create or update StudentProfile
+            if hasattr(user, 'studentprofile'):
+                student = user.studentprofile
+            else:
+                student = StudentProfile(user=user, studentinfo=profile)
             student.save()
+
             messages.success(request, 'Your profile was successfully updated!')
             return redirect("profile", username=user.username, role=user.role)
+    else:
+        form = StudentJobForm(initial={"username": user.username})
+
     return render(
         request,
-        "userweb/addinfo.html",
-        {
-            "form": form,
-            "student": student,
-            "company": company,
-            "user": user,
-            "context": context,
-        },
+        "userweb/addpastjob.html",
+        {"form": form, "student": student, "company": company, "user": user, "context": context},
     )
 
 @login_required

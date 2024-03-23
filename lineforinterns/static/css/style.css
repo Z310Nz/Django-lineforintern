@@ -740,6 +740,21 @@ section {
   padding-top: 1.5rem;
 }
 
+.view-student .details .formbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.view-student .details .formbtn form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  margin: 0 auto;
+}
+
 .footer .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, 30rem);
@@ -1049,7 +1064,8 @@ section {
 .btn-logout:hover,
 .btn-register:hover,
 .btn-status:hover,
-.btn-add:hover {
+.btn-add:hover,
+.btn-more:hover {
   background-color: var(--white);
 }
 
