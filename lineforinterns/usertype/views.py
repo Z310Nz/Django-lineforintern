@@ -101,17 +101,6 @@ def reallogin(request):
 
 
 @login_required
-def welcome(request, username):
-    user = request.user
-    role = request.user.role
-    return render(
-        request,
-        "usertype/welcome.html",
-        {"username": username, "user": user, "role": role},
-    )
-
-
-@login_required
 def logout_view(request):
     logout(request)
     return redirect("home")

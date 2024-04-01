@@ -11,7 +11,6 @@ urlpatterns = [
     path("homepage/", views.home_view, name="homepage"),  # Home page
     path("login/", views.realregister, name="login_page"),  # Login page
     path("reallogin/", views.reallogin, name="reallogin"),  # Signup page
-    path("welcome/<str:username>/", views.welcome, name="welcome"),  # Welcome page
     path("error/", error_view, name="error_page"),  # Error page
     path("profile/<str:role>/<str:username>/", views.profile, name="profile"),  # Profile page
     path("addinfo/<str:role>/<str:username>/", views.addinfo, name="addinfo"),  # Add info page
