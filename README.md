@@ -11,31 +11,31 @@ WebsiteDemo : [SEinternship](https://seinternship.cstserver.org/)
 Clone the project
 
 ```bash
-  git clone https://github.com/Z310Nz/Django-lineforintern.git
+git clone https://github.com/Z310Nz/Django-lineforintern.git
 ```
 
 ## run Python ENV
 Window
 ```bash
-  env\Scripts\activate
+env\Scripts\activate
 ```
 Mac/Linux
 ```bash
-  source env/bin/activate
+source env/bin/activate
 ```
 ## CD to project
 ```bash
-  cd lineforinterns
+cd lineforinterns
 ```
 
 ## Install requirement.txt
 
 ```bash
-  pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Start the server
 
 ```bash
-  python manage.py runserver
+python manage.py runserver
 ```
